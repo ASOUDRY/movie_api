@@ -5,3 +5,14 @@ This is a program designed to pull up a catalogue of Kaiju movies,
 and allow users to pull information from this movies at a simple command. 
 They can also make a list of their own favorite kaiju movies as well as 
 to add their own suggestions for movies on the Api.
+
+
+Return a list of ALL movies to the user  Url: /movies HTTP METHOD: GET
+Return data about a single movie by title to the user Url: /movies/[Genre]/[Title] HTTP METHOD: GET
+Return data about a genre (description) by name/title (e.g., “Thriller”) Url: /movies/[Genre] HTTP METHOD: GET
+Return data about a director (bio, birth year, death year) by name Url: /movies/[Genre]/[Title]/Directors/[Name] HTTP METHOD: GET
+Allow new users to register Url: /User/[Account] HTTP METHOD: POST
+Allow users to update their user info (username, password, email, date of birth) Url: /User/[Account] HTTP METHOD: PUT
+Allow users to add a movie to their list of favorites Url: /User/[Account]/[Favorite]/[Name] HTTP METHOD: PUT
+Allow users to remove a movie from their list of favorites Url: /User/[Account]/[Favorite]/[Name] HTTP METHOD: DELETE
+Allow existing users to deregister Url: /User/[Account] HTTP METHOD: DELETE

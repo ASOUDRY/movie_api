@@ -6,13 +6,208 @@ and allow users to pull information from this movies at a simple command.
 They can also make a list of their own favorite kaiju movies as well as 
 to add their own suggestions for movies on the Api.
 
+Fetch Movies
 
-Return a list of ALL movies to the user  Url: /movies HTTP METHOD: GET
-Return data about a single movie by title to the user Url: /movies/[Genre]/[Title] HTTP METHOD: GET
-Return data about a genre (description) by name/title (e.g., “Thriller”) Url: /movies/[Genre] HTTP METHOD: GET
-Return data about a director (bio, birth year, death year) by name Url: /movies/[Genre]/[Title]/Directors/[Name] HTTP METHOD: GET
-Allow new users to register Url: /User/[Account] HTTP METHOD: POST
-Allow users to update their user info (username, password, email, date of birth) Url: /User/[Account] HTTP METHOD: PUT
-Allow users to add a movie to their list of favorites Url: /User/[Account]/[Favorite]/[Name] HTTP METHOD: PUT
-Allow users to remove a movie from their list of favorites Url: /User/[Account]/[Favorite]/[Name] HTTP METHOD: DELETE
-Allow existing users to deregister Url: /User/[Account] HTTP METHOD: DELETE
+Returns a string from from the the directory movies. In the future it will return a Json Object 
+with a list of all the movies stored in the directory. The endpoint that it uses is /movies. The 
+HTTP request type is a GET Request. There are no parameters for this request type.
+
+Example Request
+app.get('/movies', (req, res) => {                  
+    res.send("All The Movies");
+  });
+
+Example Output
+"All the movies."
+
+Future Example Request
+app.get('/movies', (req, res) => {                  
+    res.json(Catalogue);
+  });
+
+Future Example Output
+{
+  {
+    "Name": "American Werewolf in London",
+    "Genre": "Horror/Comedy",
+    "Director": "John Landis"
+  },
+  {
+    "Name": "The Howling",
+    "Genre": "Horror",
+    "Director": "Joe Dante"
+  },
+}
+
+Fetch Movie
+
+Returns a string from a subdirectory specified by its name. In the future it will return a Json Object by name
+that contains the name, director, lead actora and synopsis of the movie. The end point is /:Genre/:Title.  The HTTP request 
+type is a GET type request. There are two paremeters,[Genre], and [Title]. Both parameters are sub directories which 
+need to be specified in the Url.
+
+Example Request
+app.get('/movies/Horror/Creatureoftheblacklagoon', (req, res) => {                  
+    res.send("Single Movie");
+});
+Example Output
+"Single movie"
+
+Future Example Request
+app.get('/movies/Horror/Creatureoftheblacklagoon', (req, res) => {                  
+    res.json(Cobl);
+});
+Future Example Output
+{
+  "Name": "Creature of the Black Lagoon"
+  "Director": "Jack Arnold"
+  "Lead Actors": "Richard Carlson", Julie Adams, Richard Denning, Antonio Moreno, Nestor Paiva, Whit Bissel, Henry Escalante."
+  "Synopsis": "Remnants of a mysterious animal have come to light in a remote jungle, and a group of scientists intends to determine if the find is an anomaly or evidence of an undiscovered beast. To accomplish their goal, the scientists (Antonio Moreno, Richard Carlson, Richard Denning, Whit Bissell) must brave the most perilous pieces of land South America has to offer. But the terrain is nothing compared to the danger posed by an otherworldly being that endangers their work and their lives."
+}
+
+Fetch Genre
+
+Return a string from a specified genre subdirectory by name. In the future it will return a Json object that contains 
+information about the genre, as well as the various popular subgenres that are part of it. The end point is /:Genre. 
+The HTTP request type is a GET request. The sole parameter for this request is [Genre] which specificies the subdirectory 
+genre the json object is pulled from.
+
+Example Request
+app.get('/movies/:Horror', (req, res) => {                  
+     res.send("Urban Fantasy is a genre more common for literature")
+});
+Example Output
+"Urban Fantasy is a genre more common for Literature"
+
+Future Example Request
+app.get('/movies/:Horror', (req, res) => {                  
+     res.json(Horror)
+});
+Future Example Output
+{
+  {
+    "Genre": "Killer"
+    "Description": "The villain is a human like killer.""
+  },
+  {
+    "Genre": "Monster"
+    "Description": "Horror movies with monsters."
+  },
+  {
+    "Genre": "Psychological"
+    "Description": "Horror that makes you question your self and give a strong sense of dread."
+  },
+  {
+    "Genre": "Paranormal"
+    "Description": "Horror with non monster supernatural elements."
+  },
+  {
+    "Genre": "Zombies"
+    "Description": "Zombie specific Horror"
+  },
+  {
+    "Genre": "Gore"
+    "Description": "The point is lots of blood and gore. Not really scare just highly bloody."
+  }
+}
+
+Fetch Director
+Return a string from a specified director subdirectory by name. In the future it will return a Json object that contains 
+the name of the directory as well as other famous movies that they are known for. The end point is /movies/:Genre/:Title/Directors/:Name.
+The HTTP request type is a GET request. The parameters for this request are [Genre], [Title], and [Name], all of which are all part of the url.
+
+Example Request
+app.get('/movies/:Genre/:Title/Directors/:Name', (req, res) => {                  
+    res.send("Spielsburg is a treasure")
+  });
+Example Output
+"Spielsburg is a treasure"
+
+Future Example Request
+app.get('/movies/:Genre/:Title/Directors/:Name', (req, res) => {                  
+    res.json(Spielsburg)
+  });
+Future Example Output
+{
+  "Name": "Steven Spielsburg"
+  "Famous Movies": "Jaws, Indiana Jones, E.T. the Extra Terrestial, Jurassic Park"
+}
+Create account
+This HTTP Request creates a user account for the APi. The endpoint for this HTTP request is /users.
+This request type requires the uuid dependency. The endpoint is /users. The HTTP request type is a PUT 
+request. The parameter for this request is req.body. The req.body requires a object that contains 
+the .name property. A object that lacks that property triggers the if statement.
+
+Example Request
+
+app.post('/users', ({
+  "name" : "Placeholder"
+}, res) => {                
+    let newuser = req.body;
+  if (!newuser.name) {
+    const message = 'Missing name in request body';
+    res.status(400).send(message);
+  } else {
+    newuser.id = uuid.v4();
+    res.status(201).send(newuser);
+  }
+});
+Example Output
+"name": "Placeholder"
+
+Update account
+This HTTP Request updates the request body for the user specified via [account]. The endpoint for this request is 
+users/:account. The HTTP Request type is a Put Request. The parameter for this request are [account], and req.body. 
+[Account] specifies the subdirectory that this request accesses, while req.body contains json object that modifies 
+the existing json object.
+Example Request
+app.put('/users/:account', ({
+
+}, res) => { 
+    let update = req.body;
+      res.status(201).send(update);
+    });
+Example Output
+{
+
+}
+Add Movie to Favorite List
+This HTTP Request adds a Json object containing information to the favorite subdirectory inside a specific user's account. 
+The endpoint for the account is /users/:account/:favorite/:name'. The HTTP request type is PUT. The parameters for the request 
+type are [account], which specifies the user account, [favorite] which specifies the favorite movie directory, and [name] which 
+specifies the location of the json object, and req.body which contains the Json object.
+Example Request
+app.put('/users/:account/:favorite/:name', ({
+
+}, res) => {   
+  let update = req.body;
+      res.status(201).send(update);
+  });
+Example Output
+{
+
+}
+Remove Movie from Favorite List
+This HTTP Request removes a Json object containing information from the favorite subdirectory inside a specific user's account. 
+The endpoint for the account is /users/:account/:favorite/:name'. The HTTP request type is DELETE. The parameters for the request 
+type are [account], which specifies the user account, [favorite] which specifies the favorite movie directory, and [name] which 
+specifies the location of the json object, and req.body, which contains the Json Object that is to be deleted.
+Example Request  
+app.delete('/users/:account/:favorite/:name', ({
+
+}, res) => {  
+    res.status(201).send("Deleted");
+  });
+Example Output
+"Deleted"
+
+Remove Account
+This HTTP request removes a User from the API. The endpoint for this request is users/:id. The HTTP Request type is DELETE. The parameters 
+are [id] which consists of a custom user id created through uuid which is used to create the account.
+Example Request
+app.delete('/users/:id', (req, res) => {  
+    res.status(201).send("Deletion")                
+  });
+
+  Example Output
+  "Deletion"

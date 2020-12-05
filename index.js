@@ -1,3 +1,11 @@
+const mongoose = require('mongoose');
+const Models = require('./models.js');
+
+const Movies = Models.Movie;
+const Users = Models.User;
+
+mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
+
 const { response } = require("express");
 const express = require("express"),
 morgan = require('morgan'),
@@ -15,6 +23,18 @@ app.use((err, req, res, next) => {
   });
 // error code
 
+// app.get('/movies', (req, res) => {
+//   Movies.find()
+//     .then((movies) => {
+//       res.status(201).json(movies);
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//       res.status(500).send('Error: ' + err);
+//     });
+// });
+
+
 app.get('/movies', (req, res) => {                  
     res.send("All The Movies");
   });
@@ -31,16 +51,32 @@ app.get('/movies/:Genre/:Title/Directors/:Name', (req, res) => {
     res.send("Spielsburg is a treasure")
   });
 
-app.post('/users', (req, res) => {                
-    let newuser = req.body;
-  if (!newuser.name) {
-    const message = 'Missing name in request body';
-    res.status(400).send(message);
-  } else {
-    newuser.id = uuid.v4();
-    res.status(201).send(newuser);
-  }
-});
+  app.post('/users', (req, res) => {
+    Users.findOne({ Username: req.body.Username })
+      .then((user) => {
+        if (user) {
+          return res.status(400).send(req.body.Username + 'already exists');
+        } else {
+          Users
+            .create({
+              Username: req.body.Username,
+              Password: req.body.Password,
+              Email: req.body.Email,
+              Birthday: req.body.Birthday
+            })
+            .then((user) =>{res.status(201).json(user) })
+          .catch((error) => {
+            console.error(error);
+            res.status(500).send('Error: ' + error);
+          })
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).send('Error: ' + error);
+      });
+  });
+
 
 app.put('/users/:account', (req, res) => { 
     let update = req.body;

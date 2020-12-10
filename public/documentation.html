@@ -8,206 +8,315 @@ to add their own suggestions for movies on the Api.
 
 Fetch Movies
 
-Returns a string from from the the directory movies. In the future it will return a Json Object 
-with a list of all the movies stored in the directory. The endpoint that it uses is /movies. The 
-HTTP request type is a GET Request. There are no parameters for this request type.
+The Fetch Movies Request is a GET request with /movies as it's end point. This request type has no parameters. 
+This request functions by using useing the mongodb find() function, which grabs all the data from the Movies 
+collection.
+
 
 Example Request
 app.get('/movies', (req, res) => {                  
-    res.send("All The Movies");
+  Movies.findOne({ Title: req.params.Title })
+  .then((title) => {
+    res.json(title);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
   });
 
 Example Output
-"All the movies."
-
-Future Example Request
-app.get('/movies', (req, res) => {                  
-    res.json(Catalogue);
-  });
-
-Future Example Output
-{
+[
   {
-    "Name": "American Werewolf in London",
-    "Genre": "Horror/Comedy",
-    "Director": "John Landis"
+    "Genre": {
+        "Name": "Thriller",
+        "Description": "Thriller film, also known as suspense film or suspense thriller, is a broad film genre that involves excitement and suspense in the audience."
+    },
+    "Director": {
+        "Name": "Jonathan Demme",
+        "Bio": "Robert Jonathan Demme was an American director, producer, and screenwriter.",
+        "Birth": "1944",
+        "Death": "2017"
+    },
+    "Actors": [],
+    "_id": "5fbbfbbf1dbaea69ddc7f208",
+    "Title": "Silence of the Lambs",
+    "Description": "A young FBI cadet must receive the help of an incarcerated and manipulative cannibal killer to help catch another serial killer.",
+    "Featured": true
   },
   {
-    "Name": "The Howling",
-    "Genre": "Horror",
-    "Director": "Joe Dante"
-  },
-}
-
+    "Genre": {
+        "Name": "Legal Drama",
+        "Description": "A genre of film in which a system of justice plays a critical role in the film's narrative."
+    },
+    "Director": {
+        "Name": "Jonathan Demme",
+        "Bio": "Robert Jonathan Demme was an American director, producer, and screenwriter.",
+        "Birth": "1944",
+        "Death": "2017"
+    },
+    "Actors": [],
+    "_id": "5fbbfbeb1dbaea69ddc7f209",
+    "Title": "Philadelphia",
+    "Description": "When a man with HIV is fired by his law firm because of his condition, he hires a homophobic small time lawyer as the only willing advocate for a wrongful dismissal suit.",
+    "Featured": true
+  }
+]
+  
 Fetch Movie
 
-Returns a string from a subdirectory specified by its name. In the future it will return a Json Object by name
-that contains the name, director, lead actora and synopsis of the movie. The end point is /:Genre/:Title.  The HTTP request 
-type is a GET type request. There are two paremeters,[Genre], and [Title]. Both parameters are sub directories which 
-need to be specified in the Url.
+The Fetch Movies Request is a GET request with /movies/:Genre/:Title as it's end point. There are two paremeters,:Genre, and :Title. 
+Both parameters are sub directories which need to be specified in the Url. This request functions by using the Mongodb findOne function 
+which searches the Movies collecion for a single entry that containts the same title as the :title parameter.
 
 Example Request
-app.get('/movies/Horror/Creatureoftheblacklagoon', (req, res) => {                  
-    res.send("Single Movie");
+app.get('/movies/Kaiju/Gojira', (req, res) => {
+  Movies.findOne({ Title: req.params.Title })
+    .then((title) => {
+      res.json(title);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 Example Output
-"Single movie"
-
-Future Example Request
-app.get('/movies/Horror/Creatureoftheblacklagoon', (req, res) => {                  
-    res.json(Cobl);
-});
-Future Example Output
 {
-  "Name": "Creature of the Black Lagoon"
-  "Director": "Jack Arnold"
-  "Lead Actors": "Richard Carlson", Julie Adams, Richard Denning, Antonio Moreno, Nestor Paiva, Whit Bissel, Henry Escalante."
-  "Synopsis": "Remnants of a mysterious animal have come to light in a remote jungle, and a group of scientists intends to determine if the find is an anomaly or evidence of an undiscovered beast. To accomplish their goal, the scientists (Antonio Moreno, Richard Carlson, Richard Denning, Whit Bissell) must brave the most perilous pieces of land South America has to offer. But the terrain is nothing compared to the danger posed by an otherworldly being that endangers their work and their lives."
+  "Genre": {
+      "Name": "Kaiju",
+      "Description": "Kaiju films are a genre of monster films, that tend to feature giant monsters often to powerful to be contended with ."
+  },
+  "Director": {
+      "Name": "Ishirō Honda",
+      "Bio": "Ishirō Honda was a Japanese director, and screenwriter. He directed 8 of the 15 Showa Era Godzilla Films.",
+      "Birth": "1911",
+      "Death": "1993"
+  },
+  "Actors": [],
+  "_id": "5fbc01161dbaea69ddc7f20d",
+  "Title": "Gojira",
+  "Description": "A massive undersea monster is awakened by an underwater hydrogen bomb test, which than proceeds to attack Tokyo.",
+  "Featured": true
 }
 
 Fetch Genre
-
-Return a string from a specified genre subdirectory by name. In the future it will return a Json object that contains 
-information about the genre, as well as the various popular subgenres that are part of it. The end point is /:Genre. 
-The HTTP request type is a GET request. The sole parameter for this request is [Genre] which specificies the subdirectory 
-genre the json object is pulled from.
+The Fetch Genre request is a GET request with Genre/:Name being this requests endpoints. The parameter for this request is Name. This request 
+functions by using the Mongodb findOne function which searches the Genres collecion for a single entry that containts the same name as the name 
+parameter.
 
 Example Request
-app.get('/movies/:Horror', (req, res) => {                  
-     res.send("Urban Fantasy is a genre more common for literature")
+app.get('/Genre/Kaiju', (req, res) => {
+  Genres.findOne({ Name: req.params.Name })
+    .then((name) => {
+      res.json(name);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
-Example Output
-"Urban Fantasy is a genre more common for Literature"
 
-Future Example Request
-app.get('/movies/:Horror', (req, res) => {                  
-     res.json(Horror)
-});
 Future Example Output
 {
-  {
-    "Genre": "Killer"
-    "Description": "The villain is a human like killer.""
-  },
-  {
-    "Genre": "Monster"
-    "Description": "Horror movies with monsters."
-  },
-  {
-    "Genre": "Psychological"
-    "Description": "Horror that makes you question your self and give a strong sense of dread."
-  },
-  {
-    "Genre": "Paranormal"
-    "Description": "Horror with non monster supernatural elements."
-  },
-  {
-    "Genre": "Zombies"
-    "Description": "Zombie specific Horror"
-  },
-  {
-    "Genre": "Gore"
-    "Description": "The point is lots of blood and gore. Not really scare just highly bloody."
-  }
+  "_id": "5fcd4fa1d93bf8aed1052390",
+  "Name": "Kaiju",
+  "Description": "Kaiju films are a genre of monster films, that tend to feature giant monsters often to powerful to be contended with."
 }
 
 Fetch Director
-Return a string from a specified director subdirectory by name. In the future it will return a Json object that contains 
-the name of the directory as well as other famous movies that they are known for. The end point is /movies/:Genre/:Title/Directors/:Name.
-The HTTP request type is a GET request. The parameters for this request are [Genre], [Title], and [Name], all of which are all part of the url.
+The Fetch Director request is a GET request with Director/:Name being this requests endpoints. The parameter for this request is Name. This request 
+functions by using the Mongodb findOne function which searches the Director collecion for a single entry that containts the same name as the name 
+parameter.
 
 Example Request
-app.get('/movies/:Genre/:Title/Directors/:Name', (req, res) => {                  
-    res.send("Spielsburg is a treasure")
-  });
-Example Output
-"Spielsburg is a treasure"
-
-Future Example Request
-app.get('/movies/:Genre/:Title/Directors/:Name', (req, res) => {                  
-    res.json(Spielsburg)
-  });
-Future Example Output
-{
-  "Name": "Steven Spielsburg"
-  "Famous Movies": "Jaws, Indiana Jones, E.T. the Extra Terrestial, Jurassic Park"
-}
-Create account
-This HTTP Request creates a user account for the APi. The endpoint for this HTTP request is /users.
-This request type requires the uuid dependency. The endpoint is /users. The HTTP request type is a PUT 
-request. The parameter for this request is req.body. The req.body requires a object that contains 
-the .name property. A object that lacks that property triggers the if statement.
-
-Example Request
-
-app.post('/users', ({
-  "name" : "Placeholder"
-}, res) => {                
-    let newuser = req.body;
-  if (!newuser.name) {
-    const message = 'Missing name in request body';
-    res.status(400).send(message);
-  } else {
-    newuser.id = uuid.v4();
-    res.status(201).send(newuser);
-  }
+app.get('/Directors/Noriaki%20Yuasa', (req, res) => {
+  Directors.findOne({ Name: req.params.Name })
+    .then((name) => {
+      res.json(name);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 Example Output
-"name": "Placeholder"
+{
+  "_id": "5fd119e9d93bf8aed1052397",
+  "Name": "Noriaki Yuasa",
+  "Bio": "Noriaki Yuasi was a Japanese director.",
+  "Birth": "1933",
+  "Death": "2004"
+}
+
+Create Account
+The Create Account request is a PUT Request, with /users being its endpoint. The endpoint is /users. The paremeters 
+for the function are a json object containing a username, password, email, and birthday. The request uses a find one function to 
+check if a json object with username in the parameters already exists. If it does, a status is sent to say it already exists. If it 
+does not, the entry is than created.
+
+Example Request
+app.post('/users', (req, res) => {
+  Users.findOne({ Username: req.body.Username })
+    .then((user) => {
+      if (user) {
+        return res.status(400).send(req.body.Username + 'already exists');
+      } else {
+        Users
+          .create({
+            Username: req.body.Username,
+            Password: req.body.Password,
+            Email: req.body.Email,
+            Birthday: req.body.Birthday
+          })
+          .then((user) =>{res.status(201).json(user) })
+        .catch((error) => {
+          console.error(error);
+          res.status(500).send('Error: ' + error);
+        })
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
+    });
+});
+
+Example Output
+{
+  "FavoriteMovies": [],
+  "_id": "5fd2982e28705d4fe780fac2",
+  "Username": "test",
+  "Password": "test",
+  "Email": "test@gmail.com",
+  "Birthday": "1991-05-23T04:00:00.000Z",
+  "__v": 0
+}
 
 Update account
 This HTTP Request updates the request body for the user specified via [account]. The endpoint for this request is 
-users/:account. The HTTP Request type is a Put Request. The parameter for this request are [account], and req.body. 
-[Account] specifies the subdirectory that this request accesses, while req.body contains json object that modifies 
+users/:Username. The HTTP Request type is a Put Request. The parameter for this request are Username, and req.body. 
+:Username specifies the subdirectory that this request accesses, while req.body contains json object that modifies 
 the existing json object.
+
 Example Request
-app.put('/users/:account', ({
 
-}, res) => { 
-    let update = req.body;
-      res.status(201).send(update);
-    });
+app.put('/users/:Username', (req, res) => {
+  Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
+    {
+      Username: req.body.Username,
+      Password: req.body.Password,
+      Email: req.body.Email,
+      Birthday: req.body.Birthday
+    }
+  },
+  { new: true }, // This line makes sure that the updated document is returned
+  (err, updatedUser) => {
+    if(err) {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    } else {
+      res.json(updatedUser);
+    }
+  });
+});
+
 Example Output
-{
 
+{
+  "FavoriteMovies": [],
+  "_id": "5fd2982e28705d4fe780fac2",
+  "Username": "test",
+  "Password": "test",
+  "Email": "test@gmail.com",
+  "Birthday": "1991-05-23T04:00:00.000Z",
+  "__v": 0
 }
+
 Add Movie to Favorite List
-This HTTP Request adds a Json object containing information to the favorite subdirectory inside a specific user's account. 
-The endpoint for the account is /users/:account/:favorite/:name'. The HTTP request type is PUT. The parameters for the request 
-type are [account], which specifies the user account, [favorite] which specifies the favorite movie directory, and [name] which 
-specifies the location of the json object, and req.body which contains the Json object.
+This HTTP Request is a Post Request that adds a Json object to a embedded array inside a user's json object, using the $push function. 
+The endpoint for the account is /users/:Username/Movies/:MovieID. The HTTP request type is POST. The parameters for the request 
+type are :Username, which specifies the user account, and :MovieID which specifies the movie.
 Example Request
-app.put('/users/:account/:favorite/:name', ({
 
-}, res) => {   
-  let update = req.body;
-      res.status(201).send(update);
+app.post('users/Dragonforce/Movies/5fbc01161dbaea69ddc7f20d', (req, res) => {
+  Users.findOneAndUpdate({ Username: req.params.Username }, {
+     $push: { FavoriteMovies: req.params.MovieID }
+   },
+   { new: true }, // This line makes sure that the updated document is returned
+  (err, updatedUser) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    } else {
+      res.json(updatedUser);
+    }
   });
+});
+
 Example Output
 {
-
+  "FavoriteMovies": [
+      "5fbc01161dbaea69ddc7f20d"
+  ],
+  "_id": "5fd1232ecda6753da41cef58",
+  "Username": "Dragonforce",
+  "Password": "Trueblade97",
+  "Email": "Dragonfurry23@gmail.com",
+  "Birthday": "1992-05-28T04:00:00.000Z",
+  "__v": 0
 }
-Remove Movie from Favorite List
-This HTTP Request removes a Json object containing information from the favorite subdirectory inside a specific user's account. 
-The endpoint for the account is /users/:account/:favorite/:name'. The HTTP request type is DELETE. The parameters for the request 
-type are [account], which specifies the user account, [favorite] which specifies the favorite movie directory, and [name] which 
-specifies the location of the json object, and req.body, which contains the Json Object that is to be deleted.
-Example Request  
-app.delete('/users/:account/:favorite/:name', ({
 
-}, res) => {  
-    res.status(201).send("Deleted");
+Remove Movie from Favorite List
+This HTTP Request is a Post Request that removes a Json object from a embedded array inside a user's json object, using the $pull function. 
+The endpoint for the account is /users/:Username/Movies/:MovieID/Remove. The HTTP request type is POST. The parameters for the request 
+type are :Username, which specifies the user account, and :MovieID which specifies the movie.
+
+Example Request  
+
+app.post('/users/:Username/Movies/:MovieID', (req, res) => {
+  Users.findOneAndUpdate({ Username: req.params.Username }, {
+     $push: { FavoriteMovies: req.params.MovieID }
+   },
+   { new: true }, // This line makes sure that the updated document is returned
+  (err, updatedUser) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    } else {
+      res.json(updatedUser);
+    }
   });
+});
+
 Example Output
-"Deleted"
+{
+  "FavoriteMovies": [],
+  "_id": "5fd1232ecda6753da41cef58",
+  "Username": "Dragonforce",
+  "Password": "Trueblade97",
+  "Email": "Dragonfurry23@gmail.com",
+  "Birthday": "1992-05-28T04:00:00.000Z",
+  "__v": 0
+}
 
 Remove Account
-This HTTP request removes a User from the API. The endpoint for this request is users/:id. The HTTP Request type is DELETE. The parameters 
-are [id] which consists of a custom user id created through uuid which is used to create the account.
+This HTTP request removes a User from the API. The endpoint for this request is users/:Username. The HTTP Request 
+type is DELETE. The parameters is :Username which specifices the user that will be deleted.
 Example Request
-app.delete('/users/:id', (req, res) => {  
-    res.status(201).send("Deletion")                
-  });
+app.delete('/users/:Username', (req, res) => {
+  Users.findOneAndRemove({ Username: req.params.Username })
+    .then((user) => {
+      if (!user) {
+        res.status(400).send(req.params.Username + ' was not found');
+      } else {
+        res.status(200).send(req.params.Username + ' was deleted.');
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
 
   Example Output
-  "Deletion"
+  Dragonforce was deleted.

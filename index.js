@@ -10,7 +10,7 @@ const Genres = Models.Genre;
 const Directors = Models.Director;
 
 // mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
-mongodb://localhost:27017/myFlixDB
+// mongodb://localhost:27017/myFlixDB
 
 mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 
@@ -22,7 +22,7 @@ uuid = require('uuid');
 
 const app = express();
 app.use(bodyParser.json());
-let auth = require('./auth')(app);
+// let auth = require('./auth')(app);
 
 const cors = require('cors');
 app.use(cors());

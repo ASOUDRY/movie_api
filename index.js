@@ -1,45 +1,41 @@
-
-const { check, validationResult } = require('express-validator');
-
 const mongoose = require('mongoose');
 const Models = require('./models.js');
-
+const { response } = require("express");
+const express = require("express"),
+const app = express();
+const cors = require('cors');
+const passport = require('passport');
 const Movies = Models.Movie;
 const Users = Models.User;
 const Genres = Models.Genre;
 const Directors = Models.Director;
+const Movies = Models.Movie;
+const Users = Models.User;
+const Genres = Models.Genre;
+const Directors = Models.Director;
+const { check, validationResult } = require('express-validator');
 
-// mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
-// mongodb://localhost:27017/myFlixDB
-
-mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-
-const { response } = require("express");
-const express = require("express"),
 morgan = require('morgan'),
 bodyParser = require('body-parser'),
 uuid = require('uuid');
 
-const app = express();
-app.use(bodyParser.json());
-// let auth = require('./auth')(app);
+mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
+// mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 
-const cors = require('cors');
+app.use(bodyParser.json());
+let auth = require('./auth')(app);
 app.use(cors());
 
-const passport = require('passport');
 require('./passport');
 
-// error code
 app.use(morgan('common'));
+
 app.use(express.static('public'))
+
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Check for errors');
   });
-// error code
-
-// Get all users
 
 app.get('/', (req, res) => {
   res.send('Hello there, welcome to the movie club!');
@@ -131,7 +127,7 @@ app.post('/users',
       });
   });
 
-  app.put('/users/:Username',   
+app.put('/users/:Username',   
 [
     check('Username', 'Username is required').isLength({min: 5}),
     check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
@@ -167,7 +163,7 @@ passport.authenticate('jwt', {session: false}), (req, res) => {
     });
   });
 
-  app.post('/users/:Username/Movies/:MovieID', passport.authenticate('jwt', {session: false}), (req, res) => {
+app.post('/users/:Username/Movies/:MovieID', passport.authenticate('jwt', {session: false}), (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, {
        $push: { FavoriteMovies: req.params.MovieID }
      },
@@ -182,7 +178,7 @@ passport.authenticate('jwt', {session: false}), (req, res) => {
     });
   });
 
-  app.post('/users/:Username/Movies/:MovieID/Remove', passport.authenticate('jwt', {session: false}), (req, res) => {
+app.post('/users/:Username/Movies/:MovieID/Remove', passport.authenticate('jwt', {session: false}), (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, {
        $pull: { FavoriteMovies: req.params.MovieID }
      },
@@ -197,7 +193,7 @@ passport.authenticate('jwt', {session: false}), (req, res) => {
     });
   });
 
-  app.delete('/users/:Username', passport.authenticate('jwt', {session: false}), (req, res) => {
+app.delete('/users/:Username', passport.authenticate('jwt', {session: false}), (req, res) => {
     Users.findOneAndRemove({ Username: req.params.Username })
       .then((user) => {
         if (!user) {
@@ -211,13 +207,14 @@ passport.authenticate('jwt', {session: false}), (req, res) => {
         res.status(500).send('Error: ' + err);
       });
   });
-// listen for requests
+
+// app.listen(8080, () => {
+//   console.log('Listening');
+// });
+  // listen for requests
 
 const port = process.env.PORT || 8080;
 app.listen(port, '0.0.0.0',() => {
  console.log('Listening on Port ' + port);
 });
 
-// app.listen(8080, () => {
-//   console.log('Listening');
-// });

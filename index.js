@@ -9,21 +9,20 @@ const Movies = Models.Movie;
 const Users = Models.User;
 const Genres = Models.Genre;
 const Directors = Models.Director;
-const Movies = Models.Movie;
-const Users = Models.User;
-const Genres = Models.Genre;
-const Directors = Models.Director;
 const { check, validationResult } = require('express-validator');
+const port = process.env.PORT || 8080;
 
 morgan = require('morgan'),
 bodyParser = require('body-parser'),
 uuid = require('uuid');
 
 // mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+// mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+
+mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(bodyParser.json());
-let auth = require('./auth')(app);
+require('./auth')(app);
 app.use(cors());
 
 require('./passport');
@@ -211,9 +210,8 @@ app.delete('/users/:Username', passport.authenticate('jwt', {session: false}), (
 // app.listen(8080, () => {
 //   console.log('Listening');
 // });
-  // listen for requests
 
-const port = process.env.PORT || 8080;
+
 app.listen(port, '0.0.0.0',() => {
  console.log('Listening on Port ' + port);
 });

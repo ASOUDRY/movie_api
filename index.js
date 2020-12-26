@@ -16,9 +16,6 @@ morgan = require('morgan'),
 bodyParser = require('body-parser'),
 uuid = require('uuid');
 
-// mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
-// mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-
 mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(bodyParser.json());
@@ -206,11 +203,6 @@ app.delete('/users/:Username', passport.authenticate('jwt', {session: false}), (
         res.status(500).send('Error: ' + err);
       });
   });
-
-// app.listen(27017, () => {
-//   console.log('Listening');
-// });
-
 
 app.listen(port, '0.0.0.0',() => {
  console.log('Listening on Port ' + port);

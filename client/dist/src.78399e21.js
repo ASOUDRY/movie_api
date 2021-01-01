@@ -31614,26 +31614,26 @@ var MainView = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(MainView);
 
   function MainView() {
+    var _this;
+
     _classCallCheck(this, MainView);
 
-    return _super.apply(this, arguments);
+    // Call the superclass constructor
+    // so React can initialize it
+    _this = _super.call(this); // Initialize the state to an empty object so we can destructure it later
+
+    _this.state = {};
+    return _this;
   }
 
   _createClass(MainView, [{
     key: "componentDidMount",
-    // constructor() {
-    //   // Call the superclass constructor
-    //   // so React can initialize it
-    //   super();
-    //   // Initialize the state to an empty object so we can destructure it later
-    //   this.state = {};
-    // }
     value: function componentDidMount() {
-      var _this = this;
+      var _this2 = this;
 
       _axios.default.get('https://evening-woodland-79512.herokuapp.com/movies/movies').then(function (response) {
         // Assign the result to the state
-        _this.setState({
+        _this2.setState({
           movies: response.data
         });
       }).catch(function (error) {

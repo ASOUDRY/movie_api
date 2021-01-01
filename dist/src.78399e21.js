@@ -31631,7 +31631,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      _axios.default.get('https://pure-spire-30996.herokuapp.com/movies').then(function (response) {
+      _axios.default.get('https://moviecat0l0gue.herokuapp.com/movies').then(function (response) {
         // Assign the result to the state
         _this2.setState({
           movies: response.data

@@ -31575,6 +31575,11 @@ module.exports = require('./lib/axios');
 },{"./lib/axios":"../../node_modules/axios/lib/axios.js"}],"components/main-view/main-view.jsx":[function(require,module,exports) {
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.MainView = void 0;
+
 var _react = _interopRequireDefault(require("react"));
 
 var _axios = _interopRequireDefault(require("axios"));
@@ -31658,6 +31663,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
   return MainView;
 }(_react.default.Component);
+
+exports.MainView = MainView;
 },{"react":"../../node_modules/react/index.js","axios":"../../node_modules/axios/index.js"}],"../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 

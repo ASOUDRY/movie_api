@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-class MainView extends React.Component {
+export class MainView extends React.Component {
     // constructor() {
     //   // Call the superclass constructor
     //   // so React can initialize it

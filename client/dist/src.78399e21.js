@@ -31780,9 +31780,7 @@ var MyFlixApplication = /*#__PURE__*/function (_React$Component) {
   _createClass(MyFlixApplication, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", {
-        className: "my-flix"
-      }, _react.default.createElement("div", null, "Good morning"));
+      return _react.default.createElement(_mainView.MainView, null);
     }
   }]);
 

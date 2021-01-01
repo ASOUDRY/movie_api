@@ -2,14 +2,14 @@ import React from 'react';
 import axios from 'axios';
 
 class MainView extends React.Component {
-    constructor() {
-      // Call the superclass constructor
-      // so React can initialize it
-      super();
+    // constructor() {
+    //   // Call the superclass constructor
+    //   // so React can initialize it
+    //   super();
   
-      // Initialize the state to an empty object so we can destructure it later
-      this.state = {};
-    }
+    //   // Initialize the state to an empty object so we can destructure it later
+    //   this.state = {};
+    // }
 
     componentDidMount() {
         axios.get('https://evening-woodland-79512.herokuapp.com/movies/movies')

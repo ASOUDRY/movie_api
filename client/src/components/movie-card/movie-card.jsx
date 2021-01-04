@@ -5,7 +5,7 @@ export class MovieCard extends React.Component {
     // This is given to the <MovieCard/> component by the outer world
     // which, in this case, is `MainView`, as `MainView` is what’s
     // connected to your database via the movies endpoint of your API
-    const { movie, onClick, button} = this.props;
+    const { movie, onClick} = this.props;
     // A actual onclick function that is clicked on.
     return (
       <div onClick={

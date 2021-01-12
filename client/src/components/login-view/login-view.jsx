@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import { Container, Row } from 'react-bootstrap';
+import { Register } from '../register/register';
 export function LoginView(props) {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
@@ -12,17 +13,34 @@ export function LoginView(props) {
   props.onLoggedIn(username);  
 };
 
+const goHere = () => {
+  return <Register/>;
+} 
+
   return (
-    <form>
-      <label>
+    <Container>
+      <Row>
+      <form>
+       <label>
         Username:
-        <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
-      </label>
-      <label>
+        <input type="text" value={username} onChange={e => setUsername(e.target.value)}/>
+        </label>
+        </form>
+        </Row>
+        <Row>
+        <form>
+       <label>
         Password:
-        <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-      </label>
-      <button type="button" onClick={handleSubmit}>Submit</button>
-    </form>
+        <input type="text" value={password} onChange={e => setPassword(e.target.value)}/>
+        </label>
+        </form>
+        </Row>
+         <Row>
+       <button type="button" onClick={handleSubmit}>Submit</button>
+       </Row>
+       <Row>
+       <button onClick={goHere}>Already Registered. Go Here</button>
+       </Row>
+      </Container>     
   );
 }

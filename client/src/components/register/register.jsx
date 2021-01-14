@@ -13,10 +13,6 @@ export function Register(props) {
   props.onRegistration(username);  
 };
 
-const goHere = () => {
-  return <LoginView/>;
-} 
-
   return (
     <Container>
     <Row>
@@ -39,7 +35,7 @@ const goHere = () => {
      <button type="button" onClick={handleSubmit}>Submit</button>
      </Row>
      <Row>
-     <button onClick={goHere}>Not Registered Yet?. Go Here</button>
+     <button onClick={() => window.open("LoginView", "_self")}>Already Registered. Go Here</button>
      </Row>
     </Container>     
   );

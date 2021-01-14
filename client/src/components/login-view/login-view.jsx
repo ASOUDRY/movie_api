@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+// import { Link } from 'react-router-dom';
+// import axios from 'axios';
 import { Container, Row } from 'react-bootstrap';
 import { Register } from '../register/register';
 export function LoginView(props) {
+  // axios.get('https://moviecat0l0gue.herokuapp.com/login-view')
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
 
@@ -13,9 +16,6 @@ export function LoginView(props) {
   props.onLoggedIn(username);  
 };
 
-const goHere = () => {
-  return <Register/>;
-} 
 
   return (
     <Container>
@@ -39,7 +39,7 @@ const goHere = () => {
        <button type="button" onClick={handleSubmit}>Submit</button>
        </Row>
        <Row>
-       <button onClick={goHere}>Already Registered. Go Here</button>
+       <button onClick={() => window.open("Register", "_self")}>Haven't Registered. Go Here</button>
        </Row>
       </Container>     
   );

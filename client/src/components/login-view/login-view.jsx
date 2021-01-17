@@ -12,7 +12,7 @@ export function LoginView(props) {
       e.preventDefault();
 
       axios.post('https://moviecat0l0gue.herokuapp.com/login-view', {
-      Username: username,
+      name: username,
       Password: password
       })
       .then(response => {

@@ -46,6 +46,19 @@ export class MainView extends React.Component {
         });
       }
 
+      onLoggedIn(authData) {
+        console.log(authData);
+        this.setState({
+          // user: authData.user.name
+          user: authData
+        });
+        localStorage.setItem('token', authData.token);
+        // localStorage.setItem('user', authData.user.name);
+        localStorage.setItem('user', authData);
+        this.getMovies(authData.token);
+      }
+
+
       getMovies(token) {
         axios.get('https://moviecat0l0gue.herokuapp.com/movies', {
           headers: { Authorization: `Bearer ${token}`}
@@ -61,19 +74,6 @@ export class MainView extends React.Component {
         });
       }
      
-      onLoggedIn(authData) {
-        console.log(authData);
-        this.setState({
-          // user: authData.user.name
-          user: authData
-        });
-      
-        localStorage.setItem('token', authData.token);
-        // localStorage.setItem('user', authData.user.name);
-        localStorage.setItem('user', authData);
-        this.getMovies(authData.token);
-      }
-
       render() {
     // If the state isn't initialized, this will throw on runtime
     // before the data is initially loaded

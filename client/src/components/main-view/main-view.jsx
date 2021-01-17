@@ -49,12 +49,12 @@ export class MainView extends React.Component {
       onLoggedIn(authData) {
         console.log(authData);
         this.setState({
-          // user: authData.user.name
-          user: authData
+          user: authData.user.name
+          // user: authData
         });
         localStorage.setItem('token', authData.token);
-        // localStorage.setItem('user', authData.user.name);
-        localStorage.setItem('user', authData);
+        localStorage.setItem('user', authData.user.name);
+        // localStorage.setItem('user', authData);
         this.getMovies(authData.token);
       }
 

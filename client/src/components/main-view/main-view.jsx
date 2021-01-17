@@ -21,16 +21,16 @@ export class MainView extends React.Component {
 
     componentDidMount() {
       // axios fetches the movie end point from heroku
-      axios.get('https://moviecat0l0gue.herokuapp.com/movies')
-          .then(response => {
-            // Assign the result to the state
-            this.setState({
-              movies: response.data
-            });
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+      // axios.get('https://moviecat0l0gue.herokuapp.com/movies')
+      //     .then(response => {
+      //       // Assign the result to the state
+      //       this.setState({
+      //         movies: response.data
+      //       });
+      //     })
+      //     .catch(function (error) {
+      //       console.log(error);
+      //     });
       }
     
       onMovieClick(movie) {

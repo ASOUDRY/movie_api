@@ -20,25 +20,6 @@ export class MainView extends React.Component {
     }
 
     componentDidMount() {
-      // axios fetches the movie end point from heroku
-      // axios.get('https://moviecat0l0gue.herokuapp.com/movies')
-      //     .then(response => {
-      //       // Assign the result to the state
-      //       this.setState({
-      //         movies: response.data
-      //       });
-      //     })
-      //     .catch(function (error) {
-      //       console.log(error);
-      //     });
-      }
-    
-      onMovieClick(movie) {
-        this.setState({
-          selectedMovie: movie
-        });
-      }
-
       getMovies(token) {
         axios.get('https://moviecat0l0gue.herokuapp.com/movies', {
           headers: { Authorization: `Bearer ${token}`}
@@ -53,25 +34,35 @@ export class MainView extends React.Component {
           console.log(error);
         });
       }
-            
+    }
+      // axios fetches the movie end point from heroku
+      // axios.get('https://moviecat0l0gue.herokuapp.com/movies')
+      //     .then(response => {
+      //       // Assign the result to the state
+      //       this.setState({
+      //         movies: response.data
+      //       });
+      //     })
+      //     .catch(function (error) {
+      //       console.log(error);
+      //     });
+    
+      onMovieClick(movie) {
+        this.setState({
+          selectedMovie: movie
+        });
+      }
+     
       onLoggedIn(authData) {
         console.log(authData);
         this.setState({
-          // user: authData.user.Username
+          user: authData.user.Username
         });
       
-        // localStorage.setItem('token', authData.token);
-        // localStorage.setItem('user', authData.user.Username);
-        // this.getMovies(authData.token);
+        localStorage.setItem('token', authData.token);
+        localStorage.setItem('user', authData.user.Username);
+        this.getMovies(authData.token);
       }
-
-
-  
-      onRegistration(user) {
-           this.setState({
-             user
-           });
-         }
 
       render() {
     // If the state isn't initialized, this will throw on runtime
@@ -79,8 +70,6 @@ export class MainView extends React.Component {
     const { movies, selectedMovie, user} = this.state;
 
     if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-    // if (!user) return <LoginView/>;
-    // if (!user) return <Register/>;
 
     // Before the movies have been loaded
     if (!movies) return <div className="main-view"/>;

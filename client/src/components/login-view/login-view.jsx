@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // import { Link } from 'react-router-dom';
-// import axios from 'axios';
+import axios from 'axios';
 import { Container, Row } from 'react-bootstrap';
 import { Register } from '../register/register';
 export function LoginView(props) {
@@ -10,6 +10,18 @@ export function LoginView(props) {
 
   const handleSubmit = (e) => {
       e.preventDefault();
+
+      axios.post('https://moviecat0l0gue.herokuapp.com/login-view', {
+      Username: username,
+      Password: password
+      })
+      .then(response => {
+        const data = response.data;
+        props.onLoggedIn(data);
+      })
+      .catch(e => {
+        console.log("no such user")
+      })
     console.log(username, password);
     /* Send a request to the server for authentication */
     /* then call props.onLoggedIn(username) */

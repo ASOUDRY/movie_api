@@ -10,7 +10,7 @@ export function LoginView(props) {
 
   const handleSubmit = (e) => {
       e.preventDefault();
-      axios.post('https://moviecat0l0gue.herokuapp.com/login', {
+      axios.post('https://cors-anywhere.herokuapp.com/moviecat0l0gue.herokuapp.com/login', {
       Username: username,
       Password: password
       })
@@ -47,7 +47,7 @@ export function LoginView(props) {
        <button type="button" onClick={handleSubmit}>Submit</button>
        </Row>
        <Row>
-       <button onClick={() => window.open("Register", "_self")}>Haven't Registered. Go Here</button>
+       <button>Haven't Registered. Go Here</button>
        </Row>
       </Container>     
   );

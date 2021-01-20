@@ -19,25 +19,26 @@ export class MainView extends React.Component {
     }
 
     componentDidMount() {
-  let accessToken = localStorage.getItem('token');
-  if (accessToken !== null) {
-    this.setState({
-      user: localStorage.getItem('user')
-    });
-    this.getMovies(accessToken);
-  }
-    }
+  // let accessToken = localStorage.getItem('token');
+  // if (accessToken !== null) {
+  //   this.setState({
+  //     user: localStorage.getItem('user')
+  //   });
+  //   this.getMovies(accessToken);
+  // }
+  //   }
       // axios fetches the movie end point from heroku
-      // axios.get('https://moviecat0l0gue.herokuapp.com/movies')
-      //     .then(response => {
-      //       // Assign the result to the state
-      //       this.setState({
-      //         movies: response.data
-      //       });
-      //     })
-      //     .catch(function (error) {
-      //       console.log(error);
-      //     });
+      axios.get('https://moviecat0l0gue.herokuapp.com/movies')
+          .then(response => {
+            // Assign the result to the state
+            this.setState({
+              movies: response.data
+            });
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+        }
     
       onMovieClick(movie) {
         this.setState({
@@ -45,33 +46,37 @@ export class MainView extends React.Component {
         });
       }
 
-      onLoggedIn(authData) {
-        console.log(authData);
+      onLoggedIn(user) {
         this.setState({
-          user: authData.user.name
+          user
+        });
+      }
+
+      // onLoggedIn(authData) {
+      //   console.log(authData);
+      //   this.setState({
+      //     user: authData.user.name
          
-        });
-        localStorage.setItem('token', authData.token);
-        localStorage.setItem('user', authData.user.name);
-        this.getMovies(authData.token);
-      }
+      //   });
+      //   localStorage.setItem('token', authData.token);
+      //   localStorage.setItem('user', authData.user.name);
+      //   this.getMovies(authData.token);
+      // }
 
-  
-
-      getMovies(token) {
-        axios.get('https://moviecat0l0gue.herokuapp.com/movies', {
-          headers: { Authorization: `Bearer ${token}`}
-        })
-        .then(response => {
-          // Assign the result to the state
-          this.setState({
-            movies: response.data
-          });
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      }
+      // getMovies(token) {
+      //   axios.get('https://moviecat0l0gue.herokuapp.com/movies', {
+      //     headers: { Authorization: `Bearer ${token}`}
+      //   })
+      //   .then(response => {
+      //     // Assign the result to the state
+      //     this.setState({
+      //       movies: response.data
+      //     });
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error);
+      //   });
+      // }
      
       render() {
     // If the state isn't initialized, this will throw on runtime

@@ -45,24 +45,19 @@ export class MainView extends React.Component {
         });
       }
 
-      // onLoggedIn(authData) {
-      //   console.log(authData);
-      //   this.setState({
-      //     user: authData.user.name
-      //     // user: authData
-      //   });
-      //   localStorage.setItem('token', authData.token);
-      //   localStorage.setItem('user', authData.user.name);
-      //   // localStorage.setItem('user', authData);
-      //   this.getMovies(authData.token);
-      // }
-
-      onLoggedIn(user) {
+      onLoggedIn(authData) {
+        console.log(authData);
         this.setState({
-          user
+          user: authData.user.name
+          // user: authData
         });
+        localStorage.setItem('token', authData.token);
+        localStorage.setItem('user', authData.user.name);
+        // localStorage.setItem('user', authData);
+        this.getMovies(authData.token);
       }
 
+  
 
       getMovies(token) {
         axios.get('https://moviecat0l0gue.herokuapp.com/movies', {

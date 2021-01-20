@@ -1,28 +1,40 @@
 import React, { useState } from 'react';
-// import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Row } from 'react-bootstrap';
-import { Register } from '../register/register';
 export function LoginView(props) {
-  // axios.get('https://moviecat0l0gue.herokuapp.com/login-view')
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
 
-  const handleSubmit = (e) => {
-      e.preventDefault();
-      // axios.post('https://cors-anywhere.herokuapp.com/moviecat0l0gue.herokuapp.com/login', {
-      axios.post('https://moviecat0l0gue.herokuapp.com/login-view', {
-      Username: username,
-      Password: password
-      })
-      .then(response => {
-        console.log(username, password);
-        const data = response.data;
-        props.onLoggedIn(data);
-      })
-      .catch(e => {
-        console.log("no such user")
-      })
+//   const handleSubmit = (e) => {
+//       e.preventDefault();
+//       axios.post('https://moviecat0l0gue.herokuapp.com/access', {
+//       Username: username,
+//       Password: password
+//       })
+//       .then(response => {
+//         console.log(username, password);
+//         const data = response.data;
+//         props.onLoggedIn(data);
+//       })
+//       .catch(e => {
+//         console.log("no such user")
+//       })
+// };
+
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+  axios.post(`https://moviecat0l0gue.herokuapp.com/login`, {
+    Username: username,
+    Password: password
+  })
+  .then(response => {
+    const data = response.data;
+    props.onLoggedIn(data);
+  })
+  .catch(e => {
+  console.log('no user found')
+  });
 };
 
 

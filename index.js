@@ -38,7 +38,8 @@ app.get('/', (req, res) => {
   res.send('Hello there, welcome to the movie club!');
 });
 
-app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.get('/movies', (req, res) => {
+// passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find()
     .then((movies) => {
       res.status(201).json(movies);

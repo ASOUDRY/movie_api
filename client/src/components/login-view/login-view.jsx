@@ -5,9 +5,10 @@ export function LoginView(props) {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
 
+
 const handleSubmit = (e) => {
   e.preventDefault();
-  axios.post(`https://moviecat0l0gue.herokuapp.com/login`, {
+  axios.post('https://moviecat0l0gue.herokuapp.com/login', {
     Username: username,
     Password: password
   })

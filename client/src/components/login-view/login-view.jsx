@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Container, Row } from 'react-bootstrap';
+
+// var express = require('express')
+// var cors = require('cors')
+// var app = express()
+ 
+// app.use(cors())
+
 export function LoginView(props) {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
-
-
-var express = require('express')
-var cors = require('cors')
-var app = express()
- 
-app.use(cors())
 
 const handleSubmit = (e) => {
   e.preventDefault();

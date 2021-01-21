@@ -6,6 +6,12 @@ export function LoginView(props) {
   const [ password, setPassword ] = useState('');
 
 
+var express = require('express')
+var cors = require('cors')
+var app = express()
+ 
+app.use(cors())
+
 const handleSubmit = (e) => {
   e.preventDefault();
   axios.post('https://moviecat0l0gue.herokuapp.com/login', {

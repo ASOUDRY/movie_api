@@ -15,12 +15,13 @@ export function LoginView(props) {
 const handleSubmit = (e) => {
   e.preventDefault();
   axios.post('https://moviecat0l0gue.herokuapp.com/login', {
-    Username: username,
-    Password: password
+    Username: "Fred",
+    Password: "fred"
   })
   .then(response => {
     const data = response.data;
-    props.onLoggedIn(data);
+    console.log(data)
+    // props.onLoggedIn(data);
   })
   .catch(e => {
   console.log('no user found')

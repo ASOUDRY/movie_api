@@ -24,22 +24,7 @@ export function Register(props) {
       console.log(error);
     });
   }
-
-  //   const Registration = (e) => {
-//       e.preventDefault();
-//     axios.post('https://moviecat0l0gue.herokuapp.com/users', {
-//       // Username : "placeholding",
-//       // Password : "placeholding",
-//       // Email : "placeholding@gmail.com",
-//       // Birthday : "birthday"
-
-//       Username: 'Powah52',
-//       Password: 'Powah53',
-//       Email: 'test2@gmail.com',
-//       Birthday: birthday
-//   }).then()
-// }
-    
+   
     /* Send a request to the server for authentication */
     /* then call props.onLoggedIn(username) */
   // props.onRegistration(username);  

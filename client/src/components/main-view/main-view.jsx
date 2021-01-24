@@ -20,15 +20,14 @@ export class MainView extends React.Component {
     }
 
     componentDidMount() {
-    }
-  // let accessToken = localStorage.getItem('token');
-  // if (accessToken !== null) {
-  //   this.setState({
-  //     user: localStorage.getItem('user')
-  //   });
-  //   this.getMovies(accessToken);
-  // }
-  //   }
+  let accessToken = localStorage.getItem('token');
+  if (accessToken !== null) {
+    this.setState({
+      user: localStorage.getItem('user')
+    });
+    this.getMovies(accessToken);
+  }
+}
       // axios fetches the movie end point from heroku
       // axios.get('https://moviecat0l0gue.herokuapp.com/movies')
       //     .then(response => {
@@ -54,11 +53,22 @@ export class MainView extends React.Component {
       //   });
       // }
 
-      onRegister(user) {
+      // onRegister(user) {
+      //   this.setState({
+      //     user
+      //   });
+      // }
+
+      onRegister(data) {
+        console.log(data)
         this.setState({
-          user
+          user: data.user.name
         });
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', data.user.name);
+        this.getMovies(data.token);
       }
+
 
       // onLoggedIn(authData) {
       //   console.log(authData);

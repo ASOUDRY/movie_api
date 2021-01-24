@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { LoginView } from '../login-view/login-view';
+import { Register } from '../register/register';
 import { MovieCard } from '../movie-card/movie-card.jsx';
 import { MovieView } from '../movie-view/movie-view';
 
@@ -53,16 +54,22 @@ export class MainView extends React.Component {
       //   });
       // }
 
-      onLoggedIn(authData) {
-        console.log(authData);
+      onRegister(user) {
         this.setState({
-          user: authData.user.name
-         
+          user
         });
-        localStorage.setItem('token', authData.token);
-        localStorage.setItem('user', authData.user.name);
-        this.getMovies(authData.token);
       }
+
+      // onLoggedIn(authData) {
+      //   console.log(authData);
+      //   this.setState({
+      //     user: authData.user.name
+         
+      //   });
+      //   localStorage.setItem('token', authData.token);
+      //   localStorage.setItem('user', authData.user.name);
+      //   this.getMovies(authData.token);
+      // }
 
       getMovies(token) {
         axios.get('https://moviecat0l0gue.herokuapp.com/movies', {
@@ -84,7 +91,9 @@ export class MainView extends React.Component {
     // before the data is initially loaded
     const { movies, selectedMovie, user} = this.state;
 
-    if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+    // if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+
+    if (!user) return <Register onRegister={user => this.onRegister(user)} />;
 
     // Before the movies have been loaded
     if (!movies) return <div className="main-view"/>;

@@ -1,42 +1,42 @@
 import React, { useState } from 'react';
-import { Container, Row } from 'react-bootstrap';
-import { LoginView } from '../login-view/login-view';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+// import axios from 'axios';
 export function Register(props) {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
+  const [ email, setEmail ] = useState('');
+  const [ birthday, setBirthday ] = useState('');
 
-  const handleSubmit = (e) => {
+  const Registration = (e) => {
       e.preventDefault();
-    console.log(username, password);
+    console.log(username, password, email, birthday);
     /* Send a request to the server for authentication */
     /* then call props.onLoggedIn(username) */
-  props.onRegistration(username);  
+  // props.onRegistration(username);  
 };
 
-  return (
-    <Container>
-    <Row>
-    <form>
-     <label>
-      Username:
-      <input type="text" value={username} onChange={e => setUsername(e.target.value)}/>
-      </label>
-      </form>
-      </Row>
-      <Row>
-      <form>
-     <label>
-      Password:
-      <input type="text" value={password} onChange={e => setPassword(e.target.value)}/>
-      </label>
-      </form>
-      </Row>
-       <Row>
-     <button type="button" onClick={handleSubmit}>Submit</button>
-     </Row>
-     <Row>
-     <button onClick={() => window.open("LoginView", "_self")}>Already Registered. Go Here</button>
-     </Row>
-    </Container>     
-  );
+return (
+  <Form>
+    <Form.Group controlId="formBasicUsername">
+      <Form.Label>Username:</Form.Label>
+      <Form.Control type="text" placeholder="Enter username" value={username} onChange={e => setUsername(e.target.value)} />
+    </Form.Group>
+    <Form.Group controlId="formBasicPassword">
+      <Form.Label>Password</Form.Label>
+      <Form.Control type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
+    </Form.Group>
+    <Form.Group controlId="formBasicEmail">
+      <Form.Label>Email:</Form.Label>
+      <Form.Control type="text" placeholder="Enter a email address please" value={email} onChange={e => setEmail(e.target.value)} />
+    </Form.Group>
+    <Form.Group controlId="formBasicPassword">
+      <Form.Label>Password</Form.Label>
+      <Form.Control type="Date" placeholder="Enter your birthday" value={birthday} onChange={e => setBirthday(e.target.value)} />
+    </Form.Group>
+    <Button variant="primary" type="submit" onClick={Registration}>
+      Submit
+      </Button>
+  </Form>
+);
 }

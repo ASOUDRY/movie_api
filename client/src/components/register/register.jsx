@@ -18,7 +18,7 @@ export function Register(props) {
       Birthday: birthday
     })
     .then(function (response) {
-      console.log(response);
+      console.log(response.data.Email);
     })
     .catch(function (error) {
       console.log(error);

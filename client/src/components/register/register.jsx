@@ -11,10 +11,10 @@ export function Register(props) {
   const Registration = (e) => {
       e.preventDefault();
     axios.post('https://moviecat0l0gue.herokuapp.com/users', {
-      Username : "placeholding",
-      Password : "placeholding",
-      Email : "placeholding@gmail.com",
-      Birthday : 01/01/2001
+      "Username" : "placeholding",
+      "Password" : "placeholding",
+      "Email" : "placeholding@gmail.com",
+      "Birthday" : "birthday"
     })
     .then(response => {
       console.log("user successfully posted")

@@ -41,21 +41,16 @@ export class MainView extends React.Component {
       //   });
       // }
 
-      // onRegister(user) {
-      //   this.setState({
-      //     user
-      //   });
-      // }
-
-      onRegister(data) {
-        console.log(data.username)
+      
+   onRegister(data) {
+      console.log(data.Username)
         // this.setState({
         //   user: data.username
         // });
         // localStorage.setItem('token', data.token);
         // localStorage.setItem('user', data.username);
         // this.getMovies(data.token);
-      }
+    }
 
       getMovies(token) {
         axios.get('https://moviecat0l0gue.herokuapp.com/movies', {

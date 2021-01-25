@@ -28,7 +28,6 @@ export class MainView extends React.Component {
     this.getMovies(accessToken);
   }
 }
-
     
       // onMovieClick(movie) {
       //   this.setState({
@@ -42,33 +41,21 @@ export class MainView extends React.Component {
       //   });
       // }
 
-      onRegister(user) {
-        this.setState({
-          user
-        });
+      // onRegister(user) {
+      //   this.setState({
+      //     user
+      //   });
+      // }
+
+      onRegister(data) {
+        console.log(data.username)
+        // this.setState({
+        //   user: data.username
+        // });
+        // localStorage.setItem('token', data.token);
+        // localStorage.setItem('user', data.username);
+        // this.getMovies(data.token);
       }
-
-      // onRegister(data) {
-      //   console.log(data)
-      //   this.setState({
-      //     user: data.username
-      //   });
-      //   localStorage.setItem('token', data.token);
-      //   localStorage.setItem('user', data.username);
-      //   this.getMovies(data.token);
-      // }
-
-
-      // onLoggedIn(authData) {
-      //   console.log(authData);
-      //   this.setState({
-      //     user: authData.user.name
-         
-      //   });
-      //   localStorage.setItem('token', authData.token);
-      //   localStorage.setItem('user', authData.user.name);
-      //   this.getMovies(authData.token);
-      // }
 
       getMovies(token) {
         axios.get('https://moviecat0l0gue.herokuapp.com/movies', {

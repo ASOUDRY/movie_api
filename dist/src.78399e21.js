@@ -38290,6 +38290,11 @@ function LoginView(props) {
       password = _useState4[0],
       setPassword = _useState4[1];
 
+  var alternate = function alternate(e) {
+    e.preventDefault();
+    window.open('/Register', '_self');
+  };
+
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
 
@@ -38298,7 +38303,8 @@ function LoginView(props) {
       Password: password
     }).then(function (response) {
       var data = response.data;
-      console.log(data); // props.onLoggedIn(data);
+      console.log(data);
+      alternate(); // props.onLoggedIn(data);
     }).catch(function (e) {
       console.log('no user found');
     });
@@ -38329,7 +38335,7 @@ function LoginView(props) {
   }, "Submit"), _react.default.createElement(_Button.default, {
     variant: "primary",
     type: "submit",
-    onClick: window.open('/register', '_self')
+    onClick: alternate
   }, "Not Registered yet? Go here!"));
 }
 },{"react":"../../node_modules/react/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","axios":"../../node_modules/axios/index.js"}],"components/register/register.jsx":[function(require,module,exports) {
@@ -38387,6 +38393,11 @@ function Register(props) {
       birthday = _useState8[0],
       setBirthday = _useState8[1];
 
+  var alternate = function alternate(e) {
+    e.preventDefault();
+    window.open('/login', '_self');
+  };
+
   var Registration = function Registration(e) {
     e.preventDefault();
 
@@ -38397,8 +38408,9 @@ function Register(props) {
       Birthday: birthday
     }).then(function (response) {
       var data = response.data;
-      console.log(data);
-      props.onRegister(data);
+      console.log(data); // props.onRegister(data);
+
+      window.open('/login', '_self');
     }).catch(function (error) {
       console.log(error);
     });
@@ -38447,7 +38459,7 @@ function Register(props) {
   }, "Submit"), _react.default.createElement(_Button.default, {
     variant: "primary",
     type: "submit",
-    onClick: window.open('/login', '_self')
+    onClick: alternate
   }, "Already Registered? Click Here?"));
 }
 },{"react":"../../node_modules/react/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","axios":"../../node_modules/axios/index.js"}],"components/main-view/main-view.jsx":[function(require,module,exports) {
@@ -38536,17 +38548,16 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     //     user
     //   });
     // }
-
-  }, {
-    key: "onRegister",
-    value: function onRegister(data) {
-      console.log(data.Username);
-      this.setState({
-        user: data.Username
-      });
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', data.Username); // this.getMovies(data.token);
-    } // getMovies(token) {
+    //  onRegister(data) {
+    //     console.log(data.Username)
+    //       this.setState({
+    //         user: data.Username
+    //       });
+    //       localStorage.setItem('token', data.token);
+    //       localStorage.setItem('user', data.Username);
+    //       // this.getMovies(data.token);
+    //   }
+    // getMovies(token) {
     //   axios.get('https://moviecat0l0gue.herokuapp.com/movies', {
     //     headers: { Authorization: `Bearer ${token}`}
     //   })
@@ -38564,26 +38575,32 @@ var MainView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
-
       // If the state isn't initialized, this will throw on runtime
       // before the data is initially loaded
       var _this$state = this.state,
           movies = _this$state.movies,
-          user = _this$state.user; // if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+          user = _this$state.user; // if (!user) return <LoginView />
+      // onLoggedIn={user => this.onLoggedIn(user)} />;
+      // return <Register onRegister={user => this.onRegister(user)} />;
+      // // Before the movies have been loaded
+      // if (!movies) return <div className="main-view"/>;
 
-      if (!user) return _react.default.createElement(_register.Register, {
-        onRegister: function onRegister(user) {
-          return _this2.onRegister(user);
-        }
-      }); // Before the movies have been loaded
-
-      if (!movies) return _react.default.createElement("div", {
-        className: "main-view"
-      });
       return _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("div", {
         className: "main-view"
-      }))
+      }, _react.default.createElement(_reactRouterDom.Route, {
+        path: "/login",
+        render: function render() {
+          console.log("login is working");
+          return _react.default.createElement(_loginView.LoginView, null);
+        }
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        path: "/Register",
+        render: function render() {
+          //  if (!user) 
+          return _react.default.createElement(_register.Register //  onRegister={user => this.onRegister(user)}
+          , null);
+        }
+      })))
       /* <div className="main-view">
       
        
@@ -38782,7 +38799,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59578" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55074" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

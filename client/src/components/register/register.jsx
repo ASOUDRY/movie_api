@@ -8,7 +8,6 @@ export function Register(props) {
   const [ email, setEmail ] = useState('');
   const [ birthday, setBirthday ] = useState('');
 
-
   const Registration = (e) => {
     e.preventDefault();
     axios.post('https://moviecat0l0gue.herokuapp.com/users', {
@@ -18,18 +17,14 @@ export function Register(props) {
       Birthday: birthday
     })
     .then(function (response) {
-      console.log(response.data.Email);
+      const data = response.data;
+      props.onRegister(data);
     })
     .catch(function (error) {
       console.log(error);
     });
   }
-   
-    /* Send a request to the server for authentication */
-    /* then call props.onLoggedIn(username) */
-  // props.onRegistration(username);  
-// };
-
+  
 return (
   <Form>
     <Form.Group controlId="formBasicUsername">

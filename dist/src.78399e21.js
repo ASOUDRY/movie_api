@@ -38524,8 +38524,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       if (accessToken !== null) {
         this.setState({
           user: localStorage.getItem('user')
-        });
-        this.getMovies(accessToken);
+        }); // this.getMovies(accessToken);
       }
     } // onMovieClick(movie) {
     //   this.setState({
@@ -38546,31 +38545,26 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         user: data.Username
       });
       localStorage.setItem('token', data.token);
-      localStorage.setItem('user', data.Username);
-      this.getMovies(data.token);
-    }
-  }, {
-    key: "getMovies",
-    value: function getMovies(token) {
-      var _this2 = this;
+      localStorage.setItem('user', data.Username); // this.getMovies(data.token);
+    } // getMovies(token) {
+    //   axios.get('https://moviecat0l0gue.herokuapp.com/movies', {
+    //     headers: { Authorization: `Bearer ${token}`}
+    //   })
+    //   .then(response => {
+    //     // Assign the result to the state
+    //     this.setState({
+    //       movies: response.data
+    //     });
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
+    // }
 
-      _axios.default.get('https://moviecat0l0gue.herokuapp.com/movies', {
-        headers: {
-          Authorization: "Bearer ".concat(token)
-        }
-      }).then(function (response) {
-        // Assign the result to the state
-        _this2.setState({
-          movies: response.data
-        });
-      }).catch(function (error) {
-        console.log(error);
-      });
-    }
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this2 = this;
 
       // If the state isn't initialized, this will throw on runtime
       // before the data is initially loaded
@@ -38580,7 +38574,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
       if (!user) return _react.default.createElement(_register.Register, {
         onRegister: function onRegister(user) {
-          return _this3.onRegister(user);
+          return _this2.onRegister(user);
         }
       }); // Before the movies have been loaded
 
@@ -38589,21 +38583,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       });
       return _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("div", {
         className: "main-view"
-      }, _react.default.createElement(_reactRouterDom.Route, {
-        path: "/login",
-        render: function render() {
-          return _react.default.createElement(_loginView.LoginView, null);
-        }
-      }), _react.default.createElement(_reactRouterDom.Route, {
-        path: "/register",
-        render: function render() {
-          if (!user) return _react.default.createElement(_register.Register, {
-            onRegister: function onRegister(user) {
-              return _this3.onRegister(user);
-            }
-          });
-        }
-      })))
+      }))
       /* <div className="main-view">
       
        
@@ -38802,7 +38782,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52590" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59578" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

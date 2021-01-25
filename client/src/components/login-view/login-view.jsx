@@ -7,7 +7,12 @@ export function LoginView(props) {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
 
-const handleSubmit = (e) => {
+  const alternate = (e) => {
+    e.preventDefault();
+    window.open('/Register', '_self')
+  }
+
+  const handleSubmit = (e) => {
   e.preventDefault();
   axios.post('https://moviecat0l0gue.herokuapp.com/login', {
     Username: username,
@@ -16,6 +21,7 @@ const handleSubmit = (e) => {
   .then(response => {
     const data = response.data;
     console.log(data)
+    alternate();
     // props.onLoggedIn(data);
   })
   .catch(e => {
@@ -36,9 +42,7 @@ return (
       <Button variant="primary" type="submit" onClick={handleSubmit}>
         Submit
       </Button>
-      <Button variant="primary" type="submit" onClick={
-      window.open('/register', '_self')
-    }>
+      <Button variant="primary" type="submit" onClick={alternate}>
       Not Registered yet? Go here!
     </Button>
     </Form>

@@ -8,6 +8,11 @@ export function Register(props) {
   const [ email, setEmail ] = useState('');
   const [ birthday, setBirthday ] = useState('');
 
+  const alternate = (e) => {
+    e.preventDefault();
+    window.open('/login', '_self')
+  }
+
   const Registration = (e) => {
     e.preventDefault();
     axios.post('https://moviecat0l0gue.herokuapp.com/users', {
@@ -19,7 +24,8 @@ export function Register(props) {
     .then(function (response) {
       const data = response.data;
       console.log(data)
-      props.onRegister(data);
+      // props.onRegister(data);
+      window.open('/login', '_self')
     })
     .catch(function (error) {
       console.log(error);
@@ -47,12 +53,9 @@ return (
     <Button variant="primary" type="submit" onClick={Registration}>
       Submit
     </Button>
-    <Button variant="primary" type="submit" onClick={
-      window.open('/login', '_self')
-    }>
+    <Button variant="primary" type="submit" onClick={alternate}>
       Already Registered? Click Here?
     </Button>
-    
   </Form>
 );
 }

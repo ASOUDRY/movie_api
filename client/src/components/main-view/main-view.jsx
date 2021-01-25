@@ -28,7 +28,7 @@ export class MainView extends React.Component {
     this.setState({
       user: localStorage.getItem('user')
     });
-    this.getMovies(accessToken);
+    // this.getMovies(accessToken);
   }
 }
     
@@ -52,23 +52,23 @@ export class MainView extends React.Component {
         });
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', data.Username);
-        this.getMovies(data.token);
+        // this.getMovies(data.token);
     }
 
-      getMovies(token) {
-        axios.get('https://moviecat0l0gue.herokuapp.com/movies', {
-          headers: { Authorization: `Bearer ${token}`}
-        })
-        .then(response => {
-          // Assign the result to the state
-          this.setState({
-            movies: response.data
-          });
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      }
+      // getMovies(token) {
+      //   axios.get('https://moviecat0l0gue.herokuapp.com/movies', {
+      //     headers: { Authorization: `Bearer ${token}`}
+      //   })
+      //   .then(response => {
+      //     // Assign the result to the state
+      //     this.setState({
+      //       movies: response.data
+      //     });
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error);
+      //   });
+      // }
      
       render() {
     // If the state isn't initialized, this will throw on runtime
@@ -77,7 +77,7 @@ export class MainView extends React.Component {
 
     // if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
 
-    // if (!user) return <Register onRegister={user => this.onRegister(user)} />;
+    if (!user) return <Register onRegister={user => this.onRegister(user)} />;
 
     // Before the movies have been loaded
     if (!movies) return <div className="main-view"/>;
@@ -87,9 +87,9 @@ export class MainView extends React.Component {
       <Router>
         <div className="main-view">
         {/* <Route exact path="/" render={() => movies.map(m => <MovieCard key={m._id} movie={m}/>)}/> */}
-        <Route path="/register" render={() => {
-             if (!user) return <Register onRegister={user => this.onRegister(user)}/>;}}/>
-        <Route path="/login" render={() => <LoginView />}/>
+        {/* <Route path="/register" render={() => {
+             if (!user) return <Register onRegister={user => this.onRegister(user)}/>;}}/> */}
+        {/* <Route path="/login" render={() => <LoginView />}/> */}
         </div>
       </Router>
          /* <div className="main-view">

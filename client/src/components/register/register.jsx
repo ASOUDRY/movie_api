@@ -46,7 +46,13 @@ return (
     </Form.Group>
     <Button variant="primary" type="submit" onClick={Registration}>
       Submit
-      </Button>
+    </Button>
+    <Button variant="primary" type="submit" onClick={
+      window.open('/login', '_self')
+    }>
+      Already Registered? Click Here?
+    </Button>
+    
   </Form>
 );
 }

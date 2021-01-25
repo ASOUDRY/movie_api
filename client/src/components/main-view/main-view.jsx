@@ -1,9 +1,12 @@
 import React from 'react';
 import axios from 'axios';
+
+import { BrowserRouter as Router, Route} from "react-router-dom";
+
 import { LoginView } from '../login-view/login-view';
 import { Register } from '../register/register';
-import { MovieCard } from '../movie-card/movie-card.jsx';
-import { MovieView } from '../movie-view/movie-view';
+// import { MovieCard } from '../movie-card/movie-card.jsx';
+// import { MovieView } from '../movie-view/movie-view';
 
 export class MainView extends React.Component {
     constructor() {
@@ -70,7 +73,7 @@ export class MainView extends React.Component {
       render() {
     // If the state isn't initialized, this will throw on runtime
     // before the data is initially loaded
-    const { movies, selectedMovie, user} = this.state;
+    const { movies, user} = this.state;
 
     // if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
 
@@ -78,16 +81,46 @@ export class MainView extends React.Component {
 
     // Before the movies have been loaded
     if (!movies) return <div className="main-view"/>;
-  
+
+
     return (
-      <div className="main-view">
-       {selectedMovie
-          ? <MovieView movie={selectedMovie}/>
-          : movies.map(movie => (
-            <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)}/>
-          ))
-       }
-      </div>
-     );
-  }
-}
+      <Router>
+        <div className="main-view">
+        {/* <Route exact path="/" render={() => movies.map(m => <MovieCard key={m._id} movie={m}/>)}/> */}
+        <Route path="/login" render={() => <LoginView />}/>
+        <Route path="/register" render={() => {
+             if (!user) return <Register onRegister={user => this.onRegister(user)}/>;}}/>
+        </div>
+      </Router>
+         /* <div className="main-view">
+         
+          
+          <Route exact path="/" render={() => {
+            // if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+            // return movies.map(m => <MovieCard key={m._id} movie={m}/>)
+          }}/>
+          
+          <Route exact path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
+          <Route exact path="/genres/:name" render={/* genre view*/
+          /* <Route exact path="/:directors/:name" render={({ match }) => {
+            if (!movies) return <div className="main-view"/>;
+            return <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director}/>}
+         </div> */
+    );
+  }}
+
+  
+//     return (
+//       <Router>
+//         <div className="main-view">
+//        {selectedMovie
+//           ? <MovieView movie={selectedMovie}/>
+//           : movies.map(movie => (
+//             <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)}/>
+//           )){
+//        }
+//       </div>
+//       </Router>
+//      );
+//   }
+// }

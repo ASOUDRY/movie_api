@@ -28,18 +28,7 @@ export class MainView extends React.Component {
     this.getMovies(accessToken);
   }
 }
-      // axios fetches the movie end point from heroku
-      // axios.get('https://moviecat0l0gue.herokuapp.com/movies')
-      //     .then(response => {
-      //       // Assign the result to the state
-      //       this.setState({
-      //         movies: response.data
-      //       });
-      //     })
-      //     .catch(function (error) {
-      //       console.log(error);
-      //     });
-      //   }
+
     
       // onMovieClick(movie) {
       //   this.setState({
@@ -53,21 +42,21 @@ export class MainView extends React.Component {
       //   });
       // }
 
-      // onRegister(user) {
-      //   this.setState({
-      //     user
-      //   });
-      // }
-
-      onRegister(data) {
-        console.log(data)
+      onRegister(user) {
         this.setState({
-          user: data.username
+          user
         });
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('user', data.username);
-        this.getMovies(data.token);
       }
+
+      // onRegister(data) {
+      //   console.log(data)
+      //   this.setState({
+      //     user: data.username
+      //   });
+      //   localStorage.setItem('token', data.token);
+      //   localStorage.setItem('user', data.username);
+      //   this.getMovies(data.token);
+      // }
 
 
       // onLoggedIn(authData) {
@@ -83,7 +72,7 @@ export class MainView extends React.Component {
 
       getMovies(token) {
         axios.get('https://moviecat0l0gue.herokuapp.com/movies', {
-          headers: { Authorization: `Bearer ${token}`}
+          // headers: { Authorization: `Bearer ${token}`}
         })
         .then(response => {
           // Assign the result to the state

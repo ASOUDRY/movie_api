@@ -18,6 +18,7 @@ export function Register(props) {
     })
     .then(function (response) {
       const data = response.data;
+      console.log(data)
       props.onRegister(data);
     })
     .catch(function (error) {

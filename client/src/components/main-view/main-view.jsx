@@ -44,17 +44,17 @@ export class MainView extends React.Component {
       
    onRegister(data) {
       console.log(data.Username)
-        // this.setState({
-        //   user: data.username
-        // });
-        // localStorage.setItem('token', data.token);
-        // localStorage.setItem('user', data.username);
-        // this.getMovies(data.token);
+        this.setState({
+          user: data.Username
+        });
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', data.Username);
+        this.getMovies(data.token);
     }
 
       getMovies(token) {
         axios.get('https://moviecat0l0gue.herokuapp.com/movies', {
-          // headers: { Authorization: `Bearer ${token}`}
+          headers: { Authorization: `Bearer ${token}`}
         })
         .then(response => {
           // Assign the result to the state

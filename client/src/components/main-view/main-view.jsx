@@ -62,10 +62,10 @@ export class MainView extends React.Component {
       onRegister(data) {
         console.log(data)
         this.setState({
-          user: data.user.name
+          user: data.username
         });
         localStorage.setItem('token', data.token);
-        localStorage.setItem('user', data.user.name);
+        localStorage.setItem('user', data.username);
         this.getMovies(data.token);
       }
 

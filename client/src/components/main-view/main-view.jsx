@@ -31,21 +31,17 @@ export class MainView extends React.Component {
     this.getMovies(accessToken);
   }
 }
-     
 
-   test() {
-     console.log("test has been passed.")
-   }
 
-  //  Log(data) {
-  //     console.log(data.Username)
-  //       this.setState({
-  //         user: data.Username
-  //       });
-  //       localStorage.setItem('token', data.token);
-  //       localStorage.setItem('user', data.Username);
-  //       this.getMovies(data.token);
-  //   }
+   loggingIn(data) {
+      console.log(data.Username)
+        this.setState({
+          user: data.Username
+        });
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', data.Username);
+        this.getMovies(data.token);
+    }
 
       getMovies(token) {
         axios.get('https://moviecat0l0gue.herokuapp.com/movies', {

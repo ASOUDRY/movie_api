@@ -38303,9 +38303,10 @@ function LoginView(props) {
       Password: password
     }).then(function (response) {
       var data = response.data;
-      console.log(data); // props.Log(data);
-    }).catch(function (e) {
-      console.log('There has been a error.');
+      console.log(data);
+      props.loggingIn(data);
+    }).catch(function (error) {
+      console.log(error);
     });
   };
 
@@ -38407,8 +38408,7 @@ function Register(props) {
       Birthday: birthday
     }).then(function (response) {
       var data = response.data;
-      console.log(data); // props.onRegister(data);
-
+      console.log(data);
       window.open('/login', '_self');
     }).catch(function (error) {
       console.log(error);
@@ -52534,19 +52534,16 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       }
     }
   }, {
-    key: "test",
-    value: function test() {
-      console.log("test has been passed.");
-    } //  Log(data) {
-    //     console.log(data.Username)
-    //       this.setState({
-    //         user: data.Username
-    //       });
-    //       localStorage.setItem('token', data.token);
-    //       localStorage.setItem('user', data.Username);
-    //       this.getMovies(data.token);
-    //   }
-
+    key: "loggingIn",
+    value: function loggingIn(data) {
+      console.log(data.Username);
+      this.setState({
+        user: data.Username
+      });
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', data.Username);
+      this.getMovies(data.token);
+    }
   }, {
     key: "getMovies",
     value: function getMovies(token) {

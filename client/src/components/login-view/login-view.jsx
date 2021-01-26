@@ -21,10 +21,10 @@ export function LoginView(props) {
   .then(response => {
     const data = response.data;
     console.log(data)
-    // props.Log(data);
+    props.loggingIn(data);
   })
-  .catch(e => {
-  console.log('There has been a error.')
+  .catch(function (error) {
+    console.log(error);
   });
 };
 

@@ -12,16 +12,17 @@ export function LoginView(props) {
     window.open('/Register', '_self')
   }
 
+  
   const handleSubmit = (e) => {
   e.preventDefault();
-  axios.post('https://moviecat0l0gue.herokuapp.com/login', {
+  axios.post(`https://moviecat0l0gue.herokuapp.com/login`, {
     Username: username,
     Password: password
   })
   .then(response => {
     const data = response.data;
-    console.log(data)
-    props.loggingIn(data);
+    console.log("functioning")
+    props.onLoggedIn(data);
   })
   .catch(function (error) {
     console.log(error);

@@ -33,7 +33,7 @@ export class MainView extends React.Component {
 }
 
 
-   loggingIn(data) {
+onLoggedIn(data) {
       console.log(data.Username)
         this.setState({
           user: data.Username

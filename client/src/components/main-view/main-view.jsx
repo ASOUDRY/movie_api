@@ -62,7 +62,7 @@ export class MainView extends React.Component {
     // before the data is initially loaded
     const { movies, user} = this.state;
 
-    if (!user) return <LoginView Log={user => this.log(user)} />;
+    
 
     // return <Register onRegister={user => this.onRegister(user)} />;
 
@@ -75,8 +75,8 @@ export class MainView extends React.Component {
         <div className="main-view">
         {/* <Route exact path="/" render={() => movies.map(m => <MovieCard key={m._id} movie={m}/>)}/> */}
         <Route path="/login" render={() => {
-          console.log("login is working");
-          return <LoginView />
+          console.log("login is working");     
+          if (!user) return <LoginView Log={user => this.log(user)} />;
         }} />
         <Route path="/Register" render={() => {
             //  if (!user) 

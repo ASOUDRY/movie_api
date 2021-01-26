@@ -38303,10 +38303,9 @@ function LoginView(props) {
       Password: password
     }).then(function (response) {
       var data = response.data;
-      console.log(data);
-      props.Log(data);
+      console.log(data); // props.Log(data);
     }).catch(function (e) {
-      console.log('no user found');
+      console.log('There has been a error.');
     });
   };
 
@@ -52535,16 +52534,19 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       }
     }
   }, {
-    key: "Log",
-    value: function Log(data) {
-      console.log(data.Username);
-      this.setState({
-        user: data.Username
-      });
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', data.Username);
-      this.getMovies(data.token);
-    }
+    key: "test",
+    value: function test() {
+      console.log("test has been passed.");
+    } //  Log(data) {
+    //     console.log(data.Username)
+    //       this.setState({
+    //         user: data.Username
+    //       });
+    //       localStorage.setItem('token', data.token);
+    //       localStorage.setItem('user', data.Username);
+    //       this.getMovies(data.token);
+    //   }
+
   }, {
     key: "getMovies",
     value: function getMovies(token) {
@@ -52566,8 +52568,6 @@ var MainView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
-
       // If the state isn't initialized, this will throw on runtime
       // before the data is initially loaded
       var _this$state = this.state,
@@ -52582,11 +52582,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         path: "/login",
         render: function render() {
           console.log("login is working");
-          if (!user) return _react.default.createElement(_loginView.LoginView, {
-            Log: function Log(user) {
-              return _this3.log(user);
-            }
-          });
+          if (!user) return _react.default.createElement(_loginView.LoginView, null); // Log={user => this.log(user)} />;
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         path: "/Register",

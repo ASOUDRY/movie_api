@@ -52566,12 +52566,18 @@ var MainView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this3 = this;
+
       // If the state isn't initialized, this will throw on runtime
       // before the data is initially loaded
       var _this$state = this.state,
           movies = _this$state.movies,
-          user = _this$state.user; // if (!user) return <LoginView Log={user => this.onLoggedIn(user)} />;
-      // return <Register onRegister={user => this.onRegister(user)} />;
+          user = _this$state.user;
+      if (!user) return _react.default.createElement(_loginView.LoginView, {
+        Log: function Log(user) {
+          return _this3.log(user);
+        }
+      }); // return <Register onRegister={user => this.onRegister(user)} />;
       // // Before the movies have been loaded
       // if (!movies) return <div className="main-view"/>;
 

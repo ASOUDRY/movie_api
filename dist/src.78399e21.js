@@ -52572,12 +52572,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       // before the data is initially loaded
       var _this$state = this.state,
           movies = _this$state.movies,
-          user = _this$state.user;
-      if (!user) return _react.default.createElement(_loginView.LoginView, {
-        Log: function Log(user) {
-          return _this3.log(user);
-        }
-      }); // return <Register onRegister={user => this.onRegister(user)} />;
+          user = _this$state.user; // return <Register onRegister={user => this.onRegister(user)} />;
       // // Before the movies have been loaded
       // if (!movies) return <div className="main-view"/>;
 
@@ -52587,7 +52582,11 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         path: "/login",
         render: function render() {
           console.log("login is working");
-          return _react.default.createElement(_loginView.LoginView, null);
+          if (!user) return _react.default.createElement(_loginView.LoginView, {
+            Log: function Log(user) {
+              return _this3.log(user);
+            }
+          });
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         path: "/Register",

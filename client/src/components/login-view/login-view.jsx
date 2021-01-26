@@ -21,7 +21,7 @@ export function LoginView(props) {
   .then(response => {
     const data = response.data;
     console.log(data)
-    props.onLoggedIn(data);
+    props.Log(data);
   })
   .catch(e => {
   console.log('no user found')

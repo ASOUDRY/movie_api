@@ -38304,7 +38304,7 @@ function LoginView(props) {
     }).then(function (response) {
       var data = response.data;
       console.log(data);
-      props.onLoggedIn(data);
+      props.Log(data);
     }).catch(function (e) {
       console.log('no user found');
     });
@@ -52535,8 +52535,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       }
     }
   }, {
-    key: "onLoggedIn",
-    value: function onLoggedIn(data) {
+    key: "Log",
+    value: function Log(data) {
       console.log(data.Username);
       this.setState({
         user: data.Username
@@ -52570,8 +52570,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       // before the data is initially loaded
       var _this$state = this.state,
           movies = _this$state.movies,
-          user = _this$state.user; // if (!user) return <LoginView />
-      // onLoggedIn={user => this.onLoggedIn(user)} />;
+          user = _this$state.user; // if (!user) return <LoginView Log={user => this.onLoggedIn(user)} />;
       // return <Register onRegister={user => this.onRegister(user)} />;
       // // Before the movies have been loaded
       // if (!movies) return <div className="main-view"/>;

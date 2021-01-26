@@ -32,15 +32,20 @@ export class MainView extends React.Component {
   }
 }
      
-   Log(data) {
-      console.log(data.Username)
-        this.setState({
-          user: data.Username
-        });
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('user', data.Username);
-        this.getMovies(data.token);
-    }
+
+   test() {
+     console.log("test has been passed.")
+   }
+
+  //  Log(data) {
+  //     console.log(data.Username)
+  //       this.setState({
+  //         user: data.Username
+  //       });
+  //       localStorage.setItem('token', data.token);
+  //       localStorage.setItem('user', data.Username);
+  //       this.getMovies(data.token);
+  //   }
 
       getMovies(token) {
         axios.get('https://moviecat0l0gue.herokuapp.com/movies', {
@@ -76,7 +81,8 @@ export class MainView extends React.Component {
         {/* <Route exact path="/" render={() => movies.map(m => <MovieCard key={m._id} movie={m}/>)}/> */}
         <Route path="/login" render={() => {
           console.log("login is working");     
-          if (!user) return <LoginView Log={user => this.log(user)} />;
+          if (!user) return <LoginView />
+          // Log={user => this.log(user)} />;
         }} />
         <Route path="/Register" render={() => {
             //  if (!user) 

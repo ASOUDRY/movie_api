@@ -21,10 +21,10 @@ export function LoginView(props) {
   .then(response => {
     const data = response.data;
     console.log(data)
-    props.Log(data);
+    // props.Log(data);
   })
   .catch(e => {
-  console.log('no user found')
+  console.log('There has been a error.')
   });
 };
 

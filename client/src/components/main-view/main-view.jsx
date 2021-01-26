@@ -5,8 +5,8 @@ import { BrowserRouter as Router, Route} from "react-router-dom";
 
 import { LoginView } from '../login-view/login-view';
 import { Register } from '../register/register';
-// import { MovieCard } from '../movie-card/movie-card.jsx';
-// import { MovieView } from '../movie-view/movie-view';
+import { MovieCard } from '../movie-card/movie-card.jsx';
+import { MovieView } from '../movie-view/movie-view';
 
 export class MainView extends React.Component {
     constructor() {
@@ -28,47 +28,34 @@ export class MainView extends React.Component {
     this.setState({
       user: localStorage.getItem('user')
     });
-    // this.getMovies(accessToken);
+    this.getMovies(accessToken);
   }
 }
-    
-      // onMovieClick(movie) {
-      //   this.setState({
-      //     selectedMovie: movie
-      //   });
-      // }
+     
+   onLoggedIn(data) {
+      console.log(data.Username)
+        this.setState({
+          user: data.Username
+        });
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', data.Username);
+        this.getMovies(data.token);
+    }
 
-      // onLoggedIn(user) {
-      //   this.setState({
-      //     user
-      //   });
-      // }
-
-      
-  //  onRegister(data) {
-  //     console.log(data.Username)
-  //       this.setState({
-  //         user: data.Username
-  //       });
-  //       localStorage.setItem('token', data.token);
-  //       localStorage.setItem('user', data.Username);
-  //       // this.getMovies(data.token);
-  //   }
-
-      // getMovies(token) {
-      //   axios.get('https://moviecat0l0gue.herokuapp.com/movies', {
-      //     headers: { Authorization: `Bearer ${token}`}
-      //   })
-      //   .then(response => {
-      //     // Assign the result to the state
-      //     this.setState({
-      //       movies: response.data
-      //     });
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error);
-      //   });
-      // }
+      getMovies(token) {
+        axios.get('https://moviecat0l0gue.herokuapp.com/movies', {
+          headers: { Authorization: `Bearer ${token}`}
+        })
+        .then(response => {
+          // Assign the result to the state
+          this.setState({
+            movies: response.data
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      }
      
       render() {
     // If the state isn't initialized, this will throw on runtime
@@ -100,6 +87,8 @@ export class MainView extends React.Component {
             }}
              />
         </div>
+
+        
       </Router>
          /* <div className="main-view">
          

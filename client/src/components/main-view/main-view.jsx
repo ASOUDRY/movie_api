@@ -62,7 +62,7 @@ export class MainView extends React.Component {
     // before the data is initially loaded
     const { movies, user} = this.state;
 
-    // if (!user) return <LoginView Log={user => this.onLoggedIn(user)} />;
+    if (!user) return <LoginView Log={user => this.log(user)} />;
 
     // return <Register onRegister={user => this.onRegister(user)} />;
 

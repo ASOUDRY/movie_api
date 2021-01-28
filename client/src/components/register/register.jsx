@@ -24,6 +24,7 @@ export function Register(props) {
     .then(function (response) {
       const data = response.data;
       console.log(data)
+      props.test(data);
       window.open('/login', '_self')
     })
     .catch(function (error) {

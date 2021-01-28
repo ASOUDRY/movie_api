@@ -32,6 +32,9 @@ export class MainView extends React.Component {
   }
 }
 
+test(test) {
+  console.log(test);
+}
 
 onLoggedIn(data) {
       console.log(data.Username)

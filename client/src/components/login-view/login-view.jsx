@@ -20,8 +20,6 @@ export function LoginView(props) {
   })
   .then(response => {
     const data = response.data;
-    console.log("functioning")
-    console.log("props.onLoggedIn", props.onLoggedIn)
     props.onLoggedIn(data);
   })
   .catch(function (error) {

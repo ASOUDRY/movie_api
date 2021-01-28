@@ -32,10 +32,6 @@ export class MainView extends React.Component {
   }
 }
 
-test(test) {
-  console.log(test);
-}
-
 onLoggedIn(data) {
       console.log(data.Username)
         this.setState({
@@ -66,10 +62,6 @@ onLoggedIn(data) {
     // before the data is initially loaded
     const { movies, user} = this.state;
 
-    
-
-    // return <Register onRegister={user => this.onRegister(user)} />;
-
     // // Before the movies have been loaded
     // if (!movies) return <div className="main-view"/>;
 
@@ -80,34 +72,11 @@ onLoggedIn(data) {
         {/* <Route exact path="/" render={() => movies.map(m => <MovieCard key={m._id} movie={m}/>)}/> */}
         <Route path="/login" render={() => {
           console.log("login is working");     
-          if (!user) return <LoginView />
-          // Log={user => this.log(user)} />;
+          if (!user) return <LoginView onLoggedIn={data => this.onLoggedIn(data)} />
         }} />
-        <Route path="/Register" render={() => {
-            //  if (!user) 
-             return <Register 
-            //  onRegister={user => this.onRegister(user)}
-             />;
-            }}
-             />
+        <Route path="/Register" render={() => {return <Register/>;}}/>
         </div>
-
-
-      </Router>
-         /* <div className="main-view">
-         
-          
-          <Route exact path="/" render={() => {
-            // if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-            // return movies.map(m => <MovieCard key={m._id} movie={m}/>)
-          }}/>
-          
-          <Route exact path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
-          <Route exact path="/genres/:name" render={/* genre view*/
-          /* <Route exact path="/:directors/:name" render={({ match }) => {
-            if (!movies) return <div className="main-view"/>;
-            return <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director}/>}
-         </div> */
+      </Router>        
     );
   }}
 
@@ -126,3 +95,19 @@ onLoggedIn(data) {
 //      );
 //   }
 // }
+
+
+/* <div className="main-view">
+         
+          
+          <Route exact path="/" render={() => {
+            // if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+            // return movies.map(m => <MovieCard key={m._id} movie={m}/>)
+          }}/>
+          
+          <Route exact path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
+          <Route exact path="/genres/:name" render={/* genre view*/
+          /* <Route exact path="/:directors/:name" render={({ match }) => {
+            if (!movies) return <div className="main-view"/>;
+            return <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director}/>}
+         </div> */

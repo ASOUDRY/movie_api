@@ -11,7 +11,6 @@ export function LoginView(props) {
     e.preventDefault();
     window.open('/Register', '_self')
   }
-
   
   const handleSubmit = (e) => {
   e.preventDefault();

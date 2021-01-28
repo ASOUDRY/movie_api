@@ -9,10 +9,10 @@ import { MovieCard } from '../movie-card/movie-card.jsx';
 import { MovieView } from '../movie-view/movie-view';
 
 export class MainView extends React.Component {
-    constructor() {
+    constructor(props) {
       // Call the superclass constructor
       // so React can initialize it
-      super();
+      super(props);
   
       // Initialize the state to an empty object so we can destructure it later
       this.state = {

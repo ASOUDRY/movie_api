@@ -46,7 +46,7 @@ return (
       <Form.Control type="text" placeholder="Enter a email address please" value={email} onChange={e => setEmail(e.target.value)} />
     </Form.Group>
     <Form.Group controlId="formBirthday">
-      <Form.Label>Password</Form.Label>
+      <Form.Label>Birthdate</Form.Label>
       <Form.Control type="Date" placeholder="Enter your birthday" value={birthday} onChange={e => setBirthday(e.target.value)} />
     </Form.Group>
     <Button variant="primary" type="submit" onClick={Registration}>

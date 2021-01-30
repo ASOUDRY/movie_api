@@ -18,7 +18,7 @@ export function Profile() {
     console.log(user);
     console.log(token);
     axios.put(`https://moviecat0l0gue.herokuapp.com/users/${user}`, {
-      // headers: { Authorization: `Bearer ${token} `},
+      headers: { Authorization: `Bearer ${token} `},
       Username: username,
       Password: password,
       Email: email,

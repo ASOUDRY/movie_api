@@ -13,6 +13,7 @@ export function Profile() {
 
   const Update = (e) => {
     e.preventDefault();
+    console.log(username);
     const user = localStorage.getItem('user');
     const token = localStorage.getItem('token');
     axios.put(`https://moviecat0l0gue.herokuapp.com/users/JustaTest`, {
@@ -24,7 +25,7 @@ export function Profile() {
       headers: { Authorization: `Bearer ${token}`}
     })
     .then(() => {
-      console.log("Updated");
+      onUpdated();
     })
     .catch(error => {
       console.log(error);

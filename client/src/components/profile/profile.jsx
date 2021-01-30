@@ -14,11 +14,11 @@ export function Profile() {
   const Update = (e) => {
     e.preventDefault();
     const user = localStorage.getItem('user');
-    const token = window.localStorage.getItem('token');
+    const token = localStorage.getItem('token');
     console.log(user);
     console.log(token);
     axios.put(`https://moviecat0l0gue.herokuapp.com/users/${user}`, {
-      headers: { Authorization: `Bearer ${token}`},
+      // headers: { Authorization: `Bearer ${token} `},
       Username: username,
       Password: password,
       Email: email,

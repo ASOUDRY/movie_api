@@ -1,15 +1,10 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 
+import { Link } from "react-router-dom";
+
 // The movie info that is accessed via the click
 export class MovieView extends React.Component {
-
-  constructor() {
-    super();
-
-    this.state = {};
-  }
-
   render() {
     const { movie } = this.props;
   
@@ -37,7 +32,9 @@ export class MovieView extends React.Component {
           <span className="value">{movie.Director.Name}</span>
         </div>
         <div className="BackButton">
-          <Button onClick = {() => window.open("mainView", "_self")}>Back to List</Button>
+        <Link to={`/login`}>
+            <Button variant="link">Return</Button>
+        </Link>
         </div>
        </div>
     );

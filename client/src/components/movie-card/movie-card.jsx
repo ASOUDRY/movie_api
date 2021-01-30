@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import { Button, Card, Container, CardColumns } from 'react-bootstrap';
 import './movie-card.scss';
 
+import { Link } from "react-router-dom";
+
 export class MovieCard extends React.Component {
   render() {
     // This is given to the <MovieCard/> component by the outer world
     // which, in this case, is `MainView`, as `MainView` is what’s
     // connected to your database via the movies endpoint of your API
-    const { movies, movie, onClick} = this.props;
+    const { movie } = this.props;
     // A actual onclick function that is clicked on.
     return (
       <Container>
@@ -18,97 +20,16 @@ export class MovieCard extends React.Component {
       <Card.Body>
         <Card.Title>{movie.Title}</Card.Title>
         <Card.Text>{movie.Description}</Card.Text>
-        <Button onClick={() => onClick(movie)} variant="link">Open</Button>
+        <Link to={`/movies/${movie._id}`}>
+            <Button variant="link">Open</Button>
+        </Link>
       </Card.Body>
       </Card>
         </CardColumns>       
       </Container>
-
-     
-    
     )
   }
 }
-//      {
-//       movies.map(movie => (
-//         <CardColumns>
-//         <Card>
-//           <Card.Body>
-//           <Card.Title>{movie.Title}</Card.Title>
-//               <Card.Text>{movie.Description}</Card.Text>
-//               <Button onClick={() => onClick(movie)} variant="link">Open</Button>
-//           </Card.Body>
-//         </Card>
-//         <Card>
-//           <Card.Body>
-//           <Card.Title>{movie.Title}</Card.Title>
-//               <Card.Text>{movie.Description}</Card.Text>
-//               <Button onClick={() => onClick(movie)} variant="link">Open</Button>
-//           </Card.Body>
-//         </Card>
-//     <Card>
-//           <Card.Body>
-//           <Card.Title>{movie.Title}</Card.Title>
-//               <Card.Text>{movie.Description}</Card.Text>
-//               <Button onClick={() => onClick(movie)} variant="link">Open</Button>
-//           </Card.Body>
-//         </Card>
-//     <Card>
-//           <Card.Body>
-//           <Card.Title>{movie.Title}</Card.Title>
-//               <Card.Text>{movie.Description}</Card.Text>
-//               <Button onClick={() => onClick(movie)} variant="link">Open</Button>
-//           </Card.Body>
-//         </Card>
-//     <Card>
-//           <Card.Body>
-//           <Card.Title>{movie.Title}</Card.Title>
-//               <Card.Text>{movie.Description}</Card.Text>
-//               <Button onClick={() => onClick(movie)} variant="link">Open</Button>
-//           </Card.Body>
-//         </Card>
-//         <Card>
-//           <Card.Body>
-//           <Card.Title>{movie.Title}</Card.Title>
-//               <Card.Text>{movie.Description}</Card.Text>
-//               <Button onClick={() => onClick(movie)} variant="link">Open</Button>
-//           </Card.Body>
-//         </Card>
-//         <Card>
-//           <Card.Body>
-//           <Card.Title>{movie.Title}</Card.Title>
-//               <Card.Text>{movie.Description}</Card.Text>
-//               <Button onClick={() => onClick(movie)} variant="link">Open</Button>
-//           </Card.Body>
-//         </Card>
-//         <Card>
-//           <Card.Body>
-//           <Card.Title>{movie.Title}</Card.Title>
-//               <Card.Text>{movie.Description}</Card.Text>
-//               <Button onClick={() => onClick(movie)} variant="link">Open</Button>
-//           </Card.Body>
-//         </Card>
-//         <Card>
-//           <Card.Body>
-//           <Card.Title>{movie.Title}</Card.Title>
-//               <Card.Text>{movie.Description}</Card.Text>
-//               <Button onClick={() => onClick(movie)} variant="link">Open</Button>
-//           </Card.Body>
-//         </Card>
-//         <Card>
-//           <Card.Body>
-//           <Card.Title>{movie.Title}</Card.Title>
-//               <Card.Text>{movie.Description}</Card.Text>
-//               <Button onClick={() => onClick(movie)} variant="link">Open</Button>
-//           </Card.Body>
-//         </Card>
-//         </CardColumns>
-//       ))
-//     }
-//     )
-//   }
-// }
-
 
 MovieCard.propTypes = {
   movie: PropTypes.shape({
@@ -119,5 +40,4 @@ MovieCard.propTypes = {
     ImagePath: PropTypes.string,
     Featured: PropTypes.bool
   }).isRequired,
-  onClick: PropTypes.func.isRequired
 };

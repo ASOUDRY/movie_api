@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export function Profile() {
   const [ username, setUsername ] = useState('');
@@ -15,14 +15,13 @@ export function Profile() {
     e.preventDefault();
     const user = localStorage.getItem('user');
     const token = localStorage.getItem('token');
-    console.log(user);
-    console.log(token);
-    axios.put(`https://moviecat0l0gue.herokuapp.com/users/${user}`, {
-      headers: { Authorization: `Bearer ${token} `},
+    axios.put(`https://moviecat0l0gue.herokuapp.com/users/JustaTest`, {
       Username: username,
       Password: password,
       Email: email,
       Birthday: birthday
+  }, {
+      headers: { Authorization: `Bearer ${token}`}
     })
     .then(() => {
       console.log("Updated");
@@ -31,10 +30,15 @@ export function Profile() {
       console.log(error);
     })}
 
-    const test = (e) => {
+    const Clear = (e) => {
+      // console.log(token);
       e.preventDefault();
-      const test1 = window.localStorage.getItem('token');
-      console.log(test1);
+      window.localStorage.removeItem("token");
+      window.localStorage.removeItem("user");
+      // console.log(token);
+      // window.localStorage.removeItem(token);
+      // localStorage.clear;
+      window.open('/login', '_self')
     }
 
     return (
@@ -59,8 +63,7 @@ export function Profile() {
           <Form.Check type="checkbox" label="Check me out" />
         </Form.Group>
         <Button variant="primary" type="submit" onClick={Update}> Submit </Button>
-        <Button variant="primary" type="submit"> LogOut </Button>
-        <Button variant="primary" type="submit" onClick={test}> Testing Button </Button>
+        <Button variant="primary" type="submit" onClick={Clear}> Clear </Button>
       </Form>
     )
 }

@@ -41,6 +41,10 @@ export class MainView extends React.Component {
             this.getMovies(data.token);
         }
 
+    onUpdated() {
+      console.log("testing");
+    }
+
     getMovies(token) {
       axios.get('https://moviecat0l0gue.herokuapp.com/movies', {
         headers: { Authorization: `Bearer ${token}`}
@@ -55,7 +59,6 @@ export class MainView extends React.Component {
           console.log(error);
       });
     }
-     
       render() {
     // If the state isn't initialized, this will throw on runtime
     // before the data is initially loaded
@@ -82,9 +85,6 @@ export class MainView extends React.Component {
         <Nav.Link eventKey="link-3">Profile</Nav.Link>
       </Nav.Item>
     </Nav>
-
-
-
       <Router>
         <div className="main-view">
         <Route path="/login" render={() => {
@@ -93,7 +93,7 @@ export class MainView extends React.Component {
         }} />
         <Route path="/Register" render={() => {return <Register/>;}}/>
         <Route exact path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
-        <Route path="/users/:Username" render={() => {return <Profile/>;}}/>
+        <Route path='/users/:username' render={() => {return <Profile onUpdated={() => this.onUpdated()}/>;}}/>
         </div>
       </Router>     
 

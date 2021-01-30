@@ -1,8 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-
 import { BrowserRouter as Router, Route} from "react-router-dom";
-
+import Nav from 'react-bootstrap/Nav'
 import { LoginView } from '../login-view/login-view';
 import { Register } from '../register/register';
 import { MovieCard } from '../movie-card/movie-card.jsx';
@@ -63,6 +62,29 @@ export class MainView extends React.Component {
     const { movies, user} = this.state;
 
     return (
+      <div className="SuperDiv">
+
+
+<Nav
+      activeKey="/home"
+      onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
+    >
+      <Nav.Item>
+        <Nav.Link href="/login">Movies</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link eventKey="link-1">Director</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link eventKey="link-2">Genre</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link eventKey="link-3">Profile</Nav.Link>
+      </Nav.Item>
+    </Nav>
+
+
+
       <Router>
         <div className="main-view">
         <Route path="/login" render={() => {
@@ -73,6 +95,9 @@ export class MainView extends React.Component {
         <Route exact path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
         <Route path="/users/:Username" render={() => {return <Profile/>;}}/>
         </div>
-      </Router>        
+      </Router>     
+
+      </div>
+         
     );
   }}

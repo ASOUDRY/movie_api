@@ -4,7 +4,7 @@ import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import { Link } from "react-router-dom";
 
-export function Profile() {
+export function Profile(props) {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
   const [ email, setEmail ] = useState('');
@@ -25,7 +25,7 @@ export function Profile() {
       headers: { Authorization: `Bearer ${token}`}
     })
     .then((username) => {
-      update(username);
+      props.update(username);
     })
     .catch(error => {
       console.log(error);

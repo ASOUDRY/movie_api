@@ -84,7 +84,7 @@ app.get('/movies/K', passport.authenticate('jwt', {session: false}), (req, res) 
 });
 
 app.get('/V', passport.authenticate('jwt', {session: false}), (req, res) => {
-  Movies.find({Title: "Testing"})
+  Movies.find({Tag: "K"})
     .then((movies) => {
       res.json(movies);
     })

@@ -7,6 +7,7 @@ import { Register } from '../register/register';
 import { MovieCard } from '../movie-card/movie-card.jsx';
 import { MovieView } from '../movie-view/movie-view';
 import { Profile } from '../profile/profile';
+import { LinkContainer } from "react-router-bootstrap";
 
 export class MainView extends React.Component {
     constructor() {
@@ -42,7 +43,12 @@ export class MainView extends React.Component {
         }
 
     update(data) {
-      console.log(data);
+      console.log(data + "is the username here!");
+      this.setState({
+        user: data
+      })
+      localStorage.removeItem("user")
+      localStorage.setItem('user', data);
     }
 
     getMovies(token) {
@@ -64,27 +70,27 @@ export class MainView extends React.Component {
     // before the data is initially loaded
     const { movies, user} = this.state;
 
+    const url = localStorage.getItem('user')
+    console.log(url);
+
+    // const userId = localStorage.getItem('user');
+    console.log(user);
     return (
       <div className="SuperDiv">
-
-
-<Nav
-      activeKey="/home"
-      onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
-    >
-      <Nav.Item>
-        <Nav.Link href="/login">Movies</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link eventKey="link-1">Director</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link eventKey="link-2">Genre</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link eventKey="link-3">Profile</Nav.Link>
-      </Nav.Item>
-    </Nav>
+        <Nav activeKey={window.location.pathname} onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}>
+          <Nav.Item>
+          <Nav.Link href="/login" >Movies</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link>Director</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link>Genre</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link href="/users/Profile">Profile</Nav.Link>
+          </Nav.Item>
+       </Nav>
       <Router>
         <div className="main-view">
         <Route path="/login" render={() => {
@@ -93,7 +99,7 @@ export class MainView extends React.Component {
         }} />
         <Route path="/Register" render={() => {return <Register/>;}}/>
         <Route exact path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
-        <Route path='/users/:username' render={() => {
+        <Route path='/users/Profile' render={() => {
           return <Profile update={(data) => this.update(data)}/>
         }} />
         </div>

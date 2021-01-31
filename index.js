@@ -61,6 +61,19 @@ app.get('/movies/:Genre/:Title', passport.authenticate('jwt', {session: false}),
     });
 });
 
+
+app.get('/Genre', passport.authenticate('jwt', {session: false}), (req, res) => {
+  Genres.find()
+    .then((genre) => {
+      res.json(genre);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
+
 app.get('/Genre/:Name', passport.authenticate('jwt', {session: false}), (req, res) => {
   Genres.findOne({ Name: req.params.Name })
     .then((name) => {

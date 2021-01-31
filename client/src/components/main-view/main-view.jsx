@@ -41,8 +41,8 @@ export class MainView extends React.Component {
             this.getMovies(data.token);
         }
 
-    onUpdated() {
-      console.log("testing");
+    onUpdated(data) {
+      console.log(data);
     }
 
     getMovies(token) {
@@ -93,7 +93,9 @@ export class MainView extends React.Component {
         }} />
         <Route path="/Register" render={() => {return <Register/>;}}/>
         <Route exact path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
-        <Route path='/users/:username' render={() => {return <Profile onUpdated={() => this.onUpdated()}/>;}}/>
+        <Route path='/users/:username' render={() => {
+          return <Profile update={(data) => this.update(data)}/>
+        }} />
         </div>
       </Router>     
 

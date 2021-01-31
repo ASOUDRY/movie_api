@@ -16,7 +16,7 @@ export function Profile() {
     console.log(username);
     const user = localStorage.getItem('user');
     const token = localStorage.getItem('token');
-    axios.put(`https://moviecat0l0gue.herokuapp.com/users/JustaTest`, {
+    axios.put(`https://moviecat0l0gue.herokuapp.com/users/Testing123`, {
       Username: username,
       Password: password,
       Email: email,
@@ -24,8 +24,8 @@ export function Profile() {
   }, {
       headers: { Authorization: `Bearer ${token}`}
     })
-    .then(() => {
-      onUpdated();
+    .then((username) => {
+      update(username);
     })
     .catch(error => {
       console.log(error);

@@ -41,7 +41,7 @@ export class MainView extends React.Component {
             this.getMovies(data.token);
         }
 
-    onUpdated(data) {
+    update(data) {
       console.log(data);
     }
 

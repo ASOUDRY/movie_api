@@ -62,7 +62,7 @@ app.get('/movies/:Genre/:Title', passport.authenticate('jwt', {session: false}),
 });
 
 app.get('/movies/:Genre', passport.authenticate('jwt', {session: false}), (req, res) => {
-  Movies.find({Genre: {Name: req.params.Genre}})
+  Movies.find({Name: Kaiju})
     .then((movies) => {
       res.json(movies);
     })

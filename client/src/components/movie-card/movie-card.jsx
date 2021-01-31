@@ -12,6 +12,7 @@ export class MovieCard extends React.Component {
     // connected to your database via the movies endpoint of your API
     const { movie } = this.props;
     // A actual onclick function that is clicked on.
+
     return (
       <Container>
         <CardColumns>

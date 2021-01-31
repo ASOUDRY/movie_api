@@ -7,7 +7,6 @@ import { Register } from '../register/register';
 import { MovieCard } from '../movie-card/movie-card.jsx';
 import { MovieView } from '../movie-view/movie-view';
 import { Profile } from '../profile/profile';
-import { LinkContainer } from "react-router-bootstrap";
 
 export class MainView extends React.Component {
     constructor() {
@@ -18,17 +17,20 @@ export class MainView extends React.Component {
       // Initialize the state to an empty object so we can destructure it later
       this.state = {
         movies: [],
-        user: null
+        user: null,
+        genres: []
       };
     }
 
     componentDidMount() {
+      console.log("mounting!")
       let accessToken = localStorage.getItem('token');
       if (accessToken !== null) {
         this.setState({
           user: localStorage.getItem('user')
         });
         this.getMovies(accessToken);
+        this.getGenres(accessToken);
       }
     }
 
@@ -51,6 +53,22 @@ export class MainView extends React.Component {
       localStorage.setItem('user', data);
     }
 
+    getGenres(token) {
+      axios.get('https://moviecat0l0gue.herokuapp.com/Genres', {
+        headers: { Authorization: `Bearer ${token}`}
+      })
+      .then(response => {
+        // Assign the result to the state
+        this.setState({ 
+        genres: response.data 
+        });
+        console.log(genres);
+      })
+        .catch(function (error) {
+          console.log(error);
+      });
+    }
+
     getMovies(token) {
       axios.get('https://moviecat0l0gue.herokuapp.com/movies', {
         headers: { Authorization: `Bearer ${token}`}
@@ -68,11 +86,11 @@ export class MainView extends React.Component {
       render() {
     // If the state isn't initialized, this will throw on runtime
     // before the data is initially loaded
-    const { movies, user} = this.state;
+    const { movies, user, genres} = this.state;
 
     const url = localStorage.getItem('user')
     console.log(url);
-
+    console.log(genres + "here")
     // const userId = localStorage.getItem('user');
     console.log(user);
     return (
@@ -82,10 +100,10 @@ export class MainView extends React.Component {
           <Nav.Link href="/login" >Movies</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link>Director</Nav.Link>
+            <Nav.Link href="Directors">Director</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link>Genre</Nav.Link>
+            <Nav.Link href="/Genres">Genre</Nav.Link>
           </Nav.Item>
           <Nav.Item>
             <Nav.Link href="/users/Profile">Profile</Nav.Link>
@@ -98,6 +116,7 @@ export class MainView extends React.Component {
           return movies.map(m => <MovieCard key={m._id} movie={m}/>)
         }} />
         <Route path="/Register" render={() => {return <Register/>;}}/>
+        <Route path="/Genres" render={() => {return <GenreView/>;}}/>
         <Route exact path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
         <Route path='/users/Profile' render={() => {
           return <Profile update={(data) => this.update(data)}/>

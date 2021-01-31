@@ -1,42 +1,42 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button';
+import PropTypes from 'prop-types';
+import { Button, Card, Container, CardColumns } from 'react-bootstrap';
+import './movie-card.scss';
+import axios from 'axios';
 
 import { Link } from "react-router-dom";
 
-// The movie info that is accessed via the click
-export class GenreView extends React.Component {
+export class MovieCard extends React.Component {
   render() {
-    const { movie } = this.props;
-  
-    if (!movie) return null;
+    // This is given to the <MovieCard/> component by the outer world
+    // which, in this case, is `MainView`, as `MainView` is what’s
+    // connected to your database via the movies endpoint of your API
+    const { genres } = this.props;
 
+
+    // A actual onclick function that is clicked on.
     return (
-      <div className="movie-view">
-        {/* keeping it commented out in case I need to add image */}
-        <img className="movie-poster" src={movie.ImagePath} />
-        <div className="movie-title">
-          <span className="label">Title: </span>
-          <span className="value">{movie.Title}</span>
-        </div>
-        <div className="movie-description">
-          <span className="label">Description: </span>
-          <span className="value">{movie.Description}</span>
-        </div>
-
-        <div className="movie-genre">
-          <span className="label">Genre: </span>
-          <span className="value">{movie.Genre.Name}</span>
-        </div>
-        <div className="movie-director">
-          <span className="label">Director: </span>
-          <span className="value">{movie.Director.Name}</span>
-        </div>
-        <div className="BackButton">
-        <Link to={`/login`}>
-            <Button variant="link">Return</Button>
+      <Container>
+        <CardColumns>
+        <Card style={{ width: '16rem' }}>
+      <Card.Img variant="top" src={movie.ImagePath} />
+      <Card.Body>
+        <Card.Title>{movie.Title}</Card.Title>
+        <Card.Text>{movie.Description}</Card.Text>
+        <Link to={`/movies/${movie._id}`}>
+            <Button variant="link">Open</Button>
         </Link>
-        </div>
-       </div>
-    );
+      </Card.Body>
+      </Card>
+        </CardColumns>       
+      </Container>
+    )
   }
 }
+
+// GenreCard.propTypes = {
+//   movie: PropTypes.shape({
+//     Name: PropTypes.string,
+//     Description: PropTypes.string,
+//   }).isRequired,
+// };

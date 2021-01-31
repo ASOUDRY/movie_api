@@ -7,6 +7,7 @@ import { Register } from '../register/register';
 import { MovieCard } from '../movie-card/movie-card.jsx';
 import { MovieView } from '../movie-view/movie-view';
 import { Profile } from '../profile/profile';
+import { GenreCard } from '../genre-view/genre-view';
 
 export class MainView extends React.Component {
     constructor() {
@@ -23,7 +24,6 @@ export class MainView extends React.Component {
     }
 
     componentDidMount() {
-      console.log("mounting!")
       let accessToken = localStorage.getItem('token');
       if (accessToken !== null) {
         this.setState({
@@ -54,7 +54,7 @@ export class MainView extends React.Component {
     }
 
     getGenres(token) {
-      axios.get('https://moviecat0l0gue.herokuapp.com/Genres', {
+      axios.get('https://moviecat0l0gue.herokuapp.com/Genre', {
         headers: { Authorization: `Bearer ${token}`}
       })
       .then(response => {
@@ -62,7 +62,6 @@ export class MainView extends React.Component {
         this.setState({ 
         genres: response.data 
         });
-        console.log(genres);
       })
         .catch(function (error) {
           console.log(error);
@@ -87,15 +86,11 @@ export class MainView extends React.Component {
     // If the state isn't initialized, this will throw on runtime
     // before the data is initially loaded
     const { movies, user, genres} = this.state;
-
-    const url = localStorage.getItem('user')
-    console.log(url);
-    console.log(genres + "here")
-    // const userId = localStorage.getItem('user');
-    console.log(user);
+    const url = localStorage.getItem('user');
     return (
       <div className="SuperDiv">
-        <Nav activeKey={window.location.pathname} onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}>
+        <Nav>
+        {/* <Nav activeKey={window.location.pathname} onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}> */}
           <Nav.Item>
           <Nav.Link href="/login" >Movies</Nav.Link>
           </Nav.Item>
@@ -113,18 +108,20 @@ export class MainView extends React.Component {
         <div className="main-view">
         <Route path="/login" render={() => {
           if (!user) return <LoginView onLoggedIn={data => this.onLoggedIn(data)} />
-          return movies.map(m => <MovieCard key={m._id} movie={m}/>)
+          return movies.map(m => <MovieCard
+             key={m._id} 
+             movie={m}/>)
         }} />
         <Route path="/Register" render={() => {return <Register/>;}}/>
-        <Route path="/Genres" render={() => {return <GenreView/>;}}/>
+        <Route path="/Genres" render={() => {
+          return genres.map(g => <GenreCard key={g._id} genres={g}/>);
+          }}/>
         <Route exact path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
         <Route path='/users/Profile' render={() => {
           return <Profile update={(data) => this.update(data)}/>
         }} />
         </div>
       </Router>     
-
       </div>
-         
     );
   }}

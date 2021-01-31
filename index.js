@@ -62,7 +62,18 @@ app.get('/movies/:Genre/:Title', passport.authenticate('jwt', {session: false}),
 });
 
 app.get('/movies/:Genre', passport.authenticate('jwt', {session: false}), (req, res) => {
-  Movies.find({Name: Kaiju})
+  Movies.find({Name: "Kaiju"})
+    .then((movies) => {
+      res.json(movies);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
+app.get('/movies/:Genre/V', passport.authenticate('jwt', {session: false}), (req, res) => {
+  Movies.find({Tag: "K"})
     .then((movies) => {
       res.json(movies);
     })

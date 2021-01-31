@@ -97,9 +97,20 @@ app.get('/:GenreV', passport.authenticate('jwt', {session: false}), (req, res) =
 });
 
 
-
-app.get('/:Genre/:Name', passport.authenticate('jwt', {session: false}), (req, res) => {
+// for genre queried movies
+app.get('/Genre/:Name', passport.authenticate('jwt', {session: false}), (req, res) => {
   Movies.find({Tag: req.params.Name})
+    .then((movies) => {
+      res.json(movies);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
+app.get('/Director/:Name', passport.authenticate('jwt', {session: false}), (req, res) => {
+  Movies.find({DTag: req.params.Name})
     .then((movies) => {
       res.json(movies);
     })

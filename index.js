@@ -73,7 +73,18 @@ app.get('/movies/:Genre', passport.authenticate('jwt', {session: false}), (req, 
 });
 
 app.get('/movies/K', passport.authenticate('jwt', {session: false}), (req, res) => {
-  Movies.find({Tag: 'K'})
+  Movies.find({Featured: True})
+    .then((movies) => {
+      res.json(movies);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
+app.get('/V', passport.authenticate('jwt', {session: false}), (req, res) => {
+  Movies.find({Tag: 'V'})
     .then((movies) => {
       res.json(movies);
     })

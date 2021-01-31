@@ -72,8 +72,8 @@ app.get('/movies/:Genre', passport.authenticate('jwt', {session: false}), (req, 
     });
 });
 
-app.get('/movies/:Genre/V', passport.authenticate('jwt', {session: false}), (req, res) => {
-  Movies.find({Tag: "K"})
+app.get('/movies/K', passport.authenticate('jwt', {session: false}), (req, res) => {
+  Movies.find({Tag: 'K'})
     .then((movies) => {
       res.json(movies);
     })

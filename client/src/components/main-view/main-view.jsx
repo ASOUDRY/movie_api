@@ -8,6 +8,7 @@ import { MovieCard } from '../movie-card/movie-card.jsx';
 import { MovieView } from '../movie-view/movie-view';
 import { Profile } from '../profile/profile';
 import { GenreCard } from '../genre-view/genre-view';
+import { DirectorCard} from '../director-view/director-view';
 
 export class MainView extends React.Component {
     constructor() {
@@ -19,7 +20,9 @@ export class MainView extends React.Component {
       this.state = {
         movies: [],
         user: null,
-        genres: []
+        genres: [],
+        directors: []
+        // genMovies: []
       };
     }
 
@@ -31,6 +34,7 @@ export class MainView extends React.Component {
         });
         this.getMovies(accessToken);
         this.getGenres(accessToken);
+        this.getDirectors(accessToken);
       }
     }
 
@@ -68,6 +72,21 @@ export class MainView extends React.Component {
       });
     }
 
+    getDirectors(token) {
+      axios.get('https://moviecat0l0gue.herokuapp.com/Directors', {
+        headers: { Authorization: `Bearer ${token}`}
+      })
+      .then(response => {
+        // Assign the result to the state
+        this.setState({ 
+        directors: response.data 
+        });
+      })
+        .catch(function (error) {
+          console.log(error);
+      });
+    }
+
     getMovies(token) {
       axios.get('https://moviecat0l0gue.herokuapp.com/movies', {
         headers: { Authorization: `Bearer ${token}`}
@@ -85,7 +104,7 @@ export class MainView extends React.Component {
       render() {
     // If the state isn't initialized, this will throw on runtime
     // before the data is initially loaded
-    const { movies, user, genres} = this.state;
+    const { movies, user, genres, directors} = this.state;
     const url = localStorage.getItem('user');
     return (
       <div className="SuperDiv">
@@ -117,6 +136,12 @@ export class MainView extends React.Component {
           return genres.map(g => <GenreCard key={g._id} genres={g}/>);
           }}/>
         <Route exact path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
+        {/* <Route exact path="Genres/:Genre" render={() => {
+          return
+        }}/> */}
+        <Route exact path="Directors" render={() => {
+          return directors.map(d => <DirectorCard key={d._id} directors={d}/>)
+        }}/>
         <Route path='/users/Profile' render={() => {
           return <Profile update={(data) => this.update(data)}/>
         }} />

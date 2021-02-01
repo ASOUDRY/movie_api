@@ -46,17 +46,62 @@ export function Profile(props) {
 
     const AddMe = (e) => {
       e.preventDefault();
-      console.log(favorite);
+      const token = localStorage.getItem('token');
+      axios.get(`https://moviecat0l0gue.herokuapp.com/movies/${favorite}`, {
+        headers: { Authorization: `Bearer ${token}`}
+      })
+      .then((response) => {
+        const user = localStorage.getItem('user')
+        const favID = response.data._id;
+        axios.post(`https://moviecat0l0gue.herokuapp.com/users/${user}/Movies/${favID}`, {}, {
+          headers: { Authorization: `Bearer ${token}`}
+        })
+        .then(() => {
+          console.log("successfully added")
+        })
+        .catch(error => {
+          console.log(error);
+        })
+      })
     }
 
     const RemoveMe = (e) => {
       e.preventDefault();
-      console.log("Time to remove Bitches!")
+      const token = localStorage.getItem('token');
+      axios.get(`https://moviecat0l0gue.herokuapp.com/movies/${defavorite}`, {
+        headers: { Authorization: `Bearer ${token}`}
+      })
+      .then((response) => {
+        const user = localStorage.getItem('user')
+        const favID = response.data._id;
+        axios.post(`https://moviecat0l0gue.herokuapp.com/users/${user}/Movies/${favID}/Remove`, {}, {
+          headers: { Authorization: `Bearer ${token}`}
+        })
+        .then(() => {
+          console.log("successfully removed")
+        })
+        .catch(error => {
+          console.log(error);
+        })
+      })
     }
-
+    
     const DeleteAccount = (e) => {
       e.preventDefault();
-      console.log("We will Miss you. Don't Go!");
+      const token = localStorage.getItem('token');
+      const user = localStorage.getItem('user')
+      axios.delete(`https://moviecat0l0gue.herokuapp.com/users/${user}`, {
+        headers: { Authorization: `Bearer ${token}`}
+      })
+      .then(() => {
+        console.log("bye Felicia");
+        window.localStorage.removeItem("token");
+        window.localStorage.removeItem("user");
+        window.open('/login', '_self')
+      })
+      .catch(error => {
+        console.log(error)
+      })
     }
 
     return (

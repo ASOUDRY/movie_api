@@ -28,7 +28,7 @@ export class GenreCard extends React.Component {
         <Card.Title>{genres.Name}</Card.Title>
         <Card.Text>{genres.Description}</Card.Text>
         <Button onClick={fetching}>Loading</Button>
-        <Link to={`/Genres/Test`}>
+        <Link to={`/Directors/Test`}>
             <Button variant="link">Examples</Button>
         </Link>
       </Card.Body>

@@ -58,7 +58,7 @@ export class MainView extends React.Component {
     }
 
     getGenres(token) {
-      axios.get('https://moviecat0l0gue.herokuapp.com/Genre', {
+      axios.get('https://moviecat0l0gue.herokuapp.com/genres', {
         headers: { Authorization: `Bearer ${token}`}
       })
       .then(response => {
@@ -73,7 +73,7 @@ export class MainView extends React.Component {
     }
 
     getDirectors(token) {
-      axios.get('https://moviecat0l0gue.herokuapp.com/Directors', {
+      axios.get('https://moviecat0l0gue.herokuapp.com/directors', {
         headers: { Authorization: `Bearer ${token}`}
       })
       .then(response => {
@@ -114,7 +114,7 @@ export class MainView extends React.Component {
           <Nav.Link href="/login" >Movies</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link href="Directors">Director</Nav.Link>
+            <Nav.Link href="/Directors">Director</Nav.Link>
           </Nav.Item>
           <Nav.Item>
             <Nav.Link href="/Genres">Genre</Nav.Link>
@@ -139,7 +139,7 @@ export class MainView extends React.Component {
         {/* <Route exact path="Genres/:Genre" render={() => {
           return
         }}/> */}
-        <Route exact path="Directors" render={() => {
+        <Route exact path="/Directors" render={() => {
           return directors.map(d => <DirectorCard key={d._id} directors={d}/>)
         }}/>
         <Route path='/users/Profile' render={() => {

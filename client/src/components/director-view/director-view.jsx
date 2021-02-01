@@ -14,7 +14,8 @@ export class DirectorCard extends React.Component {
     const fetching = (e) => {
       console.log(dnam);
       e.preventDefault();
-      this.props.dirMovies(dnam)
+      this.props.dMovie(dnam)
+      // this.props.dirMovies(dnam)
     }
 
     // A actual onclick function that is clicked on.

@@ -16,7 +16,7 @@ export class GenreCard extends React.Component {
     const fetching = (e) => {
       console.log(nam);
       e.preventDefault();
-      this.props.genremovies(nam);
+      this.props.genremovies(nam)
     }
 
     // A actual onclick function that is clicked on.

@@ -160,9 +160,9 @@ export class MainView extends React.Component {
           }}/>
         <Route exact path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
         <Route exact path="Genres/Test" render={() => {
-          return genMovie.map(gm => <MovieCard
-            key={gm._id}  genMovie={gm}/>)
-            console.log(genMovie);
+          // return genMovie.map(gm => <MovieCard
+          //   key={gm._id}  genMovie={gm}/>)
+          //   console.log(genMovie);
         }}/>
         <Route exact path="/Directors" render={() => {
           return directors.map(d => <DirectorCard key={d._id} directors={d}/>)

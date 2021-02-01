@@ -53,7 +53,7 @@ export class MainView extends React.Component {
         })
       })}
 
-      dirMovies(dnam) {
+      dMovie(dnam) {
         let token = localStorage.getItem('token');
         axios.get(`https://moviecat0l0gue.herokuapp.com/directors/${dnam}`, {
           headers: { Authorization: `Bearer ${token}`}
@@ -165,17 +165,12 @@ export class MainView extends React.Component {
           return genres.map(g => <GenreCard genremovies={nam => this.genremovies(nam)} key={g._id} genres={g}/>);
           }}/>
         <Route exact path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
-        <Route exact path="Genres/Test" render={() => {
-          // return genMovie.map(gm => <MovieCard
-          //   key={gm._id}  genMovie={gm}/>)
-          //   console.log(genMovie);
-        }}/>
         <Route exact path="/Directors" render={() => {
           return directors.map(d => <DirectorCard key={d._id} directors={d}/>)
         }}/>
 
         <Route exact path="/Director/:Director" render={() => {
-          return dirMovie.map(dm => <DirMovieCard
+          return dirMovie.map(dm => <DirMovieCard dMovie={dnam => this.dMovie(dnam)}
             key={dm._id}  dirMovie={dm}/>)
         }}/>
 

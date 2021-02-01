@@ -21,8 +21,8 @@ export class MainView extends React.Component {
         movies: [],
         user: null,
         genres: [],
-        directors: []
-        // genMovies: []
+        directors: [],
+        genMovie: []
       };
     }
 
@@ -38,10 +38,29 @@ export class MainView extends React.Component {
       }
     }
 
-    genremovies() {
-      console.log("here we are again")
-    }
-
+    genremovies(nam) {
+      let token = localStorage.getItem('token');
+      axios.get(`https://moviecat0l0gue.herokuapp.com/genres/${nam}`, {
+        headers: { Authorization: `Bearer ${token}`}
+      })
+      .then(response => {
+        console.log(response.data);
+        this.setState({
+          genMovie: response.data
+        })
+      })}
+        // console.log(response.data);
+        // // Assign the result to the state
+        // this.setState({ 
+        // gMovie: response.data 
+        // });
+        // console.log(gMovie + " are a go!")
+      // })
+    //     .catch(function (error) {
+    //       console.log(error);
+    //   });
+    // }
+  
     onLoggedIn(data) {
           console.log(data.user.Username)
             this.setState({
@@ -108,7 +127,7 @@ export class MainView extends React.Component {
       render() {
     // If the state isn't initialized, this will throw on runtime
     // before the data is initially loaded
-    const { movies, user, genres, directors} = this.state;
+    const { movies, user, genres, directors, genMovie} = this.state;
     const url = localStorage.getItem('user');
     return (
       <div className="SuperDiv">
@@ -137,12 +156,14 @@ export class MainView extends React.Component {
         }} />
         <Route path="/Register" render={() => {return <Register/>;}}/>
         <Route path="/Genres" render={() => {
-          return genres.map(g => <GenreCard genremovies={() => this.genremovies()} key={g._id} genres={g}/>);
+          return genres.map(g => <GenreCard genremovies={nam => this.genremovies(nam)} key={g._id} genres={g}/>);
           }}/>
         <Route exact path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
-        {/* <Route exact path="Genres/:Genre" render={() => {
-          return
-        }}/> */}
+        <Route exact path="Genres/Test" render={() => {
+          return genMovie.map(gm => <MovieCard
+            key={gm._id}  genMovie={gm}/>)
+            console.log(genMovie);
+        }}/>
         <Route exact path="/Directors" render={() => {
           return directors.map(d => <DirectorCard key={d._id} directors={d}/>)
         }}/>

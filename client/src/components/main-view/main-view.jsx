@@ -53,9 +53,6 @@ export class MainView extends React.Component {
         })
       })}
 
-      // testing() {
-
-      // }
       
       dMovie(dnam) {
         let token = localStorage.getItem('token');
@@ -142,8 +139,7 @@ export class MainView extends React.Component {
     return (
       <div className="SuperDiv">
         <Nav>
-        {/* <Nav activeKey={window.location.pathname} onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}> */}
-          <Nav.Item>
+        <Nav.Item>
           <Nav.Link href="/login" >Movies</Nav.Link>
           </Nav.Item>
           <Nav.Item>
@@ -155,14 +151,11 @@ export class MainView extends React.Component {
           <Nav.Item>
             <Nav.Link href="/users/Profile">Profile</Nav.Link>
           </Nav.Item>
-       </Nav>
+        </Nav>
       <Router>
-        <div className="main-view">
         <Route path="/login" render={() => {
           if (!user) return <LoginView onLoggedIn={data => this.onLoggedIn(data)} />
-          return movies.map(m => <MovieCard
-             key={m._id} 
-             movie={m}/>)
+          return movies.map(m => <MovieCard key={m._id} movie={m}/>)
         }} />
         <Route path="/Register" render={() => {return <Register/>;}}/>
         <Route path="/Genres" render={() => {
@@ -174,17 +167,15 @@ export class MainView extends React.Component {
         }}/>
 
         <Route exact path="/Director/:Director" render={() => {
-          return dirMovie.map(dm => <DirMovieCard dMovie={dnam => this.dMovie(dnam)}
-            key={dm._id}  dirMovie={dm}/>)
+          return dirMovie.map(dm => <DirMovieCard dMovie={dnam => this.dMovie(dnam)} key={dm._id}  dirMovie={dm}/>)
         }}/>
         <Route exact path="/Genre/:Genre" render={() => {
-          return genMovie.map(gm => <GenMovieCard
-            key={gm._id}  genMovie={gm}/>)
+          return genMovie.map(gm => <GenMovieCard key={gm._id}  genMovie={gm}/>)
         }}/>
         <Route path='/users/Profile' render={() => {
           return <Profile update={(data) => this.update(data)}/>
         }} />
-        </div>
+        
       </Router>     
       </div>
     );

@@ -145,6 +145,17 @@ app.get('/Genre/:Name', passport.authenticate('jwt', {session: false}), (req, re
     });
 });
 
+app.get('/Directors', passport.authenticate('jwt', {session: false}), (req, res) => {
+  Directors.find()
+    .then((name) => {
+      res.json(name);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
 app.get('/Directors/:Name', passport.authenticate('jwt', {session: false}), (req, res) => {
   Directors.findOne({ Name: req.params.Name })
     .then((name) => {

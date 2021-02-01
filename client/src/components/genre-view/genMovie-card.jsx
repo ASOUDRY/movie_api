@@ -17,11 +17,11 @@ export class GenMovieCard extends React.Component {
       <Container>
         <CardColumns>
         <Card style={{ width: '16rem' }}>
-      <Card.Img variant="top" src={movie.ImagePath} />
+      <Card.Img variant="top" src={genMovie.ImagePath} />
       <Card.Body>
         <Card.Title>{genMovie.Title}</Card.Title>
         <Card.Text>{genMovie.Description}</Card.Text>
-        <Link to={`/movies/${movie._id}`}>
+        <Link to={`/movies/${genMovie._id}`}>
             <Button variant="link">Open</Button>
         </Link>
       </Card.Body>

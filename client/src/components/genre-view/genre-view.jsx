@@ -9,10 +9,7 @@ export class GenreCard extends React.Component {
     // which, in this case, is `MainView`, as `MainView` is what’s
     // connected to your database via the movies endpoint of your API
     const { genres } = this.props;
-
     const nam = genres.Name;
- 
-
     const fetching = (e) => {
       console.log(nam);
       e.preventDefault();
@@ -28,7 +25,7 @@ export class GenreCard extends React.Component {
         <Card.Title>{genres.Name}</Card.Title>
         <Card.Text>{genres.Description}</Card.Text>
         <Button onClick={fetching}>Loading</Button>
-        <Link to={`/Directors/Test`}>
+        <Link to={`/Genre/${nam}`}>
             <Button variant="link">Examples</Button>
         </Link>
       </Card.Body>

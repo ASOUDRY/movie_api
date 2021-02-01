@@ -30,7 +30,7 @@ export class DirMovieCard extends React.Component {
   }
 }
 
-GenMovieCard.propTypes = {
+DirMovieCard.propTypes = {
   dirMovie: PropTypes.shape({
     Title: PropTypes.string,
     Description: PropTypes.string,

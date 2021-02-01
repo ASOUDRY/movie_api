@@ -9,6 +9,8 @@ export function Profile(props) {
   const [ password, setPassword ] = useState('');
   const [ email, setEmail ] = useState('');
   const [ birthday, setBirthday ] = useState('');
+  const [ favorite, setfavorite ] = useState('');
+  const [ defavorite, setdefavorite ] = useState('');
   
 
   const Update = (e) => {
@@ -42,8 +44,24 @@ export function Profile(props) {
       window.open('/login', '_self')
     }
 
+    const AddMe = (e) => {
+      e.preventDefault();
+      console.log(favorite);
+    }
+
+    const RemoveMe = (e) => {
+      e.preventDefault();
+      console.log("Time to remove Bitches!")
+    }
+
+    const DeleteAccount = (e) => {
+      e.preventDefault();
+      console.log("We will Miss you. Don't Go!");
+    }
+
     return (
-        <Form>
+        <div>
+          <Form>
         <Form.Group>
           <Form.Label>Username</Form.Label>
           <Form.Control type="text" placeholder="Enter new Username"  value={username} onChange={e => setUsername(e.target.value)} />
@@ -64,7 +82,22 @@ export function Profile(props) {
           <Form.Check type="checkbox" label="Check me out" />
         </Form.Group>
         <Button variant="primary" type="submit" onClick={Update}> Submit </Button>
-        <Button variant="primary" type="submit" onClick={Clear}> Clear </Button>
+        <Button variant="primary" type="submit" onClick={Clear}> Log Out! </Button>
       </Form>
+      <Form>
+        <Form.Group>
+          <Form.Label>Type your favorite movie here! Than hit click to add it to your list.</Form.Label>
+          <Form.Control type="text" placeholder="Enter the name of your movie" value={favorite} onChange={e => setfavorite(e.target.value)} />
+          <Button variant="primary" type="submit" onClick={AddMe}> Add Me! </Button>
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>No longer a fan. Remove a movie from the list..</Form.Label>
+          <Form.Control type="text" placeholder="Enter the name of your movie you wanna remove" value={defavorite} onChange={e => setdefavorite(e.target.value)} />
+          <Button variant="primary" type="submit" onClick={RemoveMe}> Remove Me! </Button>
+        </Form.Group>
+        <Form.Label>Not a fan of the site? No problem.</Form.Label>
+        <Button variant="primary" type="submit" onClick={DeleteAccount}> Delete Account </Button>
+      </Form>
+        </div>
     )
 }

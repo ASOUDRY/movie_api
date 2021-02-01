@@ -9,7 +9,8 @@ import { MovieView } from '../movie-view/movie-view';
 import { Profile } from '../profile/profile';
 import { GenreCard } from '../genre-view/genre-view.jsx';
 import { GenMovieCard } from '../genre-view/genMovie-card.jsx';
-import { DirectorCard} from '../director-view/director-view';
+import { DirectorCard} from '../director-view/director-view.jsx';
+import { DirMovieCard} from '../director-view/dirMovie-card.jsx';
 
 export class MainView extends React.Component {
     constructor() {
@@ -23,7 +24,8 @@ export class MainView extends React.Component {
         user: null,
         genres: [],
         directors: [],
-        genMovie: []
+        genMovie: [],
+        dirMovie: []
       };
     }
 
@@ -50,17 +52,20 @@ export class MainView extends React.Component {
           genMovie: response.data
         })
       })}
-        // console.log(response.data);
-        // // Assign the result to the state
-        // this.setState({ 
-        // gMovie: response.data 
-        // });
-        // console.log(gMovie + " are a go!")
-      // })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //   });
-    // }
+
+      dirMovies(dnam) {
+        let token = localStorage.getItem('token');
+        axios.get(`https://moviecat0l0gue.herokuapp.com/directors/${dnam}`, {
+          headers: { Authorization: `Bearer ${token}`}
+        })
+        .then(response => {
+          console.log(response.data);
+          this.setState({
+            dirMovie: response.data
+          })
+        })}
+       
+    
   
     onLoggedIn(data) {
           console.log(data.user.Username)
@@ -128,7 +133,7 @@ export class MainView extends React.Component {
       render() {
     // If the state isn't initialized, this will throw on runtime
     // before the data is initially loaded
-    const { movies, user, genres, directors, genMovie} = this.state;
+    const { movies, user, genres, directors, genMovie, dirMovie} = this.state;
     const url = localStorage.getItem('user');
     return (
       <div className="SuperDiv">
@@ -168,7 +173,13 @@ export class MainView extends React.Component {
         <Route exact path="/Directors" render={() => {
           return directors.map(d => <DirectorCard key={d._id} directors={d}/>)
         }}/>
-        <Route exact path="/Directors/Test" render={() => {
+
+        <Route exact path="/Director/:Director" render={() => {
+          return dirMovie.map(dm => <DirMovieCard
+            key={dm._id}  dirMovie={dm}/>)
+        }}/>
+
+        <Route exact path="/Genre/:Genre" render={() => {
           return genMovie.map(gm => <GenMovieCard
             key={gm._id}  genMovie={gm}/>)
         }}/>

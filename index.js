@@ -49,6 +49,17 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) 
     });
 });
 
+app.get('/movies/:Title', passport.authenticate('jwt', {session: false}), (req, res) => {
+  Movies.findOne({ Title: req.params.Title })
+    .then((title) => {
+      res.json(title);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
 app.get('/genres', passport.authenticate('jwt', { session: false }), (req, res) => {
   Genres.find()
     .then((genres) => {
@@ -221,16 +232,7 @@ app.listen(port, '0.0.0.0',() => {
  console.log('Listening on Port ' + port);
 });
 
-// app.get('/movies/:Genre/:Title', passport.authenticate('jwt', {session: false}), (req, res) => {
-//   Movies.findOne({ Title: req.params.Title })
-//     .then((title) => {
-//       res.json(title);
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//       res.status(500).send('Error: ' + err);
-//     });
-// });
+
 
 // app.get('/movies/:Genre', passport.authenticate('jwt', {session: false}), (req, res) => {
 //   Movies.find({Name: "Kaiju"})

@@ -10,6 +10,11 @@ export class GenreCard extends React.Component {
     // connected to your database via the movies endpoint of your API
     const { genres } = this.props;
 
+    const fetching = (e) => {
+      e.preventDefault();
+      props.genremovies();
+    }
+
     // A actual onclick function that is clicked on.
     return (
       <Container>
@@ -19,7 +24,7 @@ export class GenreCard extends React.Component {
         <Card.Title>{genres.Name}</Card.Title>
         <Card.Text>{genres.Description}</Card.Text>
         <Link to={`/login`}>
-            <Button variant="link">Examples</Button>
+            <Button variant="link" onClick={fetching}>Examples</Button>
         </Link>
       </Card.Body>
       </Card>

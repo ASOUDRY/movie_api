@@ -38,6 +38,10 @@ export class MainView extends React.Component {
       }
     }
 
+    genremovies() {
+      console.log("here we are again")
+    }
+
     onLoggedIn(data) {
           console.log(data.user.Username)
             this.setState({
@@ -133,7 +137,7 @@ export class MainView extends React.Component {
         }} />
         <Route path="/Register" render={() => {return <Register/>;}}/>
         <Route path="/Genres" render={() => {
-          return genres.map(g => <GenreCard key={g._id} genres={g}/>);
+          return genres.map(g => <GenreCard genremovies={() => this.genremovies()} key={g._id} genres={g}/>);
           }}/>
         <Route exact path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
         {/* <Route exact path="Genres/:Genre" render={() => {

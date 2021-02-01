@@ -39,7 +39,6 @@ app.get('/', (req, res) => {
 });
 
 app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
-// (req, res) => {
   Movies.find()
     .then((movies) => {
       res.status(201).json(movies);
@@ -50,10 +49,10 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) 
     });
 });
 
-app.get('/movies/:Genre/:Title', passport.authenticate('jwt', {session: false}), (req, res) => {
-  Movies.findOne({ Title: req.params.Title })
-    .then((title) => {
-      res.json(title);
+app.get('/genres', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Genres.find()
+    .then((genres) => {
+      res.status(201).json(genres);
     })
     .catch((err) => {
       console.error(err);
@@ -61,44 +60,19 @@ app.get('/movies/:Genre/:Title', passport.authenticate('jwt', {session: false}),
     });
 });
 
-app.get('/movies/:Genre', passport.authenticate('jwt', {session: false}), (req, res) => {
-  Movies.find({Name: "Kaiju"})
-    .then((movies) => {
-      res.json(movies);
+app.get('/directors', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Directors.find()
+    .then((directors) => {
+      res.status(201).json(directors);
     })
     .catch((err) => {
       console.error(err);
       res.status(500).send('Error: ' + err);
     });
 });
-
-app.get('/movies/K', passport.authenticate('jwt', {session: false}), (req, res) => {
-  Movies.find({Featured: True})
-    .then((movies) => {
-      res.json(movies);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    });
-});
-
-
-// Keep this bit of code safe
-app.get('/:GenreV', passport.authenticate('jwt', {session: false}), (req, res) => {
-  Movies.find({Tag: "K"})
-    .then((movies) => {
-      res.json(movies);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    });
-});
-
 
 // for genre queried movies
-app.get('/Genre/:Name', passport.authenticate('jwt', {session: false}), (req, res) => {
+app.get('/genres/:Name', passport.authenticate('jwt', {session: false}), (req, res) => {
   Movies.find({Tag: req.params.Name})
     .then((movies) => {
       res.json(movies);
@@ -109,57 +83,10 @@ app.get('/Genre/:Name', passport.authenticate('jwt', {session: false}), (req, re
     });
 });
 
-app.get('/Director/:Name', passport.authenticate('jwt', {session: false}), (req, res) => {
+app.get('/directors/:Name', passport.authenticate('jwt', {session: false}), (req, res) => {
   Movies.find({DTag: req.params.Name})
     .then((movies) => {
       res.json(movies);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    });
-});
-
-
-
-app.get('/Genre', passport.authenticate('jwt', {session: false}), (req, res) => {
-  Genres.find()
-    .then((genre) => {
-      res.json(genre);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    });
-});
-
-
-app.get('/Genre/:Name', passport.authenticate('jwt', {session: false}), (req, res) => {
-  Genres.findOne({ Name: req.params.Name })
-    .then((name) => {
-      res.json(name);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    });
-});
-
-app.get('/Directors', passport.authenticate('jwt', {session: false}), (req, res) => {
-  Directors.find()
-    .then((name) => {
-      res.json(name);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    });
-});
-
-app.get('/Directors/:Name', passport.authenticate('jwt', {session: false}), (req, res) => {
-  Directors.findOne({ Name: req.params.Name })
-    .then((name) => {
-      res.json(name);
     })
     .catch((err) => {
       console.error(err);
@@ -294,3 +221,93 @@ app.listen(port, '0.0.0.0',() => {
  console.log('Listening on Port ' + port);
 });
 
+// app.get('/movies/:Genre/:Title', passport.authenticate('jwt', {session: false}), (req, res) => {
+//   Movies.findOne({ Title: req.params.Title })
+//     .then((title) => {
+//       res.json(title);
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//       res.status(500).send('Error: ' + err);
+//     });
+// });
+
+// app.get('/movies/:Genre', passport.authenticate('jwt', {session: false}), (req, res) => {
+//   Movies.find({Name: "Kaiju"})
+//     .then((movies) => {
+//       res.json(movies);
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//       res.status(500).send('Error: ' + err);
+//     });
+// });
+
+// app.get('/movies/K', passport.authenticate('jwt', {session: false}), (req, res) => {
+//   Movies.find({Featured: True})
+//     .then((movies) => {
+//       res.json(movies);
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//       res.status(500).send('Error: ' + err);
+//     });
+// });
+
+
+// Keep this bit of code safe
+// app.get('/:GenreV', passport.authenticate('jwt', {session: false}), (req, res) => {
+//   Movies.find({Tag: "K"})
+//     .then((movies) => {
+//       res.json(movies);
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//       res.status(500).send('Error: ' + err);
+//     });
+// });
+
+// app.get('/Genre', passport.authenticate('jwt', {session: false}), (req, res) => {
+//   Genres.find()
+//     .then((genre) => {
+//       res.json(genre);
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//       res.status(500).send('Error: ' + err);
+//     });
+// });
+
+
+// app.get('/Genre/:Name', passport.authenticate('jwt', {session: false}), (req, res) => {
+//   Genres.findOne({ Name: req.params.Name })
+//     .then((name) => {
+//       res.json(name);
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//       res.status(500).send('Error: ' + err);
+//     });
+// });
+
+// app.get('/Directors', passport.authenticate('jwt', {session: false}), (req, res) => {
+//   Directors.find()
+//     .then((name) => {
+//       res.json(name);
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//       res.status(500).send('Error: ' + err);
+//     });
+// });
+
+// app.get('/Directors/:Name', passport.authenticate('jwt', {session: false}), (req, res) => {
+//   Directors.findOne({ Name: req.params.Name })
+//     .then((name) => {
+//       res.json(name);
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//       res.status(500).send('Error: ' + err);
+//     });
+// });

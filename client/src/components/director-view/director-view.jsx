@@ -14,6 +14,7 @@ export class DirectorCard extends React.Component {
     const fetching = (e) => {
       console.log(dnam);
       e.preventDefault();
+      // this.props.testing();
       this.props.dMovie(dnam)
       // this.props.dirMovies(dnam)
     }

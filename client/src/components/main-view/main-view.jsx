@@ -53,6 +53,10 @@ export class MainView extends React.Component {
         })
       })}
 
+      // testing() {
+
+      // }
+      
       dMovie(dnam) {
         let token = localStorage.getItem('token');
         axios.get(`https://moviecat0l0gue.herokuapp.com/directors/${dnam}`, {
@@ -166,14 +170,13 @@ export class MainView extends React.Component {
           }}/>
         <Route exact path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
         <Route exact path="/Directors" render={() => {
-          return directors.map(d => <DirectorCard key={d._id} directors={d}/>)
+          return directors.map(d => <DirectorCard dMovie={dnam => this.dMovie(dnam)} key={d._id} directors={d}/>)
         }}/>
 
         <Route exact path="/Director/:Director" render={() => {
           return dirMovie.map(dm => <DirMovieCard dMovie={dnam => this.dMovie(dnam)}
             key={dm._id}  dirMovie={dm}/>)
         }}/>
-
         <Route exact path="/Genre/:Genre" render={() => {
           return genMovie.map(gm => <GenMovieCard
             key={gm._id}  genMovie={gm}/>)

@@ -24,6 +24,9 @@ export class GenMovieCard extends React.Component {
         <Link to={`/movies/${genMovie._id}`}>
             <Button variant="link">Open</Button>
         </Link>
+        <Link to={`/Genres`}>
+            <Button variant="link">Back</Button>
+        </Link>
       </Card.Body>
       </Card>
         </CardColumns>       

@@ -22,6 +22,9 @@ export class DirMovieCard extends React.Component {
         <Link to={`/movies/${dirMovie._id}`}>
             <Button variant="link">Open</Button>
         </Link>
+        <Link to={`/Directors`}>
+            <Button variant="link">Back</Button>
+        </Link>
       </Card.Body>
       </Card>
         </CardColumns>       

@@ -9,6 +9,13 @@ export class DirectorCard extends React.Component {
     // which, in this case, is `MainView`, as `MainView` is what’s
     // connected to your database via the movies endpoint of your API
     const { directors } = this.props;
+    const dnam = directors.Itag;
+    console.log(dnam);
+    const fetching = (e) => {
+      console.log(dnam);
+      e.preventDefault();
+      this.props.dirMovies(dnam)
+    }
 
     // A actual onclick function that is clicked on.
     return (
@@ -18,7 +25,8 @@ export class DirectorCard extends React.Component {
       <Card.Body>
         <Card.Title>{directors.Name}</Card.Title>
         <Card.Text>{directors.Bio}</Card.Text>
-        <Link to={`/login`}>
+        <Button onClick={fetching}>Loading</Button>
+        <Link to={`/Director/${dnam}`}>
             <Button variant="link">Examples</Button>
         </Link>
       </Card.Body>
@@ -30,7 +38,8 @@ export class DirectorCard extends React.Component {
 }
 
 DirectorCard.propTypes = {
-  genres: PropTypes.shape({
+  directors: PropTypes.shape({
+    Itag: PropTypes.string,
     Name: PropTypes.string,
     Bio: PropTypes.string,
   }).isRequired,

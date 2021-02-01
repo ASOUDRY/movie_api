@@ -7,7 +7,8 @@ import { Register } from '../register/register';
 import { MovieCard } from '../movie-card/movie-card.jsx';
 import { MovieView } from '../movie-view/movie-view';
 import { Profile } from '../profile/profile';
-import { GenreCard } from '../genre-view/genre-view';
+import { GenreCard } from '../genre-view/genre-view.jsx';
+import { GenMovieCard } from '../genre-view/genMovie-card.jsx';
 import { DirectorCard} from '../director-view/director-view';
 
 export class MainView extends React.Component {
@@ -166,6 +167,10 @@ export class MainView extends React.Component {
         }}/>
         <Route exact path="/Directors" render={() => {
           return directors.map(d => <DirectorCard key={d._id} directors={d}/>)
+        }}/>
+        <Route exact path="/Directors/Test" render={() => {
+          return genMovie.map(gm => <GenMovieCard
+            key={gm._id}  genMovie={gm}/>)
         }}/>
         <Route path='/users/Profile' render={() => {
           return <Profile update={(data) => this.update(data)}/>

@@ -52450,8 +52450,15 @@ function Profile(props) {
         Authorization: "Bearer ".concat(token)
       }
     }).then(function () {
-      console.log(username);
-      props.update(username);
+      console.log(data); // props.update(username);
+      // this.setState({
+      //   user: data
+      // })
+
+      localStorage.removeItem("user");
+      localStorage.setItem('user', data);
+    }).then(function () {
+      props.getFavorite(token);
     }).catch(function (error) {
       console.log(error);
     });
@@ -52596,7 +52603,11 @@ function Profile(props) {
     variant: "primary",
     type: "submit",
     onClick: RemoveMe
-  }, " Remove Me! ")), _react.default.createElement(_Form.default.Label, null, "Not a fan of the site? No problem."), _react.default.createElement(_Button.default, {
+  }, " Remove Me! ")), _react.default.createElement(_Form.default.Group, null, _react.default.createElement(_Button.default, {
+    variant: "primary",
+    type: "submit",
+    onClick: FavoriteMovies
+  }, "Favorite Movie")), _react.default.createElement(_Form.default.Label, null, "Not a fan of the site? No problem."), _react.default.createElement(_Button.default, {
     variant: "primary",
     type: "submit",
     onClick: DeleteAccount
@@ -53072,6 +53083,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         this.getMovies(accessToken);
         this.getGenres(accessToken);
         this.getDirectors(accessToken);
+        this.getFavorites(accessToken);
       }
     }
   }, {
@@ -53122,17 +53134,15 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', data.user.Username);
       this.getMovies(data.token);
-    }
-  }, {
-    key: "update",
-    value: function update(data) {
-      console.log(data + "is the username here!");
-      this.setState({
-        user: data
-      });
-      localStorage.removeItem("user");
-      localStorage.setItem('user', data);
-    }
+    } // update(data) {
+    //   console.log(data + "is the username here!");
+    //   this.setState({
+    //     user: data
+    //   })
+    //   localStorage.removeItem("user")
+    //   localStorage.setItem('user', data);
+    // }
+
   }, {
     key: "getGenres",
     value: function getGenres(token) {
@@ -53167,6 +53177,20 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         });
       }).catch(function (error) {
         console.log(error);
+      });
+    }
+  }, {
+    key: "getFavorites",
+    value: function getFavorites(token) {
+      var user = localStorage.getItem('user');
+
+      _axios.default.get("https://moviecat0l0gue.herokuapp.com/users/".concat(user), {
+        headers: {
+          Authorization: "Bearer ".concat(token)
+        }
+      }).then(function (response) {
+        var favorite = response.FavoriteMovies;
+        console.log(favorite);
       });
     }
   }, {
@@ -53303,8 +53327,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         path: "/users/Profile",
         render: function render() {
           return _react.default.createElement(_profile.Profile, {
-            update: function update(data) {
-              return _this7.update(data);
+            getFavorites: function getFavorites(token) {
+              return _this7.update(_this7.getFavorites);
             }
           });
         }

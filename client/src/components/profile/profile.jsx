@@ -26,9 +26,17 @@ export function Profile(props) {
       headers: { Authorization: `Bearer ${token}`}
     })
     .then(() => {
-      console.log(username);
-      props.update(username);
+      console.log(data);
+      // props.update(username);
+      // this.setState({
+      //   user: data
+      // })
+      localStorage.removeItem("user")
+      localStorage.setItem('user', data);
     })
+    .then(() => {
+      props.getFavorite(token);
+    } )
     .catch(error => {
       console.log(error);
     })}
@@ -139,6 +147,9 @@ export function Profile(props) {
           <Form.Label>No longer a fan. Remove a movie from the list..</Form.Label>
           <Form.Control type="text" placeholder="Enter the name of your movie you wanna remove" value={defavorite} onChange={e => setdefavorite(e.target.value)} />
           <Button variant="primary" type="submit" onClick={RemoveMe}> Remove Me! </Button>
+        </Form.Group>
+        <Form.Group>
+          <Button variant="primary" type="submit" onClick={FavoriteMovies}>Favorite Movie</Button>
         </Form.Group>
         <Form.Label>Not a fan of the site? No problem.</Form.Label>
         <Button variant="primary" type="submit" onClick={DeleteAccount}> Delete Account </Button>

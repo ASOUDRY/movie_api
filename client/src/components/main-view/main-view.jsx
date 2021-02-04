@@ -38,6 +38,7 @@ export class MainView extends React.Component {
         this.getMovies(accessToken);
         this.getGenres(accessToken);
         this.getDirectors(accessToken);
+        this.getFavorites(accessToken);
       }
     }
 
@@ -87,6 +88,7 @@ export class MainView extends React.Component {
       localStorage.setItem('user', data);
     }
 
+    
     getGenres(token) {
       axios.get('https://moviecat0l0gue.herokuapp.com/genres', {
         headers: { Authorization: `Bearer ${token}`}
@@ -117,6 +119,17 @@ export class MainView extends React.Component {
       });
     }
 
+    getFavorites(token) {
+    const user = localStorage.getItem('user');
+    axios.get(`https://moviecat0l0gue.herokuapp.com/users/${user}`, {
+        headers: { Authorization: `Bearer ${token}`}
+     })
+    .then((response) => {
+        const favorite = response.FavoriteMovies;
+        console.log(favorite);
+    })
+    }
+    
     getMovies(token) {
       axios.get('https://moviecat0l0gue.herokuapp.com/movies', {
         headers: { Authorization: `Bearer ${token}`}

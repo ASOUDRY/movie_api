@@ -148,8 +148,11 @@ export class MainView extends React.Component {
           <Nav.Item>
             <Nav.Link href="/Genres">Genre</Nav.Link>
           </Nav.Item>
-          <Nav.Item>
+          <Nav.Item> 
             <Nav.Link href="/users/Profile">Profile</Nav.Link>
+          </Nav.Item>
+          <Nav.Item class= "dropdown">
+            <Nav.Link href="/users/Profile/Favorite Movies">Favorite Movies</Nav.Link>
           </Nav.Item>
         </Nav>
       <Router>

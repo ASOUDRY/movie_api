@@ -105,10 +105,10 @@ app.get('/directors/:Name', passport.authenticate('jwt', {session: false}), (req
     });
 });
 
-app.get('/users/:Username/Movies/FavoriteMovies', passport.authenticate('jwt', {session: false}), (req, res) => {
-  Users.findOne({FavoriteMovies})
-  .then((movies) => {
-    res.json(movies);
+app.get(':Username/', passport.authenticate('jwt', {session: false}), (req, res) => {
+  Users.findOne({Username: req.params.Username})
+  .then((user) => {
+    res.json(user);
   })
   .catch((err) => {
     console.error(err);

@@ -79,14 +79,14 @@ export class MainView extends React.Component {
             this.getMovies(data.token);
         }
 
-    update(data) {
-      console.log(data + "is the username here!");
-      this.setState({
-        user: data
-      })
-      localStorage.removeItem("user")
-      localStorage.setItem('user', data);
-    }
+    // update(data) {
+    //   console.log(data + "is the username here!");
+    //   this.setState({
+    //     user: data
+    //   })
+    //   localStorage.removeItem("user")
+    //   localStorage.setItem('user', data);
+    // }
 
     
     getGenres(token) {
@@ -189,7 +189,7 @@ export class MainView extends React.Component {
           return genMovie.map(gm => <GenMovieCard key={gm._id}  genMovie={gm}/>)
         }}/>
         <Route path='/users/Profile' render={() => {
-          return <Profile update={(data) => this.update(data)}/>
+          return <Profile getFavorites={(token) => this.update(this.getFavorites)}/>
         }} />
         
       </Router>     

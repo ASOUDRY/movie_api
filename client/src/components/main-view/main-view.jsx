@@ -130,22 +130,27 @@ export class MainView extends React.Component {
       console.log(response.data[0].FavoriteMovies);
       const list = response.data[0].FavoriteMovies;
       console.log(list);
-    })
-    .then((list) => {
-      axios.get(`https://moviecat0l0gue.herokuapp.com/movies/${list}`, {
+        axios.get(`https://moviecat0l0gue.herokuapp.com/movies/${list}`, {
         headers: { Authorization: `Bearer ${token}`}
      })
      .then((response) => {
-       console.log(response.data)
-       this.setState({
-         favMovie: response.data
-       })
+       console.log(response.data);
      })
-     .catch(error => {
-      console.log(error);
-    })
-    })
-    }
+    })}
+    // })
+    // .then((list) => {
+    
+    //  .then((response) => {
+    //    console.log(response)
+    //    this.setState({
+    //      favMovie: response.data
+    //    })
+    //  })}}
+    //  .catch(error => {
+    //   console.log(error);
+    // })
+    // })
+    // }
     
     getMovies(token) {
       axios.get('https://moviecat0l0gue.herokuapp.com/movies', {

@@ -49,16 +49,16 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) 
     });
 });
 
-// app.get('/movies/:Title', passport.authenticate('jwt', {session: false}), (req, res) => {
-//   Movies.findOne({ Title: req.params.Title })
-//     .then((title) => {
-//       res.json(title);
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//       res.status(500).send('Error: ' + err);
-//     });
-// });
+app.get('/movies/:Title', passport.authenticate('jwt', {session: false}), (req, res) => {
+  Movies.findOne({ Title: req.params.Title })
+    .then((title) => {
+      res.json(title);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
 
 app.get('/movies/:Id', passport.authenticate('jwt', {session: false}), (req, res) => {
   Movies.findOne({ _id: req.params.Id })

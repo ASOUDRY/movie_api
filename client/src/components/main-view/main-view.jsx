@@ -130,9 +130,6 @@ export class MainView extends React.Component {
       console.log(response.data[0].FavoriteMovies);
       const list = response.data[0].FavoriteMovies;
       console.log(list);
-      // this.setState({
-      //   favMovie: list
-      // });
     })
     .then((list) => {
       axios.get(`https://moviecat0l0gue.herokuapp.com/movies/${list}`, {
@@ -144,6 +141,9 @@ export class MainView extends React.Component {
          favMovie: response.data
        })
      })
+     .catch(error => {
+      console.log(error);
+    })
     })
     }
     

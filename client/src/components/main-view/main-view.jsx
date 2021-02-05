@@ -6,7 +6,8 @@ import { LoginView } from '../login-view/login-view';
 import { Register } from '../register/register';
 import { MovieCard } from '../movie-card/movie-card.jsx';
 import { MovieView } from '../movie-view/movie-view';
-import { Profile } from '../profile/profile';
+import { Profile } from '../profile/profile.jsx';
+import { FavMovieCard } from '../profile/favorite.jsx'
 import { GenreCard } from '../genre-view/genre-view.jsx';
 import { GenMovieCard } from '../genre-view/genMovie-card.jsx';
 import { DirectorCard} from '../director-view/director-view.jsx';
@@ -25,7 +26,8 @@ export class MainView extends React.Component {
         genres: [],
         directors: [],
         genMovie: [],
-        dirMovie: []
+        dirMovie: [],
+        favorite: []
       };
     }
 
@@ -125,8 +127,23 @@ export class MainView extends React.Component {
         headers: { Authorization: `Bearer ${token}`}
      })
     .then((response) => {
-        const favorite = response.FavoriteMovies;
-        console.log(favorite);
+      console.log(response.data[0].FavoriteMovies);
+      const list = response.data[0].FavoriteMovies;
+      console.log(list);
+      // this.setState({
+      //   favMovie: list
+      // });
+    })
+    .then((list) => {
+      axios.get(`https://moviecat0l0gue.herokuapp.com/movies/${list}`, {
+        headers: { Authorization: `Bearer ${token}`}
+     })
+     .then((response) => {
+       console.log(response.data)
+       this.setState({
+         favMovie: response.data
+       })
+     })
     })
     }
     
@@ -147,7 +164,7 @@ export class MainView extends React.Component {
       render() {
     // If the state isn't initialized, this will throw on runtime
     // before the data is initially loaded
-    const { movies, user, genres, directors, genMovie, dirMovie} = this.state;
+    const { movies, user, genres, directors, genMovie, dirMovie, favMovie} = this.state;
     const url = localStorage.getItem('user');
     return (
       <div className="SuperDiv">
@@ -164,8 +181,8 @@ export class MainView extends React.Component {
           <Nav.Item> 
             <Nav.Link href="/users/Profile">Profile</Nav.Link>
           </Nav.Item>
-          <Nav.Item class= "dropdown">
-            <Nav.Link href="/users/Profile/Favorite Movies">Favorite Movies</Nav.Link>
+          <Nav.Item>
+            <Nav.Link href="/favorite">Favorite Movies</Nav.Link>
           </Nav.Item>
         </Nav>
       <Router>
@@ -189,9 +206,12 @@ export class MainView extends React.Component {
           return genMovie.map(gm => <GenMovieCard key={gm._id}  genMovie={gm}/>)
         }}/>
         <Route path='/users/Profile' render={() => {
-          return <Profile getFavorites={(token) => this.update(this.getFavorites)}/>
-        }} />
+          return <Profile getFavorites={(token) => this.getFavorites(token)}/>
+        }}/>
         
+        <Route path='/favorite' render={() => {
+          return favMovie.map(fm => <FavMovieCard key={fm._id} favMovie={fm}/>)
+        }} />
       </Router>     
       </div>
     );

@@ -27,7 +27,7 @@ export class MainView extends React.Component {
         directors: [],
         genMovie: [],
         dirMovie: [],
-        favorite: []
+        favMovie: []
       };
     }
 
@@ -130,11 +130,14 @@ export class MainView extends React.Component {
       console.log(response.data[0].FavoriteMovies);
       const list = response.data[0].FavoriteMovies;
       console.log(list);
-        axios.get(`https://moviecat0l0gue.herokuapp.com/movies/${list}`, {
+        axios.get(`https://moviecat0l0gue.herokuapp.com/movies/ID/${list}`, {
         headers: { Authorization: `Bearer ${token}`}
      })
      .then((response) => {
-       console.log(response.data);
+       console.log(response.data)
+       this.setState({
+         favMovie: response.data
+       })
      })
     })}
     // })
@@ -158,6 +161,7 @@ export class MainView extends React.Component {
       })
         .then(response => {
         // Assign the result to the state
+        console.log(response.data)
         this.setState({ 
           movies: response.data 
         });
@@ -216,6 +220,7 @@ export class MainView extends React.Component {
         
         <Route path='/favorite' render={() => {
           return favMovie.map(fm => <FavMovieCard key={fm._id} favMovie={fm}/>)
+          // return favMovie.map(fm => <FavMovieCard key={fm._id} favMovie={fm}/>)
         }} />
       </Router>     
       </div>

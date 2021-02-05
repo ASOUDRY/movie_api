@@ -27,7 +27,8 @@ export class MainView extends React.Component {
         directors: [],
         genMovie: [],
         dirMovie: [],
-        favMovie: []
+        favMovie: [],
+        count: 0
       };
     }
 
@@ -44,6 +45,14 @@ export class MainView extends React.Component {
       }
     }
 
+    addCount(){
+      this.setState(
+        {
+          count : this.state.count + 1 
+        } 
+      )
+  }   
+
     genremovies(nam) {
       let token = localStorage.getItem('token');
       axios.get(`https://moviecat0l0gue.herokuapp.com/genres/${nam}`, {
@@ -56,8 +65,7 @@ export class MainView extends React.Component {
         })
       })}
 
-      
-      dMovie(dnam) {
+    dMovie(dnam) {
         let token = localStorage.getItem('token');
         axios.get(`https://moviecat0l0gue.herokuapp.com/directors/${dnam}`, {
           headers: { Authorization: `Bearer ${token}`}
@@ -69,8 +77,6 @@ export class MainView extends React.Component {
           })
         })}
        
-    
-  
     onLoggedIn(data) {
           console.log(data.user.Username)
             this.setState({
@@ -90,7 +96,6 @@ export class MainView extends React.Component {
     //   localStorage.setItem('user', data);
     // }
 
-    
     getGenres(token) {
       axios.get('https://moviecat0l0gue.herokuapp.com/genres', {
         headers: { Authorization: `Bearer ${token}`}
@@ -122,38 +127,26 @@ export class MainView extends React.Component {
     }
 
     getFavorites(token) {
+    // let counter = this.state.count
     const user = localStorage.getItem('user');
     axios.get(`https://moviecat0l0gue.herokuapp.com/users/${user}`, {
         headers: { Authorization: `Bearer ${token}`}
      })
     .then((response) => {
-      console.log(response.data[0].FavoriteMovies);
       const list = response.data[0].FavoriteMovies;
-      console.log(list);
-        axios.get(`https://moviecat0l0gue.herokuapp.com/movies/ID/${list}`, {
-        headers: { Authorization: `Bearer ${token}`}
-     })
-     .then((response) => {
-       console.log(response.data)
-       this.setState({
-         favMovie: response.data
-       })
-     })
-    })}
-    // })
-    // .then((list) => {
-    
-    //  .then((response) => {
-    //    console.log(response)
-    //    this.setState({
-    //      favMovie: response.data
-    //    })
-    //  })}}
-    //  .catch(error => {
-    //   console.log(error);
-    // })
-    // })
-    // }
+      list.map((extra) => {
+          axios.get(`https://moviecat0l0gue.herokuapp.com/movies/ID/${list[this.state.count]}`, {
+         headers: { Authorization: `Bearer ${token}`}
+      })
+      .then((response) => {
+        console.log(response.data)
+        console.log(list[this.state.count]);
+        console.log(this.state.count + " is the variable")
+        this.addCount()
+        console.log(this.state.count);
+      }); 
+      })
+    })}    
     
     getMovies(token) {
       axios.get('https://moviecat0l0gue.herokuapp.com/movies', {
@@ -161,7 +154,7 @@ export class MainView extends React.Component {
       })
         .then(response => {
         // Assign the result to the state
-        console.log(response.data)
+        // console.log(response.data)
         this.setState({ 
           movies: response.data 
         });
@@ -226,3 +219,27 @@ export class MainView extends React.Component {
       </div>
     );
   }}
+
+  //   )
+    //   axios.get(`https://moviecat0l0gue.herokuapp.com/movies/ID/${list}`, {
+    //     headers: { Authorization: `Bearer ${token}`}
+    //  })
+    //  .then((response) => {
+    //    console.log(response.data)
+    //    this.setState({
+    //      favMovie: response.data
+    //    })
+    //  })
+    // })
+    // .then((list) => {
+    //  .then((response) => {
+    //    console.log(response)
+    //    this.setState({
+    //      favMovie: response.data
+    //    })
+    //  })}}
+    //  .catch(error => {
+    //   console.log(error);
+    // })
+    // })
+    // }

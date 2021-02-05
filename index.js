@@ -62,8 +62,8 @@ app.get('/movies/:Title', passport.authenticate('jwt', {session: false}), (req, 
 
 app.get('/movies/Id/:Id', passport.authenticate('jwt', {session: false}), (req, res) => {
   Movies.find({ _id: req.params.Id })
-    .then(() => {
-      res.json(title);
+    .then((movie) => {
+      res.json(movie);
     })
     .catch((err) => {
       console.error(err);

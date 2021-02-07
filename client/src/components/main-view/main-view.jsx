@@ -134,7 +134,7 @@ export class MainView extends React.Component {
      })
     .then((response) => {
       const list = response.data[0].FavoriteMovies;
-      list.map((extra) => {
+      list.map((list, extra) => {
           axios.get(`https://moviecat0l0gue.herokuapp.com/movies/ID/${list[this.state.count]}`, {
          headers: { Authorization: `Bearer ${token}`}
       })

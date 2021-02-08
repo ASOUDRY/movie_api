@@ -32,7 +32,7 @@ export class MovieView extends React.Component {
           <span className="value">{movie.Director.Name}</span>
         </div>
         <div className="BackButton">
-        <Link to={`/login`}>
+        <Link to={`/Movies`}>
             <Button variant="link">Return</Button>
         </Link>
         </div>

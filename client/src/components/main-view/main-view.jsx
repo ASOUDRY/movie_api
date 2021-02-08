@@ -172,7 +172,7 @@ export class MainView extends React.Component {
       <div className="SuperDiv">
         <Nav>
         <Nav.Item>
-          <Nav.Link href="/login" >Movies</Nav.Link>
+          <Nav.Link href="/movies" >Movies</Nav.Link>
           </Nav.Item>
           <Nav.Item>
             <Nav.Link href="/Directors">Director</Nav.Link>
@@ -188,15 +188,18 @@ export class MainView extends React.Component {
           </Nav.Item>
         </Nav>
       <Router>
-        <Route path="/login" render={() => {
-          if (!user) return <LoginView onLoggedIn={data => this.onLoggedIn(data)} />
+        <Route path="/" render={() => {
+           if (!user) return <LoginView onLoggedIn={data => this.onLoggedIn(data)} />
+          // return movies.map(m => <MovieCard key={m._id} movie={m}/>)
+        }} />
+         <Route path="/movies" render={() => {
           return movies.map(m => <MovieCard key={m._id} movie={m}/>)
         }} />
         <Route path="/Register" render={() => {return <Register/>;}}/>
         <Route path="/Genres" render={() => {
           return genres.map(g => <GenreCard genremovies={nam => this.genremovies(nam)} key={g._id} genres={g}/>);
           }}/>
-        <Route exact path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
+        <Route exact path="/singlemovie/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
         <Route exact path="/Directors" render={() => {
           return directors.map(d => <DirectorCard dMovie={dnam => this.dMovie(dnam)} key={d._id} directors={d}/>)
         }}/>
@@ -220,26 +223,3 @@ export class MainView extends React.Component {
     );
   }}
 
-  //   )
-    //   axios.get(`https://moviecat0l0gue.herokuapp.com/movies/ID/${list}`, {
-    //     headers: { Authorization: `Bearer ${token}`}
-    //  })
-    //  .then((response) => {
-    //    console.log(response.data)
-    //    this.setState({
-    //      favMovie: response.data
-    //    })
-    //  })
-    // })
-    // .then((list) => {
-    //  .then((response) => {
-    //    console.log(response)
-    //    this.setState({
-    //      favMovie: response.data
-    //    })
-    //  })}}
-    //  .catch(error => {
-    //   console.log(error);
-    // })
-    // })
-    // }

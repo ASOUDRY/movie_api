@@ -14,6 +14,7 @@ export class GenreCard extends React.Component {
       console.log(nam);
       e.preventDefault();
       this.props.genremovies(nam)
+      // window.open(`/Genre${nam}`, '_self')
     }
 
     // A actual onclick function that is clicked on.

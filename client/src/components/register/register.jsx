@@ -24,7 +24,7 @@ export function Register(props) {
     .then(function (response) {
       const data = response.data;
       console.log(data)
-      window.open('/login', '_self')
+      window.open('/', '_self')
     })
     .catch(function (error) {
       console.log(error);

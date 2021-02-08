@@ -21,6 +21,7 @@ export function LoginView(props) {
   .then(response => {
     const data = response.data;
     props.onLoggedIn(data);
+    window.open('/Movies', '_self')
   })
   .catch(function (error) {
     console.log(error);

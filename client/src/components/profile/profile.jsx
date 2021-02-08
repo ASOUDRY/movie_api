@@ -105,7 +105,7 @@ export function Profile(props) {
         console.log("bye Felicia");
         window.localStorage.removeItem("token");
         window.localStorage.removeItem("user");
-        window.open('/login', '_self')
+        window.open('/', '_self')
       })
       .catch(error => {
         console.log(error)

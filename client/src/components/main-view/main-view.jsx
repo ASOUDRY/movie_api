@@ -13,6 +13,10 @@ import { GenMovieCard } from '../genre-view/genMovie-card.jsx';
 import { DirectorCard} from '../director-view/director-view.jsx';
 import { DirMovieCard} from '../director-view/dirMovie-card.jsx';
 
+import { connect } from 'react-redux';
+
+import { setMovies } from '../../actions/actions'
+
 export class MainView extends React.Component {
     constructor() {
       // Call the superclass constructor
@@ -153,20 +157,27 @@ export class MainView extends React.Component {
         headers: { Authorization: `Bearer ${token}`}
       })
         .then(response => {
+          // new code line
+          this.props.setMovies
         // Assign the result to the state
         // console.log(response.data)
-        this.setState({ 
-          movies: response.data 
-        });
+        // this.setState({ 
+        //   movies: response.data 
+        // });
       })
         .catch(function (error) {
           console.log(error);
       });
     }
       render() {
+
+    // Two new let variables
+    let { movies } = this.props;
+    let { user } = this.state;
+
     // If the state isn't initialized, this will throw on runtime
     // before the data is initially loaded
-    const { movies, user, genres, directors, genMovie, dirMovie, favMovie} = this.state;
+    const { genres, directors, genMovie, dirMovie, favMovie} = this.state;
     const url = localStorage.getItem('user');
     return (
       <div className="SuperDiv">
@@ -193,7 +204,8 @@ export class MainView extends React.Component {
           // return movies.map(m => <MovieCard key={m._id} movie={m}/>)
         }} />
          <Route path="/movies" render={() => {
-          return movies.map(m => <MovieCard key={m._id} movie={m}/>)
+            return <MoviesList movies={movies}/>;
+          // return movies.map(m => <MovieCard key={m._id} movie={m}/>)
         }} />
         <Route path="/Register" render={() => {return <Register/>;}}/>
         <Route path="/Genres" render={() => {
@@ -221,5 +233,14 @@ export class MainView extends React.Component {
       </Router>     
       </div>
     );
-  }}
+  }
+}
+
+let mapStateToProps = state => {
+  return { movies: state.movies }
+}
+
+export default connect(mapStateToProps, { setMovies } )(MainView);
+
+
 

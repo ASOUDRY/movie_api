@@ -21,6 +21,7 @@ function movies(state = [], action) {
   }
 }
 
+// both functions trigger from this variabl
 const moviesApp = combineReducers({
     visibilityFilter,
     movies

@@ -12,6 +12,7 @@ import { GenreCard } from '../genre-view/genre-view.jsx';
 import { GenMovieCard } from '../genre-view/genMovie-card.jsx';
 import { DirectorCard} from '../director-view/director-view.jsx';
 import { DirMovieCard} from '../director-view/dirMovie-card.jsx';
+import MoviesList from '../movies-list/movies-list';
 
 import { connect } from 'react-redux';
 
@@ -32,7 +33,6 @@ export class MainView extends React.Component {
         genMovie: [],
         dirMovie: [],
         favMovie: [],
-        count: 0
       };
     }
 
@@ -48,14 +48,6 @@ export class MainView extends React.Component {
         this.getFavorites(accessToken);
       }
     }
-
-    addCount(){
-      this.setState(
-        {
-          count : this.state.count + 1 
-        } 
-      )
-  }   
 
     genremovies(nam) {
       let token = localStorage.getItem('token');
@@ -157,8 +149,13 @@ export class MainView extends React.Component {
         headers: { Authorization: `Bearer ${token}`}
       })
         .then(response => {
+          this.props.setMovies(response.data);
+          console.log(response)
           // new code line
-          this.props.setMovies
+          console.log(this);
+          console.log(response.data)
+          console.log(this.props.setMovies)
+        
         // Assign the result to the state
         // console.log(response.data)
         // this.setState({ 

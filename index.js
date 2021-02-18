@@ -216,12 +216,30 @@ passport.authenticate('jwt', {session: false}), (req, res) => {
     });
   });
 
-app.post('/users/:Username/Movies/:MovieID', passport.authenticate('jwt', {session: false}), (req, res) => {
+// app.post('/users/:Username/Movies/:MovieID', passport.authenticate('jwt', {session: false}), (req, res) => {
+//     Users.findOneAndUpdate({ Username: req.params.Username }, {
+//     $push: { FavoriteMovies: {
+//       $each: {
+//          Cake: "Horror",
+//          Holder: "Horror"
+//         }
+//       }
+//     }
+//   },
+//      { new: true }, // This line makes sure that the updated document is returned
+//     (err, updatedUser) => {
+//       if (err) {
+//         console.error(err);
+//         res.status(500).send('Error: ' + err);
+//       } else {
+//         res.json(updatedUser);
+//       }
+//     });
+//   });
+
+  app.post('/users/:Username/Movies/:MovieID', passport.authenticate('jwt', {session: false}), (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, {
-    $push: { FavoriteMovies: {$each: {
-         Cake: "Horror",
-         Holder: "Horror"
-    }}}
+       $push: { FavoriteMovies: req.params.MovieID }
      },
      { new: true }, // This line makes sure that the updated document is returned
     (err, updatedUser) => {
@@ -233,21 +251,6 @@ app.post('/users/:Username/Movies/:MovieID', passport.authenticate('jwt', {sessi
       }
     });
   });
-
-  // app.post('/users/:Username/Movies/:MovieID', passport.authenticate('jwt', {session: false}), (req, res) => {
-  //   Users.findOneAndUpdate({ Username: req.params.Username }, {
-  //      $push: { FavoriteMovies: req.params.MovieID }
-  //    },
-  //    { new: true }, // This line makes sure that the updated document is returned
-  //   (err, updatedUser) => {
-  //     if (err) {
-  //       console.error(err);
-  //       res.status(500).send('Error: ' + err);
-  //     } else {
-  //       res.json(updatedUser);
-  //     }
-  //   });
-  // });
 
 app.post('/users/:Username/Movies/:MovieID/Remove', passport.authenticate('jwt', {session: false}), (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, {

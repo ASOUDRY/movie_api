@@ -45,7 +45,7 @@ export class MainView extends React.Component {
         this.getMovies(accessToken);
         this.getGenres(accessToken);
         this.getDirectors(accessToken);
-        // this.getFavorites(accessToken);
+        this.getFavorites(accessToken);
       }
     }
 
@@ -122,27 +122,24 @@ export class MainView extends React.Component {
       });
     }
 
-    // getFavorites(token) {
-    // // let counter = this.state.count
-    // const user = localStorage.getItem('user');
-    // axios.get(`https://moviecat0l0gue.herokuapp.com/users/${user}`, {
-    //     headers: { Authorization: `Bearer ${token}`}
-    //  })
-    // .then((response) => {
-    //   const list = response.data[0].FavoriteMovies;
-    //   list.map((list, extra) => {
-    //       axios.get(`https://moviecat0l0gue.herokuapp.com/movies/ID/${list[this.state.count]}`, {
-    //      headers: { Authorization: `Bearer ${token}`}
-    //   })
-    //   .then((response) => {
-    //     console.log(response.data)
-    //     console.log(list[this.state.count]);
-    //     console.log(this.state.count + " is the variable")
-    //     this.addCount()
-    //     console.log(this.state.count);
-    //   }); 
-    //   })
-    // })}    
+    getFavorites(token) {
+    // let counter = this.state.count
+    const user = localStorage.getItem('user');
+    axios.get(`https://moviecat0l0gue.herokuapp.com/users/${user}`, {
+        headers: { Authorization: `Bearer ${token}`}
+     })
+    .then((response) => {
+      console.log(response.data[0].FavoriteMovies)
+      this.setState({
+        favMovie: response.data[0].FavoriteMovies
+      })
+      // let favorite = response.data[0].FavoriteMovies
+      // this.props.favorite = "test"
+      // this.props.genres = response.data[0].FavoriteMovies;
+      // console.log(favorite);
+      }
+      )
+    }    
     
     getMovies(token) {
       axios.get('https://moviecat0l0gue.herokuapp.com/movies', {
@@ -167,6 +164,8 @@ export class MainView extends React.Component {
     // Two new let variables
     let { movies } = this.props;
     let { user } = this.state;
+
+    
 
     // If the state isn't initialized, this will throw on runtime
     // before the data is initially loaded

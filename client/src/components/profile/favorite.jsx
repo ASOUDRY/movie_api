@@ -15,13 +15,13 @@ export class FavMovieCard extends React.Component {
       <Container>
         <CardColumns>
         <Card style={{ width: '16rem' }}>
-      <Card.Img variant="top" src={favMovie.ImagePath} />
+      {/* <Card.Img variant="top" src={favMovie.ImagePath} /> */}
       <Card.Body>
-        <Card.Title>{favMovie.Title}</Card.Title>
-        <Card.Text>{favMovie.Description}</Card.Text>
-        <Link to={`/movies/${favMovie._id}`}>
+        <Card.Title>{favMovie}</Card.Title>
+        {/* <Card.Text>{favMovie.Description}</Card.Text> */}
+        <Link to={`/singlemovie/${favMovie}`}>
             <Button variant="link">Open</Button>
-        </Link>
+        </Link> 
         {/* <Link to={`/users/Profile/Favorite`}>
             <Button variant="link">Back</Button>
         </Link> */}
@@ -36,10 +36,10 @@ export class FavMovieCard extends React.Component {
 FavMovieCard.propTypes = {
   favMovie: PropTypes.shape({
     Title: PropTypes.string,
-    Description: PropTypes.string,
+    // Description: PropTypes.string,
     // Genre: PropTypes.object,
-    Director: PropTypes.object,
-    ImagePath: PropTypes.string,
-    Featured: PropTypes.bool
+    // Director: PropTypes.object,
+    // ImagePath: PropTypes.string,
+    // Featured: PropTypes.bool
   }).isRequired,
 };

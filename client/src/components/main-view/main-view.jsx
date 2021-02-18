@@ -12,6 +12,11 @@ import { GenreCard } from '../genre-view/genre-view.jsx';
 import { GenMovieCard } from '../genre-view/genMovie-card.jsx';
 import { DirectorCard} from '../director-view/director-view.jsx';
 import { DirMovieCard} from '../director-view/dirMovie-card.jsx';
+import MoviesList from '../movies-list/movies-list';
+
+import { connect } from 'react-redux';
+
+import { setMovies } from '../../actions/actions'
 
 export class MainView extends React.Component {
     constructor() {
@@ -28,7 +33,6 @@ export class MainView extends React.Component {
         genMovie: [],
         dirMovie: [],
         favMovie: [],
-        count: 0
       };
     }
 
@@ -44,14 +48,6 @@ export class MainView extends React.Component {
         this.getFavorites(accessToken);
       }
     }
-
-    addCount(){
-      this.setState(
-        {
-          count : this.state.count + 1 
-        } 
-      )
-  }   
 
     genremovies(nam) {
       let token = localStorage.getItem('token');
@@ -153,20 +149,32 @@ export class MainView extends React.Component {
         headers: { Authorization: `Bearer ${token}`}
       })
         .then(response => {
+          this.props.setMovies(response.data);
+          console.log(response)
+          // new code line
+          console.log(this);
+          console.log(response.data)
+          console.log(this.props.setMovies)
+        
         // Assign the result to the state
         // console.log(response.data)
-        this.setState({ 
-          movies: response.data 
-        });
+        // this.setState({ 
+        //   movies: response.data 
+        // });
       })
         .catch(function (error) {
           console.log(error);
       });
     }
       render() {
+
+    // Two new let variables
+    let { movies } = this.props;
+    let { user } = this.state;
+
     // If the state isn't initialized, this will throw on runtime
     // before the data is initially loaded
-    const { movies, user, genres, directors, genMovie, dirMovie, favMovie} = this.state;
+    const { genres, directors, genMovie, dirMovie, favMovie} = this.state;
     const url = localStorage.getItem('user');
     return (
       <div className="SuperDiv">
@@ -193,7 +201,8 @@ export class MainView extends React.Component {
           // return movies.map(m => <MovieCard key={m._id} movie={m}/>)
         }} />
          <Route path="/movies" render={() => {
-          return movies.map(m => <MovieCard key={m._id} movie={m}/>)
+            return <MoviesList movies={movies}/>;
+          // return movies.map(m => <MovieCard key={m._id} movie={m}/>)
         }} />
         <Route path="/Register" render={() => {return <Register/>;}}/>
         <Route path="/Genres" render={() => {
@@ -221,5 +230,14 @@ export class MainView extends React.Component {
       </Router>     
       </div>
     );
-  }}
+  }
+}
+
+let mapStateToProps = state => {
+  return { movies: state.movies }
+}
+
+export default connect(mapStateToProps, { setMovies } )(MainView);
+
+
 

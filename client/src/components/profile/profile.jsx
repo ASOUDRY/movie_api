@@ -54,7 +54,8 @@ export function Profile(props) {
       })
       .then((response) => {
         const user = localStorage.getItem('user')
-        const favID = response.data._id;
+        console.log(response.data.Title);
+        const favID = response.data.Title;
         axios.post(`https://moviecat0l0gue.herokuapp.com/users/${user}/Movies/${favID}`, {}, {
           headers: { Authorization: `Bearer ${token}`}
         })

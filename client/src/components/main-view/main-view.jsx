@@ -33,6 +33,7 @@ export class MainView extends React.Component {
         genMovie: [],
         dirMovie: [],
         favMovie: [],
+        list: []
       };
     }
 
@@ -219,7 +220,7 @@ export class MainView extends React.Component {
         }}/>
         
         <Route path='/favorite' render={() => {
-          return favMovie.map(fm => <FavMovieCard key={fm._id} favMovie={fm}/>)
+          return favMovie.map(fm => <FavMovieCard key={fm._id} favMovie={fm} />)
           // return favMovie.map(fm => <FavMovieCard key={fm._id} favMovie={fm}/>)
         }} />
       </Router>     

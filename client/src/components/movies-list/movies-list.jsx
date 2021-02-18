@@ -13,9 +13,6 @@ function MoviesList(props) {
   const { movies, visibilityFilter } = props;
   let filteredMovies = movies;
 
-  console.log(filteredMovies);
-  console.log(props.setMovies);
-
   if (visibilityFilter !== '') {
     filteredMovies = movies.filter(m => m.Title.includes(visibilityFilter));
   }

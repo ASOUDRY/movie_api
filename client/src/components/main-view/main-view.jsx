@@ -205,6 +205,10 @@ export class MainView extends React.Component {
           return genres.map(g => <GenreCard genremovies={nam => this.genremovies(nam)} key={g._id} genres={g}/>);
           }}/>
         <Route exact path="/singlemovie/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
+
+
+        <Route exact path="/singlemovie/:movieTitle/Favorite" render={({match}) => <MovieView movie={movies.find(m => m.Title === match.params.movieTitle)}/>}/>
+
         <Route exact path="/Directors" render={() => {
           return directors.map(d => <DirectorCard dMovie={dnam => this.dMovie(dnam)} key={d._id} directors={d}/>)
         }}/>
@@ -220,7 +224,9 @@ export class MainView extends React.Component {
         }}/>
         
         <Route path='/favorite' render={() => {
-          return favMovie.map(fm => <FavMovieCard key={fm._id} favMovie={fm} />)
+          return favMovie.map(fm => <FavMovieCard 
+            // key={fm._id} 
+            favMovie={fm} />)
           // return favMovie.map(fm => <FavMovieCard key={fm._id} favMovie={fm}/>)
         }} />
       </Router>     

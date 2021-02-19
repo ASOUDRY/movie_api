@@ -237,26 +237,11 @@ passport.authenticate('jwt', {session: false}), (req, res) => {
 //     });
 //   });
 
-  // app.post('/users/:Username/Movies/:MovieID', passport.authenticate('jwt', {session: false}), (req, res) => {
-  //   Users.findOneAndUpdate({ Username: req.params.Username }, {
-  //      $push: { FavoriteMovies: req.params.MovieID }
-  //    },
-  //    { new: true }, // This line makes sure that the updated document is returned
-  //   (err, updatedUser) => {
-  //     if (err) {
-  //       console.error(err);
-  //       res.status(500).send('Error: ' + err);
-  //     } else {
-  //       res.json(updatedUser);
-  //     }
-  //   });
-  // });
-
-  app.post('/:Username/:Title', (req, res) => {
-    Users.findOneAndUpdate({Username: req.params.Username}, {
-      $push: {FavoriteMovies: req.params.Title}
-    },
-    { new: true }, // This line makes sure that the updated document is returned
+  app.post('/users/:Username/Movies/:Title', passport.authenticate('jwt', {session: false}), (req, res) => {
+    Users.findOneAndUpdate({ Username: req.params.Username }, {
+       $push: { FavoriteMovies: req.params.Title }
+     },
+     { new: true }, // This line makes sure that the updated document is returned
     (err, updatedUser) => {
       if (err) {
         console.error(err);
@@ -264,12 +249,13 @@ passport.authenticate('jwt', {session: false}), (req, res) => {
       } else {
         res.json(updatedUser);
       }
-    })
-  })
+    });
+  });
 
-app.post('/users/:Username/Movies/:MovieID/Remove', passport.authenticate('jwt', {session: false}), (req, res) => {
+
+app.post('/users/:Username/Movies/:Title/Remove', passport.authenticate('jwt', {session: false}), (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, {
-       $pull: { FavoriteMovies: req.params.MovieID }
+       $pull: { FavoriteMovies: req.params.Title }
      },
      { new: true }, // This line makes sure that the updated document is returned
     (err, updatedUser) => {

@@ -21,7 +21,7 @@ export class FavMovieCard extends React.Component {
       <Card.Body>
         <Card.Title>{favMovie}</Card.Title>
         {/* <Card.Text>{favMovie.Description}</Card.Text> */}
-        <Link to={`/singlemovie/${favMovie}`}>
+        <Link to={`/singlemovie/${favMovie}/Favorite`}>
             <Button variant="link">Open</Button>
         </Link> 
         {/* <Link to={`/users/Profile/Favorite`}>

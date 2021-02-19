@@ -254,9 +254,8 @@ passport.authenticate('jwt', {session: false}), (req, res) => {
 
   app.post('/:Username/:Title', (req, res) => {
     Users.findOneAndUpdate({Username: req.params.Username}, {
-      $push: {FavoriteMovies: req.params.Title}
+      $push: {FavoriteMovies: "John"}
     },
-
     { new: true }, // This line makes sure that the updated document is returned
     (err, updatedUser) => {
       if (err) {
@@ -265,9 +264,7 @@ passport.authenticate('jwt', {session: false}), (req, res) => {
       } else {
         res.json(updatedUser);
       }
-    }
-
-    )
+    })
   })
 
 app.post('/users/:Username/Movies/:MovieID/Remove', passport.authenticate('jwt', {session: false}), (req, res) => {

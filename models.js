@@ -22,7 +22,7 @@ let userSchema = mongoose.Schema({
     Email: {type: String, required: true},
     Birthday: {type: Date, required: true},
     FavoriteMovies: [{
-        type: mongoose.Schema.Types.ObjectId, ref: 'Movie'
+        type: mongoose.Schema.Types.String, ref: 'Movie'
     }]
 });
 // hash password

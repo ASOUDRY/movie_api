@@ -75,13 +75,14 @@ export function Profile(props) {
     const RemoveMe = (e) => {
       e.preventDefault();
       const token = localStorage.getItem('token');
+      console.log(token);
       axios.get(`https://moviecat0l0gue.herokuapp.com/movies/${defavorite}`, {
         headers: { Authorization: `Bearer ${token}`}
       })
       .then((response) => {
         const user = localStorage.getItem('user')
         console.log(response.data);
-        const Title = response.data;
+        const Title = response.data.Title;
         axios.post(`https://moviecat0l0gue.herokuapp.com/users/${user}/Movies/${Title}/Remove`, {}, {
           headers: { Authorization: `Bearer ${token}`}
         })

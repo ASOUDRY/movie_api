@@ -55,11 +55,10 @@ export function Profile(props) {
       .then((response) => {
         const user = localStorage.getItem('user')
         console.log(response.data);
-        const Path = response.data.ImagePath
         const Title = response.data.Title;
         const Id = response.data._id;
         console.log(Title);
-        axios.post(`https://moviecat0l0gue.herokuapp.com/users/${user}/Movies/${Title}/${Id}/${Path}`, {}, {
+        axios.post(`https://moviecat0l0gue.herokuapp.com/users/${user}/Movies/${Title}/${Id}`, {}, {
           headers: { Authorization: `Bearer ${token}`}
         })
         .then(() => {
@@ -85,7 +84,8 @@ export function Profile(props) {
         const user = localStorage.getItem('user')
         console.log(response.data);
         const Title = response.data.Title;
-        axios.post(`https://moviecat0l0gue.herokuapp.com/users/${user}/Movies/${Title}/Remove`, {}, {
+        const Id = response.data._id;
+        axios.post(`https://moviecat0l0gue.herokuapp.com/users/${user}/Movies/${Title}/${Id}/Remove`, {}, {
           headers: { Authorization: `Bearer ${token}`}
         })
         .then(() => {

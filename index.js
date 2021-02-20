@@ -233,7 +233,7 @@ passport.authenticate('jwt', {session: false}), (req, res) => {
 
   app.post('/users/:Username/Movies/:Title/:Id', passport.authenticate('jwt', {session: false}), (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, {
-       $push: { FavoriteMovies: 
+       $pull: { FavoriteMovies: 
         // { 
         //  $each:
         [

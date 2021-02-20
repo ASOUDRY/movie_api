@@ -23,7 +23,8 @@ let userSchema = mongoose.Schema({
     Birthday: {type: Date, required: true},
     FavoriteMovies: [{
         // change back to .String if it doesn't work
-        type: mongoose.Schema.Types.Array, ref: 'Movie'
+        type: mongoose.Schema.Types.String, ref: 'Movie',
+        type: mongoose.Schema.Types.String, ref: 'Movie'
     }]
 });
 // hash password

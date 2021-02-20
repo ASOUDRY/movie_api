@@ -237,8 +237,7 @@ passport.authenticate('jwt', {session: false}), (req, res) => {
         // { 
         //  $each:
         [
-          {Title: req.params.Title},
-          {_id: req.params.Id,} 
+          {Title: req.params.Title, _id: req.params.Id,} 
          ] 
       // }
         }

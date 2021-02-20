@@ -231,13 +231,13 @@ passport.authenticate('jwt', {session: false}), (req, res) => {
 //     });
 //   });
 
-  app.post('/users/:Username/Movies/:Title/:Id', passport.authenticate('jwt', {session: false}), (req, res) => {
+  app.post('/users/:Username/Movies/:Title/:Id/:Path', passport.authenticate('jwt', {session: false}), (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, {
        $push: { FavoriteMovies: 
         // { 
         //  $each:
         [
-          {Title: req.params.Title, _id: req.params.Id,} 
+          {ImagePath: req.params.Path, Title: req.params.Title, _id: req.params.Id} 
          ] 
       // }
         }

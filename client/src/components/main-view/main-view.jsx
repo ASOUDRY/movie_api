@@ -130,7 +130,9 @@ export class MainView extends React.Component {
         headers: { Authorization: `Bearer ${token}`}
      })
     .then((response) => {
-      console.log(response.data[0].FavoriteMovies)
+      console.log(response.data[0].FavoriteMovies[0])
+      console.log(response.data[0].FavoriteMovies[0].Title)
+      console.log(response.data[0].FavoriteMovies[0]._id)
       this.setState({
         favMovie: response.data[0].FavoriteMovies
       })
@@ -224,8 +226,10 @@ export class MainView extends React.Component {
         }}/>
         
         <Route path='/favorite' render={() => {
-          return favMovie.map(fm => <FavMovieCard key={fm._id} favMovie={fm} />)
-          // return favMovie.map(fm => <FavMovieCard key={fm._id} favMovie={fm}/>)
+          return favMovie.map(input => <FavMovieCard 
+            key={input._id} 
+            favMovie={input} />)
+          // return favMovie.map(fm => <FavMovieCard key={fm[1]._id} favMovie={fm}/>)
         }} />
       </Router>     
       </div>

@@ -76,7 +76,6 @@ export function Profile(props) {
     const RemoveMe = (e) => {
       e.preventDefault();
       const token = localStorage.getItem('token');
-      console.log(token);
       axios.get(`https://moviecat0l0gue.herokuapp.com/movies/${defavorite}`, {
         headers: { Authorization: `Bearer ${token}`}
       })

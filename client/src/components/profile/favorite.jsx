@@ -10,6 +10,8 @@ export class FavMovieCard extends React.Component {
     // which, in this case, is `MainView`, as `MainView` is what’s
     // connected to your database via the movies endpoint of your API
     const { favMovie } = this.props;
+
+    console.log(favMovie);
     
     // A actual onclick function that is clicked on.
 
@@ -19,9 +21,9 @@ export class FavMovieCard extends React.Component {
         <Card style={{ width: '16rem' }}>
       {/* <Card.Img variant="top" src={favMovie.ImagePath} /> */}
       <Card.Body>
-        <Card.Title>{favMovie}</Card.Title>
+        <Card.Title>{favMovie.Title}</Card.Title>
         {/* <Card.Text>{favMovie.Description}</Card.Text> */}
-        <Link to={`/singlemovie/${favMovie}/Favorite`}>
+        <Link to={`/singlemovie/${favMovie.Title}/Favorite`}>
             <Button variant="link">Open</Button>
         </Link> 
         {/* <Link to={`/users/Profile/Favorite`}>

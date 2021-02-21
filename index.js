@@ -262,7 +262,9 @@ passport.authenticate('jwt', {session: false}), (req, res) => {
   });
 
   
-  app.post('/:Username/Test', passport.authenticate('jwt', {session: false}), (req, res) => {
+  app.post('/:Username/Test', 
+  // passport.authenticate('jwt', {session: false}), 
+  (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, {
        $push: { FavoriteMovies: {Title: req.params.Username}}
       },
@@ -277,7 +279,9 @@ passport.authenticate('jwt', {session: false}), (req, res) => {
     });
   });
   
-  app.post('/:Username/Test/Remove', passport.authenticate('jwt', {session: false}), (req, res) => {
+  app.post('/:Username/Test/Remove', 
+  // passport.authenticate('jwt', {session: false}), 
+  (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, {
        $pull: { FavoriteMovies: {Title: req.params.Username}}
       },

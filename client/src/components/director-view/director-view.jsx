@@ -3,20 +3,18 @@ import PropTypes from 'prop-types';
 import { Button, Card, Container, CardColumns } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 
-export class DirectorCard extends React.Component {
+export class DirectorView extends React.Component {
   render() {
     // This is given to the <MovieCard/> component by the outer world
     // which, in this case, is `MainView`, as `MainView` is what’s
     // connected to your database via the movies endpoint of your API
     const { directors } = this.props;
-    const dnam = directors.Itag;
-    console.log(dnam);
+    const directorTag = directors.Itag;
+    console.log(directorTag);
     const fetching = (e) => {
-      console.log(dnam);
+      console.log(directorTag);
       e.preventDefault();
-      // this.props.testing();
-      this.props.dMovie(dnam)
-      // this.props.dirMovies(dnam)
+      this.props.directorProp(directorTag)
     }
 
     // A actual onclick function that is clicked on.
@@ -28,7 +26,7 @@ export class DirectorCard extends React.Component {
         <Card.Title>{directors.Name}</Card.Title>
         <Card.Text>{directors.Bio}</Card.Text>
         <Button onClick={fetching}>Loading</Button>
-        <Link to={`/Director/${dnam}`}>
+        <Link to={`/Director/${directorTag}`}>
             <Button variant="link">Examples</Button>
         </Link>
       </Card.Body>
@@ -39,7 +37,7 @@ export class DirectorCard extends React.Component {
   }
 }
 
-DirectorCard.propTypes = {
+DirectorView.propTypes = {
   directors: PropTypes.shape({
     Itag: PropTypes.string,
     Name: PropTypes.string,

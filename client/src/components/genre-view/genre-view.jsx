@@ -3,21 +3,19 @@ import PropTypes from 'prop-types';
 import { Button, Card, Container, CardColumns } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 
-export class GenreCard extends React.Component {
+export class GenreView extends React.Component {
   render() {
     // This is given to the <MovieCard/> component by the outer world
     // which, in this case, is `MainView`, as `MainView` is what’s
     // connected to your database via the movies endpoint of your API
     const { genres } = this.props;
-    const nam = genres.Name;
+    const genreName = genres.Name;
     const fetching = (e) => {
-      console.log(nam);
+      console.log(genreName);
       e.preventDefault();
-      this.props.genremovies(nam)
-      // window.open(`/Genre${nam}`, '_self')
+      this.props.genreProp(genreName)
     }
 
-    // A actual onclick function that is clicked on.
     return (
       <Container>
         <CardColumns>
@@ -26,7 +24,7 @@ export class GenreCard extends React.Component {
         <Card.Title>{genres.Name}</Card.Title>
         <Card.Text>{genres.Description}</Card.Text>
         <Button onClick={fetching}>Loading</Button>
-        <Link to={`/Genre/${nam}`}>
+        <Link to={`/Genre/${genreName}`}>
             <Button variant="link">Examples</Button>
         </Link>
       </Card.Body>
@@ -37,7 +35,7 @@ export class GenreCard extends React.Component {
   }
 }
 
-GenreCard.propTypes = {
+GenreView.propTypes = {
   genres: PropTypes.shape({
     Name: PropTypes.string,
     Description: PropTypes.string,

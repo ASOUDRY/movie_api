@@ -4,14 +4,13 @@ import { BrowserRouter as Router, Route} from "react-router-dom";
 import Nav from 'react-bootstrap/Nav'
 import { LoginView } from '../login-view/login-view';
 import { Register } from '../register/register';
-import { MovieCard } from '../movie-card/movie-card.jsx';
 import { MovieView } from '../movie-view/movie-view';
 import { Profile } from '../profile/profile.jsx';
 import { FavMovieCard } from '../profile/favorite.jsx'
-import { GenreCard } from '../genre-view/genre-view.jsx';
-import { GenMovieCard } from '../genre-view/genMovie-card.jsx';
-import { DirectorCard} from '../director-view/director-view.jsx';
-import { DirMovieCard} from '../director-view/dirMovie-card.jsx';
+import { GenreView } from '../genre-view/genre-view.jsx';
+import { GenreMovie } from '../genre-view/genre-card.jsx';
+import { DirectorView} from '../director-view/director-view.jsx';
+import { DirectorCard} from '../director-view/director-card.jsx';
 import MoviesList from '../movies-list/movies-list';
 
 import { connect } from 'react-redux';
@@ -26,14 +25,12 @@ export class MainView extends React.Component {
   
       // Initialize the state to an empty object so we can destructure it later
       this.state = {
-        movies: [],
         // user: null,
         genres: [],
         directors: [],
-        genMovie: [],
-        dirMovie: [],
-        favMovie: [],
-        list: []
+        genreMovie: [],
+        directorMovie: [],
+        favoriteMovie: [],
       };
     }
 
@@ -43,58 +40,47 @@ export class MainView extends React.Component {
         this.setState({
           user: localStorage.getItem('user')
         });
+        this.props.setUser(localStorage.getItem('user'));
         this.getMovies(accessToken);
         this.getGenres(accessToken);
         this.getDirectors(accessToken);
         this.getFavorites(accessToken);
       }
     }
-
-    genremovies(nam) {
-      let token = localStorage.getItem('token');
-      axios.get(`https://moviecat0l0gue.herokuapp.com/genres/${nam}`, {
-        headers: { Authorization: `Bearer ${token}`}
-      })
-      .then(response => {
-        console.log(response.data);
-        this.setState({
-          genMovie: response.data
-        })
-      })}
-
-    dMovie(dnam) {
-        let token = localStorage.getItem('token');
-        axios.get(`https://moviecat0l0gue.herokuapp.com/directors/${dnam}`, {
-          headers: { Authorization: `Bearer ${token}`}
-        })
-        .then(response => {
-          console.log(response.data);
-          this.setState({
-            dirMovie: response.data
-          })
-        })}
-       
+// Prop for logging in
     onLoggedIn(data) {
-          console.log(data.user.Username)
-          this.props.setUser(data.user.Username)
-            this.setState({
-              user: data.user.Username
-            });
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('user', data.user.Username);
-            this.getMovies(data.token);
-        }
+      console.log(data.user.Username)
+      this.props.setUser(data.user.Username)
+        this.setState({
+          user: data.user.Username
+        });
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', data.user.Username);
+        this.getMovies(data.token);
+    }
 
-    update(data) {
+// Updates the local user host
+    updateUser(data) {
       console.log(data + "is the username here!");
-      // this.setState({
-      //   user: data
-      // })
       this.props.setUser(data)
       localStorage.removeItem("user")
       localStorage.setItem('user', data);
     }
 
+
+// Fetching the data for  the movies
+    getMovies(token) {
+      axios.get('https://moviecat0l0gue.herokuapp.com/movies', {
+        headers: { Authorization: `Bearer ${token}`}
+      })
+        .then(response => {
+          this.props.setMovies(response.data);
+      })
+        .catch(function (error) {
+          console.log(error);
+      });
+    }
+    
     getGenres(token) {
       axios.get('https://moviecat0l0gue.herokuapp.com/genres', {
         headers: { Authorization: `Bearer ${token}`}
@@ -126,7 +112,6 @@ export class MainView extends React.Component {
     }
 
     getFavorites(token) {
-    // let counter = this.state.count
     const user = localStorage.getItem('user');
     axios.get(`https://moviecat0l0gue.herokuapp.com/users/${user}`, {
         headers: { Authorization: `Bearer ${token}`}
@@ -136,48 +121,47 @@ export class MainView extends React.Component {
       this.setState({
         favMovie: response.data[0].FavoriteMovies
       })
-      // let favorite = response.data[0].FavoriteMovies
-      // this.props.favorite = "test"
-      // this.props.genres = response.data[0].FavoriteMovies;
-      // console.log(favorite);
-      }
-      )
-    }    
-    
-    getMovies(token) {
-      axios.get('https://moviecat0l0gue.herokuapp.com/movies', {
+    })}    
+
+
+// Props for filtering out genre and director
+    genreProp(genreName) {
+      let token = localStorage.getItem('token');
+      axios.get(`https://moviecat0l0gue.herokuapp.com/genres/${genreName}`, {
         headers: { Authorization: `Bearer ${token}`}
       })
+      .then(response => {
+        console.log(response.data);
+        this.setState({
+          genreMovie: response.data
+        })
+      })}
+
+    directorProp(directorTag) {
+        let token = localStorage.getItem('token');
+        axios.get(`https://moviecat0l0gue.herokuapp.com/directors/${directorTag}`, {
+          headers: { Authorization: `Bearer ${token}`}
+        })
         .then(response => {
-          this.props.setMovies(response.data);
-          // new code line
-        
-        // Assign the result to the state
-        // console.log(response.data)
-        // this.setState({ 
-        //   movies: response.data 
-        // });
-      })
-        .catch(function (error) {
-          console.log(error);
-      });
-    }
-      render() {
+          console.log(response.data);
+          this.setState({
+            directorMovie: response.data
+          })
+        })}
+       
+    render() {
 
     // Two new let variables
     let { movies } = this.props;
     let { user } = this.state;
-    // let { user } = this.props
-
     
-
     // If the state isn't initialized, this will throw on runtime
     // before the data is initially loaded
-    const { genres, directors, genMovie, dirMovie, favMovie} = this.state;
+    const { genres, directors, genreMovie, directorMovie, favoriteMovie} = this.state;
     const url = localStorage.getItem('user');
     return (
       <div className="SuperDiv">
-        <Nav>
+      <Nav>
         <Nav.Item>
           <Nav.Link href="/movies" >Movies</Nav.Link>
           </Nav.Item>
@@ -195,38 +179,17 @@ export class MainView extends React.Component {
           </Nav.Item>
         </Nav>
       <Router>
-        <Route path="/" render={() => {
-           if (!user) return <LoginView onLoggedIn={data => this.onLoggedIn(data)} />
-          // return movies.map(m => <MovieCard key={m._id} movie={m}/>)
-        }} />
-         <Route path="/movies" render={() => {
-            return <MoviesList movies={movies}/>;
-          // return movies.map(m => <MovieCard key={m._id} movie={m}/>)
-        }} />
-        <Route path="/Register" render={() => {return <Register/>;}}/>
-        <Route path="/Genres" render={() => {
-          return genres.map(g => <GenreCard genremovies={nam => this.genremovies(nam)} key={g._id} genres={g}/>);
-          }}/>
+        <Route path="/" render={() => { if (!user) return <LoginView onLoggedIn={data => this.onLoggedIn(data)} /> }} />
+        <Route path="/movies" render={() => {return <MoviesList movies={movies}/>;}} />
+        <Route path="/Register" render={() => {return <Register/>;}}/>      
+        <Route path="/Genres" render={() => { return genres.map(g => <GenreView genreProp={genreName => this.genreProp(genreName)} key={g._id} genres={g}/>);}}/>
         <Route exact path="/singlemovie/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
-
         <Route exact path="/singlemovie/:movieTitle/Favorite" render={({match}) => <MovieView movie={movies.find(m => m.Title === match.params.movieTitle)}/>}/>
-
-        <Route exact path="/Directors" render={() => {
-          return directors.map(d => <DirectorCard dMovie={dnam => this.dMovie(dnam)} key={d._id} directors={d}/>)
-        }}/>
-
-        <Route exact path="/Director/:Director" render={() => {
-          return dirMovie.map(dm => <DirMovieCard dMovie={dnam => this.dMovie(dnam)} key={dm._id}  dirMovie={dm}/>)
-        }}/>
-        <Route exact path="/Genre/:Genre" render={() => {
-          return genMovie.map(gm => <GenMovieCard key={gm._id}  genMovie={gm}/>)
-        }}/>
-        <Route path='/users/Profile' render={() => {
-          return <Profile update={data => this.update(data)} getFavorites={(token) => this.getFavorites(token)}/>
-        }}/>
-        <Route path='/favorite' render={() => {
-          return favMovie.map(input => <FavMovieCard key={input._id} favMovie={input}/>)
-        }} />
+        <Route exact path="/Directors" render={() => { return directors.map(d => <DirectorView directorProp={directorTag => this.directorProp(directorTag)} key={d._id} directors={d}/>) }}/>
+        <Route exact path="/Director/:Director" render={() => { return directorMovie.map(dm => <DirectorCard directorProp={directorTag => this.directorProp(directorTag)} key={dm._id}  directorMovie={dm}/>) }}/>
+        <Route exact path="/Genre/:Genre" render={() => { return genreMovie.map(gm => <GenreMovie key={gm._id}  genreMovie={gm}/>)}}/>
+        <Route path='/users/Profile' render={() => { return <Profile update={data => this.update(data)} getFavorites={(token) => this.getFavorites(token)}/> }}/>
+        <Route path='/favorite' render={() => { return favoriteMovie.map(input => <FavMovieCard key={input._id} favoriteMovie={input}/>) }} />
       </Router>     
       </div>
     );
@@ -239,6 +202,3 @@ let mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, { setMovies, setUser } )(MainView);
-
-
-

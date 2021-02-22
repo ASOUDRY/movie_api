@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import { Button, Card, Container, CardColumns } from 'react-bootstrap';
 import { Link } from "react-router-dom";
@@ -9,26 +8,16 @@ export class FavMovieCard extends React.Component {
     // This is given to the <MovieCard/> component by the outer world
     // which, in this case, is `MainView`, as `MainView` is what’s
     // connected to your database via the movies endpoint of your API
-    const { favMovie } = this.props;
-
-    console.log(favMovie);
-    
-    // A actual onclick function that is clicked on.
-
+    const { favoriteMovie } = this.props; 
     return (
       <Container>
         <CardColumns>
         <Card style={{ width: '16rem' }}>
-      {/* <Card.Img variant="top" src={favMovie.ImagePath} /> */}
       <Card.Body>
-        <Card.Title>{favMovie.Title}</Card.Title>
-        {/* <Card.Text>{favMovie.Description}</Card.Text> */}
-        <Link to={`/singlemovie/${favMovie.Title}/Favorite`}>
+        <Card.Title>{favoriteMovie.Title}</Card.Title>
+        <Link to={`/singlemovie/${favoriteMovie.Title}/Favorite`}>
             <Button variant="link">Open</Button>
         </Link> 
-        {/* <Link to={`/users/Profile/Favorite`}>
-            <Button variant="link">Back</Button>
-        </Link> */}
       </Card.Body>
       </Card>
         </CardColumns>       
@@ -38,7 +27,7 @@ export class FavMovieCard extends React.Component {
 }
 
 FavMovieCard.propTypes = {
-  favMovie: PropTypes.shape({
+  favoriteMovie: PropTypes.shape({
     // Title: PropTypes.string,
     // Description: PropTypes.string,
     // Genre: PropTypes.object,

@@ -137,9 +137,8 @@ export function Profile(props) {
           <Form.Control type="Date" placeholder="Enter your date" value={birthday} onChange={e => setBirthday(e.target.value)} />
         </Form.Group>
         <Form.Group>
-          <Form.Check type="checkbox" label="Check me out" />
         </Form.Group>
-        <Button variant="primary" type="submit" onClick={Update}> Submit </Button>
+        <Button variant="primary" type="submit" onClick={Update}> Update </Button>
         <Button variant="primary" type="submit" onClick={Clear}> Log Out! </Button>
       </Form>
       <Form>

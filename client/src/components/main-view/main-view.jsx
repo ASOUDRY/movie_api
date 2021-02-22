@@ -16,7 +16,7 @@ import MoviesList from '../movies-list/movies-list';
 
 import { connect } from 'react-redux';
 
-import { setMovies } from '../../actions/actions'
+import { setMovies, setUser } from '../../actions/actions'
 
 export class MainView extends React.Component {
     constructor() {
@@ -27,7 +27,7 @@ export class MainView extends React.Component {
       // Initialize the state to an empty object so we can destructure it later
       this.state = {
         movies: [],
-        user: null,
+        // user: null,
         genres: [],
         directors: [],
         genMovie: [],
@@ -76,6 +76,7 @@ export class MainView extends React.Component {
        
     onLoggedIn(data) {
           console.log(data.user.Username)
+          this.props.setUser(data.user.Username)
             this.setState({
               user: data.user.Username
             });
@@ -84,14 +85,15 @@ export class MainView extends React.Component {
             this.getMovies(data.token);
         }
 
-    // update(data) {
-    //   console.log(data + "is the username here!");
-    //   this.setState({
-    //     user: data
-    //   })
-    //   localStorage.removeItem("user")
-    //   localStorage.setItem('user', data);
-    // }
+    update(data) {
+      console.log(data + "is the username here!");
+      // this.setState({
+      //   user: data
+      // })
+      this.props.setUser(data)
+      localStorage.removeItem("user")
+      localStorage.setItem('user', data);
+    }
 
     getGenres(token) {
       axios.get('https://moviecat0l0gue.herokuapp.com/genres', {
@@ -165,6 +167,7 @@ export class MainView extends React.Component {
     // Two new let variables
     let { movies } = this.props;
     let { user } = this.state;
+    // let { user } = this.props
 
     
 
@@ -206,7 +209,6 @@ export class MainView extends React.Component {
           }}/>
         <Route exact path="/singlemovie/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
 
-
         <Route exact path="/singlemovie/:movieTitle/Favorite" render={({match}) => <MovieView movie={movies.find(m => m.Title === match.params.movieTitle)}/>}/>
 
         <Route exact path="/Directors" render={() => {
@@ -220,10 +222,10 @@ export class MainView extends React.Component {
           return genMovie.map(gm => <GenMovieCard key={gm._id}  genMovie={gm}/>)
         }}/>
         <Route path='/users/Profile' render={() => {
-          return <Profile getFavorites={(token) => this.getFavorites(token)}/>
+          return <Profile update={data => this.update(data)} getFavorites={(token) => this.getFavorites(token)}/>
         }}/>
         <Route path='/favorite' render={() => {
-          return favMovie.map(input => <FavMovieCard key={input._id} favMovie={input} />)
+          return favMovie.map(input => <FavMovieCard key={input._id} favMovie={input}/>)
         }} />
       </Router>     
       </div>
@@ -232,10 +234,11 @@ export class MainView extends React.Component {
 }
 
 let mapStateToProps = state => {
-  return { movies: state.movies }
+  return { movies: state.movies,
+           users: state.users }
 }
 
-export default connect(mapStateToProps, { setMovies } )(MainView);
+export default connect(mapStateToProps, { setMovies, setUser } )(MainView);
 
 
 

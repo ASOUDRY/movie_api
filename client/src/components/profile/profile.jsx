@@ -28,8 +28,9 @@ export function Profile(props) {
     .then((response) => {
       const data = response.data.Username
       console.log(data);
-      localStorage.removeItem("user")
-      localStorage.setItem('user', data);
+      props.update(data)
+      // localStorage.removeItem("user")
+      // localStorage.setItem('user', data);
     })
     .catch(error => {
       console.log(error);

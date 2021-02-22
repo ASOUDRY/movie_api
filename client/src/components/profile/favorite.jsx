@@ -9,6 +9,7 @@ export class FavMovieCard extends React.Component {
     // which, in this case, is `MainView`, as `MainView` is what’s
     // connected to your database via the movies endpoint of your API
     const { favoriteMovie } = this.props; 
+    console.log("can you see this?");
     return (
       <Container>
         <CardColumns>

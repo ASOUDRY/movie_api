@@ -6,6 +6,7 @@ import { LoginView } from '../login-view/login-view';
 import { Register } from '../register/register';
 import { MovieView } from '../movie-view/movie-view';
 import { Profile } from '../profile/profile.jsx';
+import { Test } from '../profile/Test';
 import { FavMovieCard } from '../profile/favorite.jsx'
 import { GenreView } from '../genre-view/genre-view.jsx';
 import { GenreMovie } from '../genre-view/genre-card.jsx';
@@ -49,22 +50,22 @@ export class MainView extends React.Component {
     }
 // Prop for logging in
     onLoggedIn(data) {
-      console.log(data.user.Username)
-      this.props.setUser(data.user.Username)
+      const username = data.user.Username;
+      this.props.setUser(username)
         this.setState({
           user: data.user.Username
         });
         localStorage.setItem('token', data.token);
-        localStorage.setItem('user', data.user.Username);
+        localStorage.setItem('user', username);
         this.getMovies(data.token);
     }
 
 // Updates the local user host
-    updateUser(data) {
-      console.log(data + "is the username here!");
-      this.props.setUser(data)
+    update(username) {
+      console.log(username + " is the username here!");
+      this.props.setUser(username)
       localStorage.removeItem("user")
-      localStorage.setItem('user', data);
+      localStorage.setItem('user', username);
     }
 
 
@@ -119,7 +120,7 @@ export class MainView extends React.Component {
     .then((response) => {
       console.log(response.data[0].FavoriteMovies)
       this.setState({
-        favMovie: response.data[0].FavoriteMovies
+        favoriteMovie: response.data[0].FavoriteMovies
       })
     })}    
 
@@ -188,8 +189,15 @@ export class MainView extends React.Component {
         <Route exact path="/Directors" render={() => { return directors.map(d => <DirectorView directorProp={directorTag => this.directorProp(directorTag)} key={d._id} directors={d}/>) }}/>
         <Route exact path="/Director/:Director" render={() => { return directorMovie.map(dm => <DirectorCard directorProp={directorTag => this.directorProp(directorTag)} key={dm._id}  directorMovie={dm}/>) }}/>
         <Route exact path="/Genre/:Genre" render={() => { return genreMovie.map(gm => <GenreMovie key={gm._id}  genreMovie={gm}/>)}}/>
-        <Route path='/users/Profile' render={() => { return <Profile update={data => this.update(data)} getFavorites={(token) => this.getFavorites(token)}/> }}/>
-        <Route path='/favorite' render={() => { return favoriteMovie.map(input => <FavMovieCard key={input._id} favoriteMovie={input}/>) }} />
+        <Route path='/users/Profile' render={
+          () => { 
+            return <Profile update={
+              username => this.update(username)} getFavorites={(token) => this.getFavorites(token)}/> }}/>
+        
+        <Route path='/favorite' render={() => {
+          return favoriteMovie.map(input => <FavMovieCard key={input._id} favoriteMovie={input} />)
+        }} />
+        
       </Router>     
       </div>
     );

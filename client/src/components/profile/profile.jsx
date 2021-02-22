@@ -26,9 +26,10 @@ export function Profile(props) {
       headers: { Authorization: `Bearer ${token}`}
     })
     .then((response) => {
-      const data = response.data.Username
-      console.log(data);
-      props.updateUser(data)
+      console.log(response)
+      const username = response.data.Username
+      console.log(username);
+      props.update(username)
     })
     .catch(error => {
       console.log(error);

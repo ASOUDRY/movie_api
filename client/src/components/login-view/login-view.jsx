@@ -19,7 +19,7 @@ export function LoginView(props) {
     Password: password
   })
   .then(response => {
-    const data = response.data;
+    const data = response.data
     props.onLoggedIn(data);
     window.open('/Movies', '_self')
   })

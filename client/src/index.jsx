@@ -11,6 +11,8 @@ import './index.scss';
 // creates a store
 const store = createStore(moviesApp);
 
+store.subscribe(() => console.log(store.getState()))
+
 // Main component (will eventually use all the others)
 class MyFlixApplication extends React.Component {
   render() {

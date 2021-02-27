@@ -10,9 +10,8 @@ export class DirectorView extends React.Component {
     // connected to your database via the movies endpoint of your API
     const { directors } = this.props;
     const directorTag = directors.Itag;
-    console.log(directorTag);
+   
     const fetching = (e) => {
-      console.log(directorTag);
       e.preventDefault();
       this.props.directorProp(directorTag)
     }

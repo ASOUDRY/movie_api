@@ -6,7 +6,6 @@ import { LoginView } from '../login-view/login-view';
 import { Register } from '../register/register';
 import { MovieView } from '../movie-view/movie-view';
 import { Profile } from '../profile/profile.jsx';
-import { ProfileView } from '../profile/profile2.jsx';
 import { FavMovieCard } from '../profile/favorite.jsx';
 import { GenreView } from '../genre-view/genre-view.jsx';
 import { GenreMovie } from '../genre-view/genre-card.jsx';

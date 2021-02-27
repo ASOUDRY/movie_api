@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import { Link } from "react-router-dom";
+import Favorite from './favorite.jsx';
 
 export function Profile(props) {
   const [ username, setUsername ] = useState('');
@@ -12,6 +13,7 @@ export function Profile(props) {
   const [ favorite, setfavorite ] = useState('');
   const [ defavorite, setdefavorite ] = useState('');
   
+  let test = {}
   const Update = (e) => {
     e.preventDefault();
     const user = localStorage.getItem('user');
@@ -54,6 +56,8 @@ export function Profile(props) {
       .then((response) => {
         const user = localStorage.getItem('user')
         console.log(response.data);
+        test = response.data;
+        console.log(test);
         const Title = response.data.Title;
         const Id = response.data._id;
         console.log(Title);
@@ -61,6 +65,7 @@ export function Profile(props) {
           headers: { Authorization: `Bearer ${token}`}
         })
         .then(() => {
+          console.log(response.data);
           console.log("successfully added")
         })
         .then(() => {
@@ -116,9 +121,10 @@ export function Profile(props) {
       })
     }
 
-    return (
-        <div>
-          <Form>
+return (
+  <div>
+       console.log(test);
+ <Form>
         <Form.Group>
           <Form.Label>Username</Form.Label>
           <Form.Control type="text" placeholder="Enter new Username"  value={username} onChange={e => setUsername(e.target.value)} />
@@ -151,12 +157,8 @@ export function Profile(props) {
           <Form.Control type="text" placeholder="Enter the name of your movie you wanna remove" value={defavorite} onChange={e => setdefavorite(e.target.value)} />
           <Button variant="primary" type="submit" onClick={RemoveMe}> Remove Me! </Button>
         </Form.Group>
-      {/* <Form.Group>
-          <Button variant="primary" type="submit" onClick={FavoriteMovies}>Favorite Movie</Button>
-        </Form.Group> */}
         <Form.Label>Not a fan of the site? No problem.</Form.Label>
         <Button variant="primary" type="submit" onClick={DeleteAccount}> Delete Account </Button>
       </Form>
-        </div>
-    )
-}
+  </div>
+)}

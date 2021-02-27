@@ -6,7 +6,8 @@ import { LoginView } from '../login-view/login-view';
 import { Register } from '../register/register';
 import { MovieView } from '../movie-view/movie-view';
 import { Profile } from '../profile/profile.jsx';
-import { FavMovieCard } from '../profile/favorite.jsx'
+import { ProfileView } from '../profile/profile2.jsx';
+import { FavMovieCard } from '../profile/favorite.jsx';
 import { GenreView } from '../genre-view/genre-view.jsx';
 import { GenreMovie } from '../genre-view/genre-card.jsx';
 import { DirectorView} from '../director-view/director-view.jsx';
@@ -119,7 +120,6 @@ export class MainView extends React.Component {
         headers: { Authorization: `Bearer ${token}`}
      })
     .then((response) => {
-      console.log(response.data[0].FavoriteMovies)
       this.setState({
         favoriteMovie: response.data[0].FavoriteMovies
       })
@@ -191,8 +191,17 @@ export class MainView extends React.Component {
         <Route exact path="/singlemovie/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
         <Route exact path="/singlemovie/:movieTitle/Favorite" render={({match}) => <MovieView movie={movies.find(m => m.Title === match.params.movieTitle)}/>}/>
         <Route path="/Register" render={() => {return <Register/>;}}/>      
-        <Route path='/users/Profile' render={ () => { return <Profile update={ username => this.update(username)} getFavorites={(token) => this.getFavorites(token)}/> }}/>
-        <Route path='/favorite' render={() => { return favoriteMovie.map(input => <FavMovieCard key={input._id} favoriteMovie={input} />) }} />
+        <Route path='/users/Profile' 
+        render={
+          () => { 
+            return <Profile 
+            update={ 
+            (username) => this.update(username)} 
+            getFavorites={
+            (token) => this.getFavorites(token)}
+                /> 
+                }}/>
+        <Route path='/favorite' render={() => { return favoriteMovie.map(input => <FavMovieCard key={input.Id} favoriteMovie={input} />) }} />
       </Router>     
       </div>
     );

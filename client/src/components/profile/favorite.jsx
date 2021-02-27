@@ -9,31 +9,21 @@ export class FavMovieCard extends React.Component {
     // which, in this case, is `MainView`, as `MainView` is what’s
     // connected to your database via the movies endpoint of your API
     const { favoriteMovie } = this.props; 
-    console.log("can you see this?");
+    console.log("can you see this 2 Electric Bogoloo!");
     return (
-      <Container>
-        <CardColumns>
-        <Card style={{ width: '16rem' }}>
+      <Card className="fl w-50 pa2">
       <Card.Body>
-        <Card.Title>{favoriteMovie.Title}</Card.Title>
+        <h5 className="card-title">{favoriteMovie.Title}</h5>
         <Link to={`/singlemovie/${favoriteMovie.Title}/Favorite`}>
             <Button variant="link">Open</Button>
         </Link> 
       </Card.Body>
       </Card>
-        </CardColumns>       
-      </Container>
     )
   }
 }
 
 FavMovieCard.propTypes = {
   favoriteMovie: PropTypes.shape({
-    // Title: PropTypes.string,
-    // Description: PropTypes.string,
-    // Genre: PropTypes.object,
-    // Director: PropTypes.object,
-    // ImagePath: PropTypes.string,
-    // Featured: PropTypes.bool
   }).isRequired,
 };

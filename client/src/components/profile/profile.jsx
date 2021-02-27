@@ -12,7 +12,6 @@ export function Profile(props) {
   const [ favorite, setfavorite ] = useState('');
   const [ defavorite, setdefavorite ] = useState('');
   
-
   const Update = (e) => {
     e.preventDefault();
     const user = localStorage.getItem('user');
@@ -152,7 +151,7 @@ export function Profile(props) {
           <Form.Control type="text" placeholder="Enter the name of your movie you wanna remove" value={defavorite} onChange={e => setdefavorite(e.target.value)} />
           <Button variant="primary" type="submit" onClick={RemoveMe}> Remove Me! </Button>
         </Form.Group>
-        {/* <Form.Group>
+      {/* <Form.Group>
           <Button variant="primary" type="submit" onClick={FavoriteMovies}>Favorite Movie</Button>
         </Form.Group> */}
         <Form.Label>Not a fan of the site? No problem.</Form.Label>

@@ -19,20 +19,16 @@ export class DirectorView extends React.Component {
 
     // A actual onclick function that is clicked on.
     return (
-      <Container>
-        <CardColumns>
-        <Card style={{ width: '16rem' }}>
+      <Card className="fl w-50 pa2" >
       <Card.Body>
-        <Card.Title>{directors.Name}</Card.Title>
-        <Card.Text>{directors.Bio}</Card.Text>
+        <h5 className="card-title">{directors.Name}</h5>
+        <p className="card-text">{directors.Bio}</p>
         <Button onClick={fetching}>Loading</Button>
         <Link to={`/Director/${directorTag}`}>
             <Button variant="link">Examples</Button>
         </Link>
       </Card.Body>
       </Card>
-        </CardColumns>       
-      </Container>
     )
   }
 }

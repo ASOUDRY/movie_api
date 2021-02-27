@@ -17,20 +17,16 @@ export class GenreView extends React.Component {
     }
 
     return (
-      <Container>
-        <CardColumns>
-        <Card style={{ width: '16rem' }}>
+      <Card className="fl w-50 pa2" >
       <Card.Body>
-        <Card.Title>{genres.Name}</Card.Title>
-        <Card.Text>{genres.Description}</Card.Text>
+        <h5 className="card-title">{genres.Name}</h5>
+        <p className="card-text">{genres.Description}</p>
         <Button onClick={fetching}>Loading</Button>
         <Link to={`/Genre/${genreName}`}>
             <Button variant="link">Examples</Button>
         </Link>
       </Card.Body>
       </Card>
-        </CardColumns>       
-      </Container>
     )
   }
 }

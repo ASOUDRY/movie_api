@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 
 import MainView  from './components/main-view/main-view';
 import moviesApp from './reducers/reducers';
+import 'tachyons';
 
 // Import statement to indicate that you need to bundle `./index.scss`
 import './index.scss';

@@ -13,13 +13,11 @@ export class GenreMovie extends React.Component {
     const { genreMovie } = this.props;
 
     return (
-      <Container>
-        <CardColumns>
-        <Card style={{ width: '16rem' }}>
+        <Card className="fl w-50 pa2">
       <Card.Img variant="top" src={genreMovie.ImagePath} />
       <Card.Body>
-        <Card.Title>{genreMovie.Title}</Card.Title>
-        <Card.Text>{genreMovie.Description}</Card.Text>
+        <h5 className="card-title">{genreMovie.Title}</h5>
+        <p  className="card-text">{genreMovie.Description}</p>
         <Link to={`/singlemovie/${genreMovie._id}`}>
             <Button variant="link">Open</Button>
         </Link>
@@ -28,8 +26,6 @@ export class GenreMovie extends React.Component {
         </Link>
       </Card.Body>
       </Card>
-        </CardColumns>       
-      </Container>
     )
   }
 }

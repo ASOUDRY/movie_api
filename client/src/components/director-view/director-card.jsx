@@ -10,13 +10,11 @@ export class DirectorCard extends React.Component {
     // connected to your database via the movies endpoint of your API
     const { directorMovie } = this.props;
     return (
-      <Container>
-        <CardColumns>
-        <Card style={{ width: '16rem' }}>
+        <Card className="fl w-50 pa2">
       <Card.Img variant="top" src={directorMovie.ImagePath} />
       <Card.Body>
-        <Card.Title>{directorMovie.Title}</Card.Title>
-        <Card.Text>{directorMovie.Description}</Card.Text>
+        <h5 className="card-title">{directorMovie.Title}</h5>
+        <p  className="card-text">{directorMovie.Description}</p>
         <Link to={`/singlemovie/${directorMovie._id}`}>
             <Button variant="link">Open</Button>
         </Link>
@@ -25,8 +23,6 @@ export class DirectorCard extends React.Component {
         </Link>
       </Card.Body>
       </Card>
-        </CardColumns>       
-      </Container>
     )
   }
 }

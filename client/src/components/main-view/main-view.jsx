@@ -12,6 +12,8 @@ import { GenreMovie } from '../genre-view/genre-card.jsx';
 import { DirectorView} from '../director-view/director-view.jsx';
 import { DirectorCard} from '../director-view/director-card.jsx';
 import MoviesList from '../movies-list/movies-list';
+import './main-view.scss';
+
 
 import { connect } from 'react-redux';
 
@@ -30,7 +32,7 @@ export class MainView extends React.Component {
         directors: [],
         genreMovie: [],
         directorMovie: [],
-        favoriteMovie: [],
+        favoriteMovie: []
       };
     }
 
@@ -178,25 +180,19 @@ export class MainView extends React.Component {
             <Nav.Link href="/favorite">Favorite Movies</Nav.Link>
           </Nav.Item>
         </Nav>
+      
       <Router>
         <Route path="/" render={() => { if (!user) return <LoginView onLoggedIn={data => this.onLoggedIn(data)} /> }} />
         <Route path="/movies" render={() => {return <MoviesList movies={movies}/>;}} />
-        <Route path="/Register" render={() => {return <Register/>;}}/>      
         <Route path="/Genres" render={() => { return genres.map(g => <GenreView genreProp={genreName => this.genreProp(genreName)} key={g._id} genres={g}/>);}}/>
-        <Route exact path="/singlemovie/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
-        <Route exact path="/singlemovie/:movieTitle/Favorite" render={({match}) => <MovieView movie={movies.find(m => m.Title === match.params.movieTitle)}/>}/>
         <Route exact path="/Directors" render={() => { return directors.map(d => <DirectorView directorProp={directorTag => this.directorProp(directorTag)} key={d._id} directors={d}/>) }}/>
         <Route exact path="/Director/:Director" render={() => { return directorMovie.map(dm => <DirectorCard directorProp={directorTag => this.directorProp(directorTag)} key={dm._id}  directorMovie={dm}/>) }}/>
         <Route exact path="/Genre/:Genre" render={() => { return genreMovie.map(gm => <GenreMovie key={gm._id}  genreMovie={gm}/>)}}/>
-        <Route path='/users/Profile' render={
-          () => { 
-            return <Profile update={
-              username => this.update(username)} getFavorites={(token) => this.getFavorites(token)}/> }}/>
-        
-        <Route path='/favorite' render={() => {
-          return favoriteMovie.map(input => <FavMovieCard key={input._id} favoriteMovie={input} />)
-        }} />
-        
+        <Route exact path="/singlemovie/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
+        <Route exact path="/singlemovie/:movieTitle/Favorite" render={({match}) => <MovieView movie={movies.find(m => m.Title === match.params.movieTitle)}/>}/>
+        <Route path="/Register" render={() => {return <Register/>;}}/>      
+        <Route path='/users/Profile' render={ () => { return <Profile update={ username => this.update(username)} getFavorites={(token) => this.getFavorites(token)}/> }}/>
+        <Route path='/favorite' render={() => { return favoriteMovie.map(input => <FavMovieCard key={input._id} favoriteMovie={input} />) }} />
       </Router>     
       </div>
     );

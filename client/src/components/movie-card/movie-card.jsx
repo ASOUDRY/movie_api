@@ -13,20 +13,16 @@ export class MovieCard extends React.Component {
     const { movie } = this.props;
     
     return (
-      <Container>
-        <CardColumns>
-        <Card style={{ width: '16rem' }}>
-      <Card.Img variant="top" src={movie.ImagePath} />
-      <Card.Body>
-        <Card.Title>{movie.Title}</Card.Title>
-        <Card.Text>{movie.Description}</Card.Text>
-        <Link to={`/singlemovie/${movie._id}`}>
-            <Button variant="link">Open</Button>
-        </Link>
-      </Card.Body>
-      </Card>
-        </CardColumns>       
-      </Container>
+  <div className="fl w-50 pa2" >
+  <Card.Img className="image"  variant="top" src={movie.ImagePath}/>
+  <div className="card-body">
+    <h5 className="card-title">{movie.Title}</h5>
+    <p className="card-text">{movie.Description}</p>
+    <Link to={`/singlemovie/${movie._id}`}>
+      <Button variant="link">Open</Button>
+    </Link>
+  </div>
+</div>
     )
   }
 }

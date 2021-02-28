@@ -5,8 +5,7 @@ import Nav from 'react-bootstrap/Nav'
 import { LoginView } from '../login-view/login-view';
 import { Register } from '../register/register';
 import { MovieView } from '../movie-view/movie-view';
-import { Profile } from '../profile/profile.jsx';
-import { FavMovieCard } from '../profile/favorite.jsx';
+import { ProfileView } from '../profile/profile-view.jsx';
 import { GenreView } from '../genre-view/genre-view.jsx';
 import { GenreMovie } from '../genre-view/genre-card.jsx';
 import { DirectorView} from '../director-view/director-view.jsx';
@@ -32,7 +31,6 @@ export class MainView extends React.Component {
         directors: [],
         genreMovie: [],
         directorMovie: [],
-        favoriteMovie: []
       };
     }
 
@@ -46,7 +44,6 @@ export class MainView extends React.Component {
         this.getMovies(accessToken);
         this.getGenres(accessToken);
         this.getDirectors(accessToken);
-        this.getFavorites(accessToken);
       }
     }
 // Prop for logging in
@@ -113,18 +110,7 @@ export class MainView extends React.Component {
       });
     }
 
-    getFavorites(token) {
-    const user = localStorage.getItem('user');
-    axios.get(`https://moviecat0l0gue.herokuapp.com/users/${user}`, {
-        headers: { Authorization: `Bearer ${token}`}
-     })
-    .then((response) => {
-      this.setState({
-        favoriteMovie: response.data[0].FavoriteMovies
-      })
-    })}    
-
-
+   
 // Props for filtering out genre and director
     genreProp(genreName) {
       let token = localStorage.getItem('token');
@@ -158,7 +144,8 @@ export class MainView extends React.Component {
     
     // If the state isn't initialized, this will throw on runtime
     // before the data is initially loaded
-    const { genres, directors, genreMovie, directorMovie, favoriteMovie} = this.state;
+    const { genres, directors, genreMovie, directorMovie } = this.state;
+    console.log(genres);
     const url = localStorage.getItem('user');
     return (
       <div className="SuperDiv">
@@ -175,9 +162,6 @@ export class MainView extends React.Component {
           <Nav.Item> 
             <Nav.Link href="/users/Profile">Profile</Nav.Link>
           </Nav.Item>
-          <Nav.Item>
-            <Nav.Link href="/favorite">Favorite Movies</Nav.Link>
-          </Nav.Item>
         </Nav>
       
       <Router>
@@ -190,17 +174,7 @@ export class MainView extends React.Component {
         <Route exact path="/singlemovie/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
         <Route exact path="/singlemovie/:movieTitle/Favorite" render={({match}) => <MovieView movie={movies.find(m => m.Title === match.params.movieTitle)}/>}/>
         <Route path="/Register" render={() => {return <Register/>;}}/>      
-        <Route path='/users/Profile' 
-        render={
-          () => { 
-            return <Profile 
-            update={ 
-            (username) => this.update(username)} 
-            getFavorites={
-            (token) => this.getFavorites(token)}
-                /> 
-                }}/>
-        <Route path='/favorite' render={() => { return favoriteMovie.map(input => <FavMovieCard key={input.Id} favoriteMovie={input} />) }} />
+        <Route path='/users/Profile' render={ () => { return <ProfileView update={ (username) => this.update(username)} /> }}/>
       </Router>     
       </div>
     );

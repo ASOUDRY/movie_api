@@ -178,44 +178,56 @@ render() {
   // console.log(favorite[0].Title);
     return (
         <div>
+          
           {
-             favorite.map(input => <FavMovieCard key={input.Id} favorite={input} />)
-          }                
+          favorite.map(input => <FavMovieCard key={input.Id} favorite={input} />)
+          }   
+
+         
+          
         <Form>
+          <Form.Label> Update your account Information</Form.Label>
                <Form.Group>
                  <Form.Label>Username</Form.Label>
                  <Form.Control type="text" placeholder="Enter new Username"  onChange={e => this.setUsername(e.target.value)} />
-               {/* </Form.Group>
-               <Form.Group> */}
+               </Form.Group>
+               <Form.Group>
                  <Form.Label>Password</Form.Label>
                  <Form.Control type="Password" placeholder="Enter new Password"  onChange={e => this.setPassword(e.target.value)} />
-               {/* </Form.Group>
-               <Form.Group> */}
+               </Form.Group>
+               <Form.Group>
                  <Form.Label>Email address</Form.Label>
                  <Form.Control type="email" placeholder="Enter email"  onChange={e => this.setEmail(e.target.value)} />
-               {/* </Form.Group>
-               <Form.Group> */}
+               </Form.Group>
+               <Form.Group>
                  <Form.Label>Birthday</Form.Label>
                  <Form.Control type="Date" placeholder="Enter your date" onChange={e => this.setBirthday(e.target.value)} />
-               {/* </Form.Group>
-               <Form.Group> */}
+               </Form.Group>
+               <Form.Group>
                </Form.Group>
                <Button variant="primary" onClick={() => this.profileUpdate(this.Username, this.Password, this.Email, this.Birthday)}> Update </Button>
                <Button variant="primary" > Click Me </Button>
-               <Button variant="primary" onClick={() => this.logOut()}> Log Out! </Button>
+              
              </Form>
              <Form>
                <Form.Group>
-                 <Form.Label>Type your favorite movie here! Than hit click to add it to your list.</Form.Label>
-                 <Form.Control type="text" placeholder="Enter the name of your movie"  onChange={e => this.setMovie(e.target.value)} />
-                 <Button variant="primary" onClick={() => this.AddMe(this.Movie)}> Add Movie! </Button>
-                 <Button variant="primary" onClick={() => this.RemoveMe(this.Movie)}> Remove Movie! </Button>
+                 <Form.Label>Want to keep track of your favorite Movies? </Form.Label>
+                 <Form.Control type="text" placeholder="Type your favorite movie here! Than hit click to add it to your list."  onChange={e => this.setMovie(e.target.value)} />
+                 <Form.Control type="text" placeholder="Change your mind about a movie? No problem just type the name here and click the remove button to remove it from the list."  onChange={e => this.setMovie(e.target.value)} />
+                 <Button variant="primary" onClick={() => this.AddMe(this.Movie)}> Add </Button>
+                 <Button variant="primary" onClick={() => this.RemoveMe(this.Movie)}> Remove </Button>
                </Form.Group>
-               <Form.Label>Not a fan of the site? No problem.</Form.Label>
-               <Button variant="primary"  
-               onClick={() => this.DeleteAccount()}
-               > Delete Account </Button>
+               <Form.Group>
+               <Form.Label>Done for Now? Click here to Logout.</Form.Label>
+               <Button variant="primary" onClick={() => this.logOut()}> Log Out! </Button>
+               </Form.Group>
+               <Form.Group>
+                 <Form.Label> Or click here to delete your account.</Form.Label>
+                 <Button variant="primary"  onClick={() => this.DeleteAccount()}> Delete Account </Button>
+               </Form.Group>
              </Form>
+
+               
          </div>
     )
 }

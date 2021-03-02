@@ -8,6 +8,7 @@ import Button from 'react-bootstrap/Button';
 // import Card from 'react-bootstrap/Card';
 import { Form } from 'react-bootstrap';
 import { FavMovieCard } from '../profile/favorite.jsx';
+import './profile-view.scss';
 
 export class ProfileView extends React.Component {
     constructor(props) {
@@ -178,14 +179,15 @@ render() {
   // console.log(favorite[0].Title);
     return (
         <div>
-          
+         
+         <div className="cardo">
           {
           favorite.map(input => <FavMovieCard key={input.Id} favorite={input} />)
           }   
-
-         
+          </div>   
           
-        <Form>
+          <div>
+          <Form>
           <Form.Label> Update your account Information</Form.Label>
                <Form.Group>
                  <Form.Label>Username</Form.Label>
@@ -217,6 +219,12 @@ render() {
                  <Button variant="primary" onClick={() => this.AddMe(this.Movie)}> Add </Button>
                  <Button variant="primary" onClick={() => this.RemoveMe(this.Movie)}> Remove </Button>
                </Form.Group>
+             </Form>
+
+           
+
+
+             <Form>
                <Form.Group>
                <Form.Label>Done for Now? Click here to Logout.</Form.Label>
                <Button variant="primary" onClick={() => this.logOut()}> Log Out! </Button>
@@ -226,8 +234,9 @@ render() {
                  <Button variant="primary"  onClick={() => this.DeleteAccount()}> Delete Account </Button>
                </Form.Group>
              </Form>
+          </div>
 
-               
+           
          </div>
     )
 }

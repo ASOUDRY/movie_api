@@ -12,7 +12,7 @@ export class FavMovieCard extends React.Component {
     console.log(favorite);
     console.log("can you see this 2 Electric Bogoloo!");
     return (
-      <Card className="fl w-50 pa2">
+      <Card className="grow">
       <Card.Body>
         <h5 className="card-title">{favorite.Title}</h5>
         <Link to={`/singlemovie/${favorite.Title}/Favorite`}>

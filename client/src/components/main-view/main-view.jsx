@@ -149,6 +149,7 @@ export class MainView extends React.Component {
     const url = localStorage.getItem('user');
     return (
       <div className="SuperDiv">
+      
       <Nav>
         <Nav.Item>
           <Nav.Link href="/movies" >Movies</Nav.Link>
@@ -165,7 +166,9 @@ export class MainView extends React.Component {
         </Nav>
       
       <Router>
-        <Route path="/" render={() => { if (!user) return <LoginView onLoggedIn={data => this.onLoggedIn(data)} /> }} />
+        <Route path="/" render={() => { 
+          // if (!user) 
+          return <LoginView onLoggedIn={data => this.onLoggedIn(data)} /> }} />
         <Route path="/movies" render={() => {return <MoviesList movies={movies}/>;}} />
         <Route path="/Genres" render={() => { return genres.map(g => <GenreView genreProp={genreName => this.genreProp(genreName)} key={g._id} genres={g}/>);}}/>
         <Route exact path="/Directors" render={() => { return directors.map(d => <DirectorView directorProp={directorTag => this.directorProp(directorTag)} key={d._id} directors={d}/>) }}/>

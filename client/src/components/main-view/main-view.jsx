@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Route} from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect} from "react-router-dom";
 import Nav from 'react-bootstrap/Nav'
 import { LoginView } from '../login-view/login-view';
 import { Register } from '../register/register';
@@ -51,7 +51,7 @@ export class MainView extends React.Component {
       const username = data.user.Username;
       this.props.setUser(username)
         this.setState({
-          user: data.user.Username
+          user: data.user.Username,
         });
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', username);
@@ -141,6 +141,9 @@ export class MainView extends React.Component {
     // Two new let variables
     let { movies } = this.props;
     let { user } = this.state;
+    // console.log(movies);
+    // console.log(user);
+    // let test = 24;
     
     // If the state isn't initialized, this will throw on runtime
     // before the data is initially loaded
@@ -166,9 +169,8 @@ export class MainView extends React.Component {
         </Nav>
       
       <Router>
-        <Route path="/" render={() => { 
-          // if (!user) 
-          return <LoginView onLoggedIn={data => this.onLoggedIn(data)} /> }} />
+      <Route exact path="/"> {(!user) ? <Redirect to="/login" /> : <Redirect to="/movies"/>}</Route>
+        <Route path="/login" render={() => { return <LoginView onLoggedIn={data => this.onLoggedIn(data)} /> }} />
         <Route path="/movies" render={() => {return <MoviesList movies={movies}/>;}} />
         <Route path="/Genres" render={() => { return genres.map(g => <GenreView genreProp={genreName => this.genreProp(genreName)} key={g._id} genres={g}/>);}}/>
         <Route exact path="/Directors" render={() => { return directors.map(d => <DirectorView directorProp={directorTag => this.directorProp(directorTag)} key={d._id} directors={d}/>) }}/>

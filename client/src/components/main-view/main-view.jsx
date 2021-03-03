@@ -172,7 +172,7 @@ export class MainView extends React.Component {
             <Nav.Link href="/client/Genres">Genre</Nav.Link>
           </Nav.Item>
           <Nav.Item> 
-            <Nav.Link href="/Profile">Profile</Nav.Link>
+            <Nav.Link href="/client/Profile">Profile</Nav.Link>
           </Nav.Item>
         </Nav>
       

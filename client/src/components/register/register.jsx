@@ -10,7 +10,7 @@ export function Register(props) {
 
   const alternate = (e) => {
     e.preventDefault();
-    window.open('/login', '_self')
+    window.open('/client/login', '_self')
   }
 
   const Registration = (e) => {
@@ -24,7 +24,7 @@ export function Register(props) {
     .then(function (response) {
       const data = response.data;
       console.log(data)
-      window.open('/', '_self')
+      window.open('/client', '_self')
     })
     .catch(function (error) {
       console.log(error);

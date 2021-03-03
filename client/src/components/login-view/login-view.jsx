@@ -9,7 +9,7 @@ export function LoginView(props) {
 
   const alternate = (e) => {
     e.preventDefault();
-    window.open('/Register', '_self')
+    window.open('/client/Register', '_self')
   }
   
   const handleSubmit = (e) => {
@@ -21,7 +21,7 @@ export function LoginView(props) {
   .then(response => {
     const data = response.data
     props.onLoggedIn(data);
-    window.open('/Movies', '_self')
+    window.open('/client/Movies', '_self')
   })
   .catch(function (error) {
     console.log(error);

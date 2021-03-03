@@ -93,7 +93,7 @@ export class ProfileView extends React.Component {
           // console.log(token);
           // window.localStorage.removeItem(token);
           // localStorage.clear;
-          window.open('/login', '_self')
+          window.open('/client/login', '_self')
     }
     
     AddMe() {
@@ -164,7 +164,7 @@ export class ProfileView extends React.Component {
             console.log("bye Felicia");
             window.localStorage.removeItem("token");
             window.localStorage.removeItem("user");
-            window.open('/', '_self')
+            window.open('/client', '_self')
           })
           .catch(error => {
             console.log(error)

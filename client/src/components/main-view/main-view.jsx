@@ -176,7 +176,7 @@ export class MainView extends React.Component {
           </Nav.Item>
         </Nav>
       
-      <Router>
+      <Router basename="/client">
       <Route exact path="/"> {(!user) ? <Redirect to="/login" /> : <Redirect to="/movies"/>}</Route>
         <Route path="/login" render={() => { return <LoginView onLoggedIn={data => this.onLoggedIn(data)} /> }} />
         <Route path="/movies" render={() => {return <MoviesList movies={movies}/>;}} />

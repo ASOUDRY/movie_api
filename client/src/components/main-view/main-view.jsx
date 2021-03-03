@@ -55,12 +55,12 @@ export class MainView extends React.Component {
         this.setState({
           user: data.user.Username,
           loggedIn: true,
+        }, () => {
+          console.log(this.state.loggedIn)
         });
-        console.log("test")
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', username);
-        this.getMovies(data.token);
-        
+        this.getMovies(data.token); 
     }
 
 // Updates the local user host
@@ -175,7 +175,7 @@ export class MainView extends React.Component {
         </Nav>
       
       <Router>
-      <Route exact path="/"> {(this.state.loggedIn == 1) ? <Redirect to="/movies" /> : <Redirect to="/login"/>}</Route>
+      <Route exact path="/"> {(this.state.loggedIn) ? <Redirect to="/movies" /> : <Redirect to="/login"/>}</Route>
         <Route path="/login" render={() => { return <LoginView onLoggedIn={data => this.onLoggedIn(data)} /> }} />
         <Route path="/movies" render={() => {return <MoviesList movies={movies}/>;}} />
         <Route path="/Genres" render={() => { return genres.map(g => <GenreView genreProp={genreName => this.genreProp(genreName)} key={g._id} genres={g}/>);}}/>

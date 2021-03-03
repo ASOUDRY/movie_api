@@ -39,7 +39,8 @@ export class MainView extends React.Component {
       let accessToken = localStorage.getItem('token');
       if (accessToken !== null) {
         this.setState({
-          user: localStorage.getItem('user')
+          user: localStorage.getItem('user'),
+          loggedIn: true
         });
         this.props.setUser(localStorage.getItem('user'));
         this.getMovies(accessToken);
@@ -47,6 +48,7 @@ export class MainView extends React.Component {
         this.getDirectors(accessToken);  
       }
     }
+
 
 // Prop for logging in
     onLoggedIn(data) {

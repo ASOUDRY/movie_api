@@ -172,7 +172,7 @@ export class MainView extends React.Component {
             <Nav.Link href="/client/Genres">Genre</Nav.Link>
           </Nav.Item>
           <Nav.Item> 
-            <Nav.Link href="client/users/Profile">Profile</Nav.Link>
+            <Nav.Link href="/Profile">Profile</Nav.Link>
           </Nav.Item>
         </Nav>
       
@@ -187,7 +187,7 @@ export class MainView extends React.Component {
         <Route exact path="/singlemovie/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
         <Route exact path="/singlemovie/:movieTitle/Favorite" render={({match}) => <MovieView movie={movies.find(m => m.Title === match.params.movieTitle)}/>}/>
         <Route path="/Register" render={() => {return <Register/>;}}/>      
-        <Route path='/users/Profile' render={ () => { return <ProfileView update={ (username) => this.update(username)} /> }}/>
+        <Route path= "/Profile" render={ () => { return <ProfileView update={ (username) => this.update(username)} /> }}/>
       </Router>     
       </div>
     );

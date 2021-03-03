@@ -208,8 +208,7 @@ render() {
                <Form.Group>
                </Form.Group>
                <Button variant="primary" onClick={() => this.profileUpdate(this.Username, this.Password, this.Email, this.Birthday)}> Update </Button>
-               <Button variant="primary" > Click Me </Button>
-              
+            
              </Form>
              <Form>
                <Form.Group>

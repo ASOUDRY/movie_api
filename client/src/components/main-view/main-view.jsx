@@ -163,16 +163,16 @@ export class MainView extends React.Component {
       
       <Nav>
         <Nav.Item>
-          <Nav.Link href="/movies" >Movies</Nav.Link>
+          <Nav.Link href="/client/movies" >Movies</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link href="/Directors">Director</Nav.Link>
+            <Nav.Link href="/client/Directors">Director</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link href="/Genres">Genre</Nav.Link>
+            <Nav.Link href="/client/Genres">Genre</Nav.Link>
           </Nav.Item>
           <Nav.Item> 
-            <Nav.Link href="/users/Profile">Profile</Nav.Link>
+            <Nav.Link href="client/users/Profile">Profile</Nav.Link>
           </Nav.Item>
         </Nav>
       

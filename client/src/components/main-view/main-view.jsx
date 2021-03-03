@@ -26,7 +26,7 @@ export class MainView extends React.Component {
   
       // Initialize the state to an empty object so we can destructure it later
       this.state = {
-        // user: null,
+        user: null,
         genres: [],
         directors: [],
         genreMovie: [],
@@ -154,8 +154,8 @@ export class MainView extends React.Component {
     
     // If the state isn't initialized, this will throw on runtime
     // before the data is initially loaded
-    const { genres, directors, genreMovie, directorMovie } = this.state;
-    console.log(this.state.loggedIn);
+    const { genres, directors, genreMovie, directorMovie, loggedIn } = this.state;
+    console.log(loggedIn);
     const url = localStorage.getItem('user');
     return (
       
@@ -177,7 +177,7 @@ export class MainView extends React.Component {
         </Nav>
       
       <Router>
-      <Route exact path="/"> {(this.state.loggedIn) ? <Redirect to="/movies" /> : <Redirect to="/login"/>}</Route>
+      <Route exact path="/"> {(!user) ? <Redirect to="/login" /> : <Redirect to="/movies"/>}</Route>
         <Route path="/login" render={() => { return <LoginView onLoggedIn={data => this.onLoggedIn(data)} /> }} />
         <Route path="/movies" render={() => {return <MoviesList movies={movies}/>;}} />
         <Route path="/Genres" render={() => { return genres.map(g => <GenreView genreProp={genreName => this.genreProp(genreName)} key={g._id} genres={g}/>);}}/>

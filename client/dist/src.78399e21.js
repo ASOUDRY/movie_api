@@ -54910,7 +54910,9 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         console.log(response.data.ImagePath);
         console.log(Title);
 
-        _axios.default.post("https://moviecat0l0gue.herokuapp.com/".concat(user, "/").concat(Title, "/").concat(Id, "/").concat(Image), {}, {
+        _axios.default.post("https://moviecat0l0gue.herokuapp.com/".concat(user, "/").concat(Title, "/").concat(Id, "/"), {
+          ImagePath: Image
+        }, {
           headers: {
             Authorization: "Bearer ".concat(token)
           }
@@ -54945,7 +54947,9 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
 
         var Image = response.data.ImagePath;
 
-        _axios.default.post("https://moviecat0l0gue.herokuapp.com/".concat(user, "/").concat(response.data.Title, "/").concat(response.data._id, "/").concat(Image, "Remove"), {}, {
+        _axios.default.post("https://moviecat0l0gue.herokuapp.com/".concat(user, "/").concat(response.data.Title, "/").concat(response.data._id, "/Remove"), {
+          ImagePath: Image
+        }, {
           headers: {
             Authorization: "Bearer ".concat(token)
           }
@@ -56247,7 +56251,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59630" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63655" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

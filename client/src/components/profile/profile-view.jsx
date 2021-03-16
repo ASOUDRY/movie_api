@@ -113,9 +113,13 @@ export class ProfileView extends React.Component {
             const Image = response.data.ImagePath
             console.log(response.data.ImagePath)
             console.log(Title);
-            axios.post(`https://moviecat0l0gue.herokuapp.com/${user}/${Title}/${Id}/${Image}`, {}, {
+            axios.post(`https://moviecat0l0gue.herokuapp.com/${user}/${Title}/${Id}/`, 
+            {
+              ImagePath: Image
+            }, {
               headers: { Authorization: `Bearer ${token}`}
-            })
+            }
+            )
             .then(() => {
               console.log(response.data);
               // console.log("successfully added")
@@ -143,7 +147,10 @@ export class ProfileView extends React.Component {
             // const Title = response.data.Title;
             // const Id = response.data._id;
             const Image = response.data.ImagePath
-            axios.post(`https://moviecat0l0gue.herokuapp.com/${user}/${response.data.Title}/${response.data._id}/${Image}Remove`, {}, {
+            axios.post(`https://moviecat0l0gue.herokuapp.com/${user}/${response.data.Title}/${response.data._id}/Remove`, 
+            {
+              ImagePath: Image
+            }, {
               headers: { Authorization: `Bearer ${token}`}
             })
             .then(() => {

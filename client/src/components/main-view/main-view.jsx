@@ -155,7 +155,7 @@ export class MainView extends React.Component {
     // If the state isn't initialized, this will throw on runtime
     // before the data is initially loaded
     const { genres, directors, genreMovie, directorMovie, loggedIn } = this.state;
-    console.log(loggedIn);
+
     const url = localStorage.getItem('user');
     return (
       
@@ -166,10 +166,10 @@ export class MainView extends React.Component {
           <Nav.Link href="/client/movies" >Movies</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link href="/client/Directors">Director</Nav.Link>
+            <Nav.Link href="/client/Directors">Directors</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link href="/client/Genres">Genre</Nav.Link>
+            <Nav.Link href="/client/Genres">Genres</Nav.Link>
           </Nav.Item>
           <Nav.Item> 
             <Nav.Link href="/client/Profile">Profile</Nav.Link>

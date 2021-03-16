@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card, Container, CardColumns } from 'react-bootstrap';
 import { Link } from "react-router-dom";
+import './genre-view.scss';
 
 export class GenreView extends React.Component {
   render() {
@@ -17,16 +18,27 @@ export class GenreView extends React.Component {
     }
 
     return (
+      <div>
+        {/* <Card>
+        <img src="https://i.pinimg.com/originals/c5/54/b9/c554b9b17299fa8adf539a5fba7ea3fd.jpg" alt="Snow" style="width:100%;"></img>
+        <div class="centered">Centered</div>
+        </Card> */}
+
       <Card className="fl w-50 pa2" >
       <Card.Body>
         <h5 className="card-title">{genres.Name}</h5>
         <p className="card-text">{genres.Description}</p>
-        <Button onClick={fetching}>Loading</Button>
         <Link to={`/Genre/${genreName}`}>
-            <Button variant="link">Examples</Button>
+        <Button onClick={
+          () => {
+            this.props.genreProp(genreName)
+          }}
+          >View Movies</Button>
         </Link>
       </Card.Body>
       </Card>
+      </div>
+
     )
   }
 }

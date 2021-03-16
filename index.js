@@ -231,6 +231,8 @@ passport.authenticate('jwt', {session: false}), (req, res) => {
     });
   });
 
+  // test Post request
+
   app.post('/:Username/:Image/',  
   // passport.authenticate('jwt', {session: false}), 
   (req, res) => {

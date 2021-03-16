@@ -98,25 +98,27 @@ export class ProfileView extends React.Component {
     
     AddMe() {
           let favorite = this.Movie;
-          console.log(favorite);
+          // console.log(favorite);
           const token = localStorage.getItem('token');
           axios.get(`https://moviecat0l0gue.herokuapp.com/movies/${favorite}`, {
             headers: { Authorization: `Bearer ${token}`}
           })
           .then((response) => {
             const user = localStorage.getItem('user')
-            console.log(response.data);
+            // console.log(response.data);
             let test = response.data;
-            console.log(test);
+            // console.log(test);
             const Title = response.data.Title;
             const Id = response.data._id;
+            const Image = response.data.ImagePath
+            console.log(response.data.ImagePath)
             console.log(Title);
-            axios.post(`https://moviecat0l0gue.herokuapp.com/${user}/${Title}/${Id}`, {}, {
+            axios.post(`https://moviecat0l0gue.herokuapp.com/${user}/${Title}/${Id}/${Image}`, {}, {
               headers: { Authorization: `Bearer ${token}`}
             })
             .then(() => {
               console.log(response.data);
-              console.log("successfully added")
+              // console.log("successfully added")
             })
             .then(() => {
               console.log(token);
@@ -140,7 +142,8 @@ export class ProfileView extends React.Component {
             const user = localStorage.getItem('user')
             // const Title = response.data.Title;
             // const Id = response.data._id;
-            axios.post(`https://moviecat0l0gue.herokuapp.com/${user}/${response.data.Title}/${response.data._id}/Remove`, {}, {
+            const Image = response.data.ImagePath
+            axios.post(`https://moviecat0l0gue.herokuapp.com/${user}/${response.data.Title}/${response.data._id}/${Image}Remove`, {}, {
               headers: { Authorization: `Bearer ${token}`}
             })
             .then(() => {

@@ -242,11 +242,11 @@ passport.authenticate('jwt', {session: false}), (req, res) => {
     });
   });
 
-  app.post('/:Username/:Title/:Id', 
+  app.post('/:Username/:Title/:Id/:Image', 
   // passport.authenticate('jwt', {session: false}), 
   (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, {
-       $push: { FavoriteMovies: {Title: req.params.Title, Id: req.params.Id, ImagePath: req.params.ImagePath
+       $push: { FavoriteMovies: {Title: req.params.Title, Id: req.params.Id, Image: req.params.Image
        }}
       },
      { new: true }, // This line makes sure that the updated document is returned
@@ -260,11 +260,11 @@ passport.authenticate('jwt', {session: false}), (req, res) => {
     });
   });
   
-  app.post('/:Username/:Title/:Id/Remove', 
+  app.post('/:Username/:Title/:Id/:Image/Remove', 
   // passport.authenticate('jwt', {session: false}), 
   (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, {
-       $pull: { FavoriteMovies: {Title: req.params.Title, Id: req.params.Id, ImagePath: req.params.ImagePath}}
+       $pull: { FavoriteMovies: {Title: req.params.Title, Id: req.params.Id, ImagePath: req.params.Image}}
       },
      { new: true }, // This line makes sure that the updated document is returned
     (err, updatedUser) => {

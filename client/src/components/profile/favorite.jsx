@@ -10,16 +10,35 @@ export class FavMovieCard extends React.Component {
     // connected to your database via the movies endpoint of your API
     const { favorite } = this.props; 
     console.log(favorite);
-    console.log("can you see this 2 Electric Bogoloo!");
+
+    let removeable = favorite.Title
+
+    
+   
     return (
-      <Card className="grow">
-      <Card.Body>
+      //   // <Link to={`/singlemovie/${favorite.Title}/Favorite`}>
+      //     <Card className="grow">
+      //   {/* <Card.Head> */}
+      //   <button type="button" class="btn-close" aria-label="Close"></button> 
+      //   {/* </Card.Head> */}
+            
+      // <Card.Body>
+      //   <h5 className="card-title">{favorite.Title}</h5>
+      // </Card.Body>
+      // </Card>
+      // // </Link> 
+      <div>
+        <button onClick={() => {
+          // console.log(this.movie);
+          this.props.RemoveMe(removeable)
+        } } >X</button>
+      <Link to={`/singlemovie/${favorite.Title}/Favorite`}>
+      {/* <img 
+          src="https://m.media-amazon.com/images/M/MV5BMzMxNzkyNTk2Nl5BMl5BanBnXkFtZTgwMDMyNDc2OTE@._V1_.jpg" alt="test">
+        </img> */}
         <h5 className="card-title">{favorite.Title}</h5>
-        <Link to={`/singlemovie/${favorite.Title}/Favorite`}>
-            <Button variant="link">Open</Button>
-        </Link> 
-      </Card.Body>
-      </Card>
+      </Link>
+      </div>
     )
   }
 }

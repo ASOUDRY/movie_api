@@ -128,22 +128,20 @@ export class ProfileView extends React.Component {
           })
     }
     
-    RemoveMe () {
-          let defavorite = this.Movie
+    RemoveMe (removeable) {
+      console.log("You have been clicked!")
+          // let defavorite = this.Movie
+          // console.log("this is" + defavorite);
           const token = localStorage.getItem('token');
-          axios.get(`https://moviecat0l0gue.herokuapp.com/movies/${defavorite}`, {
+          axios.get(`https://moviecat0l0gue.herokuapp.com/movies/${removeable}`, {
             headers: { Authorization: `Bearer ${token}`}
           })
           .then((response) => {
             const user = localStorage.getItem('user')
-            console.log(response.data);
-            const Title = response.data.Title;
-            const Id = response.data._id;
-            axios.post(`https://moviecat0l0gue.herokuapp.com/${user}/${Title}/${Id}/Remove`, {}, {
+            // const Title = response.data.Title;
+            // const Id = response.data._id;
+            axios.post(`https://moviecat0l0gue.herokuapp.com/${user}/${response.data.Title}/${response.data._id}/Remove`, {}, {
               headers: { Authorization: `Bearer ${token}`}
-            })
-            .then(() => {
-              console.log("successfully removed")
             })
             .then(() => {
               this.getFavorites(token);
@@ -182,7 +180,7 @@ render() {
          
          <div className="cardo">
           {
-          favorite.map(input => <FavMovieCard key={input.Id} favorite={input} />)
+          favorite.map(input => <FavMovieCard RemoveMe={removeable => this.RemoveMe(removeable)} key={input.Id} favorite={input} />)
           }   
           </div>   
           
@@ -219,10 +217,6 @@ render() {
                  <Button variant="primary" onClick={() => this.RemoveMe(this.Movie)}> Remove </Button>
                </Form.Group>
              </Form>
-
-           
-
-
              <Form>
                <Form.Group>
                <Form.Label>Done for Now? Click here to Logout.</Form.Label>

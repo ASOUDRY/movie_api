@@ -212,24 +212,13 @@ passport.authenticate('jwt', {session: false}), (req, res) => {
     });
   });
 
-  app.post('/users/:Username/Movies/:Title/:Id', passport.authenticate('jwt', {session: false}), (req, res) => {
+  app.post('/:Username/:Title/:Id/',  
+  // passport.authenticate('jwt', {session: false}), 
+  (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, {
-       $push: { FavoriteMovies: [ {Title: req.params.Title, _id: req.params.Id} ] }
-     },
-     { new: true }, // This line makes sure that the updated document is returned
-    (err, updatedUser) => {
-      if (err) {
-        console.error(err);
-        res.status(500).send('Error: ' + err);
-      } else {
-        res.json(updatedUser);
-      }
-    });
-  });
-
-  app.post('/users/:Username/Movies/:Title/:Id/Remove', passport.authenticate('jwt', {session: false}), (req, res) => {
-    Users.findOneAndUpdate({ Username: req.params.Username }, {
-       $pull: { FavoriteMovies: [{Title: req.params.Title, _id: req.params.Id} ] }
+      ImagePath: variable
+    }, {
+       $push: { FavoriteMovies: {Title: req.params.Title, Id: req.params.Id, Image: ImagePath }}
       },
      { new: true }, // This line makes sure that the updated document is returned
     (err, updatedUser) => {
@@ -242,12 +231,28 @@ passport.authenticate('jwt', {session: false}), (req, res) => {
     });
   });
 
-  app.post('/:Username/:Title/:Id/:Image', 
+  app.post('/:Username/:Image/',  
   // passport.authenticate('jwt', {session: false}), 
   (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, {
-       $push: { FavoriteMovies: {Title: req.params.Title, Id: req.params.Id, Image: req.params.Image
-       }}
+       $push: { FavoriteMovies: {Image: req.params.Image }}
+      },
+     { new: true }, // This line makes sure that the updated document is returned
+    (err, updatedUser) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      } else {
+        res.json(updatedUser);
+      }
+    });
+  });
+
+  app.post('/:Username/:Image/Remove',  
+  // passport.authenticate('jwt', {session: false}), 
+  (req, res) => {
+    Users.findOneAndUpdate({ Username: req.params.Username }, {
+       $pull: { FavoriteMovies: {Image: req.params.Image }}
       },
      { new: true }, // This line makes sure that the updated document is returned
     (err, updatedUser) => {
@@ -260,11 +265,13 @@ passport.authenticate('jwt', {session: false}), (req, res) => {
     });
   });
   
-  app.post('/:Username/:Title/:Id/:Image/Remove', 
+  app.post('/:Username/:Title/:Id/Remove', 
   // passport.authenticate('jwt', {session: false}), 
   (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, {
-       $pull: { FavoriteMovies: {Title: req.params.Title, Id: req.params.Id, ImagePath: req.params.Image}}
+      ImagePath: variable
+    }, {
+       $pull: { FavoriteMovies: {Title: req.params.Title, Id: req.params.Id, Image: ImagePath}}
       },
      { new: true }, // This line makes sure that the updated document is returned
     (err, updatedUser) => {

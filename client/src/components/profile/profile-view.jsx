@@ -96,77 +96,42 @@ export class ProfileView extends React.Component {
           window.open('/client/login', '_self')
     }
     
-    // AddMe() {
-    //       let favorite = this.Movie;
-    //       // console.log(favorite);
-    //       const token = localStorage.getItem('token');
-    //       axios.get(`https://moviecat0l0gue.herokuapp.com/movies/${favorite}`, {
-    //         headers: { Authorization: `Bearer ${token}`}
-    //       })
-    //       .then((response) => {
-    //         const user = localStorage.getItem('user')
-    //         // console.log(response.data);
-    //         let test = response.data;
-    //         // console.log(test);
-    //         const Title = response.data.Title;
-    //         const Id = response.data._id;
-    //         const Image = response.data.ImagePath
-    //         console.log(Title);
-    //         axios.post(`https://moviecat0l0gue.herokuapp.com/${user}/${Title}/${Id}/`, 
-    //         {
-    //           ImagePath: Image
-    //         }, {
-    //           headers: { Authorization: `Bearer ${token}`}
-    //         }
-    //         )
-    //         .then(() => {
-    //           console.log(response.data);
-    //           // console.log("successfully added")
-    //         })
-    //         .then(() => {
-    //           console.log(token);
-    //           this.getFavorites(token);
-    //         })
-    //         .catch(error => {
-    //           console.log(error);
-    //         })
-    //       })
-    // }
-
     AddMe() {
-      let favorite = this.Movie;
-      // console.log(favorite);
-      const token = localStorage.getItem('token');
-      axios.get(`https://moviecat0l0gue.herokuapp.com/movies/${favorite}`, {
-        headers: { Authorization: `Bearer ${token}`}
-      })
-      .then((response) => {
-        const user = localStorage.getItem('user')
-        // console.log(response.data);
-        let test = response.data;
-        // console.log(test);
-        const Title = response.data.Title;
-        const Id = response.data._id;
-        const Image = response.data.ImagePath
-        console.log(Title);
-        axios.post(`https://moviecat0l0gue.herokuapp.com/${user}/${Title}/${Id}/${Image}`, 
-        {
-          headers: { Authorization: `Bearer ${token}`}
-        }
-        )
-        .then(() => {
-          console.log(response.data);
-          // console.log("successfully added")
-        })
-        .then(() => {
-          console.log(token);
-          this.getFavorites(token);
-        })
-        .catch(error => {
-          console.log(error);
-        })
-      })
-}
+          let favorite = this.Movie;
+          // console.log(favorite);
+          const token = localStorage.getItem('token');
+          axios.get(`https://moviecat0l0gue.herokuapp.com/movies/${favorite}`, {
+            headers: { Authorization: `Bearer ${token}`}
+          })
+          .then((response) => {
+            const user = localStorage.getItem('user')
+            // console.log(response.data);
+            let test = response.data;
+            // console.log(test);
+            const Title = response.data.Title;
+            const Id = response.data._id;
+            const Image = response.data.ImagePath
+            console.log(Title);
+            axios.post(`https://moviecat0l0gue.herokuapp.com/${user}/${Title}/${Id}/`, 
+            {
+              ImagePath: Image
+            }, {
+              headers: { Authorization: `Bearer ${token}`}
+            }
+            )
+            .then(() => {
+              console.log(response.data);
+              // console.log("successfully added")
+            })
+            .then(() => {
+              console.log(token);
+              this.getFavorites(token);
+            })
+            .catch(error => {
+              console.log(error);
+            })
+          })
+    }
     
     RemoveMe (removeable) {
       console.log("You have been clicked!")

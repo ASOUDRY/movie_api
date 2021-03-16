@@ -54885,7 +54885,43 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       // localStorage.clear;
 
       window.open('/client/login', '_self');
-    }
+    } // AddMe() {
+    //       let favorite = this.Movie;
+    //       // console.log(favorite);
+    //       const token = localStorage.getItem('token');
+    //       axios.get(`https://moviecat0l0gue.herokuapp.com/movies/${favorite}`, {
+    //         headers: { Authorization: `Bearer ${token}`}
+    //       })
+    //       .then((response) => {
+    //         const user = localStorage.getItem('user')
+    //         // console.log(response.data);
+    //         let test = response.data;
+    //         // console.log(test);
+    //         const Title = response.data.Title;
+    //         const Id = response.data._id;
+    //         const Image = response.data.ImagePath
+    //         console.log(Title);
+    //         axios.post(`https://moviecat0l0gue.herokuapp.com/${user}/${Title}/${Id}/`, 
+    //         {
+    //           ImagePath: Image
+    //         }, {
+    //           headers: { Authorization: `Bearer ${token}`}
+    //         }
+    //         )
+    //         .then(() => {
+    //           console.log(response.data);
+    //           // console.log("successfully added")
+    //         })
+    //         .then(() => {
+    //           console.log(token);
+    //           this.getFavorites(token);
+    //         })
+    //         .catch(error => {
+    //           console.log(error);
+    //         })
+    //       })
+    // }
+
   }, {
     key: "AddMe",
     value: function AddMe() {
@@ -54907,12 +54943,9 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         var Title = response.data.Title;
         var Id = response.data._id;
         var Image = response.data.ImagePath;
-        console.log(response.data.ImagePath);
         console.log(Title);
 
-        _axios.default.post("https://moviecat0l0gue.herokuapp.com/".concat(user, "/").concat(Title, "/").concat(Id, "/"), {
-          ImagePath: Image
-        }, {
+        _axios.default.post("https://moviecat0l0gue.herokuapp.com/".concat(user, "/").concat(Title, "/").concat(Id, "/").concat(Image), {
           headers: {
             Authorization: "Bearer ".concat(token)
           }
@@ -56251,7 +56284,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63655" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63768" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

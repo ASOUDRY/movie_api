@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { SET_FILTER, SET_MOVIES, SET_USER } from '../actions/actions';
+import { SET_FILTER, SET_MOVIES, SET_USER, SET_DIRECTORS} from '../actions/actions';
 
 function visibilityFilter(state = '', action) {
   switch (action.type) {
@@ -29,11 +29,21 @@ function users(state = [], action) {
   }
 }
 
+function directors(state = [], action) {
+  switch (action.type) {
+    case SET_DIRECTORS:
+      return action.value;
+      default:
+        return state;
+  }
+}
+
 // both functions trigger from this variabl
 const moviesApp = combineReducers({
     visibilityFilter,
     movies,
-    users
+    users,
+    directors
 });
 
 export default moviesApp;

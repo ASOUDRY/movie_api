@@ -8,15 +8,16 @@ import { MovieView } from '../movie-view/movie-view';
 import { ProfileView } from '../profile/profile-view.jsx';
 import { GenreView } from '../genre-view/genre-view.jsx';
 import { GenreMovie } from '../genre-view/genre-card.jsx';
-import { DirectorView} from '../director-view/director-view.jsx';
+// import { DirectorView} from '../director-view/director-view.jsx';
 import { DirectorCard} from '../director-view/director-card.jsx';
+import { DirectorList} from '../director-list/director-list.jsx';
 import MoviesList from '../movies-list/movies-list';
 import './main-view.scss';
 
 
 import { connect } from 'react-redux';
 
-import { setMovies, setUser } from '../../actions/actions'
+import { setMovies, setUser, setDirectors } from '../../actions/actions'
 
 export class MainView extends React.Component {
     constructor() {
@@ -28,7 +29,7 @@ export class MainView extends React.Component {
       this.state = {
         user: null,
         genres: [],
-        directors: [],
+        // directors: [],
         genreMovie: [],
         directorMovie: [],
         loggedIn: false
@@ -63,6 +64,7 @@ export class MainView extends React.Component {
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', username);
         this.getMovies(data.token); 
+        this.getDirectors(data.token);
     }
 
 // Updates the local user host
@@ -108,9 +110,10 @@ export class MainView extends React.Component {
       })
       .then(response => {
         // Assign the result to the state
-        this.setState({ 
-        directors: response.data 
-        });
+        this.props.setDirectors(response.data)
+        // this.setState({ 
+        // directors: response.data 
+        // });
       })
         .catch(function (error) {
           console.log(error);
@@ -146,15 +149,16 @@ export class MainView extends React.Component {
     render() {
 
     // Two new let variables
-    let { movies } = this.props;
+    let { movies, directors } = this.props;
     let { user } = this.state;
+
     
     // let test = 24;
     
     
     // If the state isn't initialized, this will throw on runtime
     // before the data is initially loaded
-    const { genres, directors, genreMovie, directorMovie, loggedIn } = this.state;
+    const { genres, genreMovie, directorMovie, loggedIn } = this.state;
 
     const url = localStorage.getItem('user');
     return (
@@ -180,8 +184,13 @@ export class MainView extends React.Component {
       <Route exact path="/"> {(!user) ? <Redirect to="/login" /> : <Redirect to="/movies"/>}</Route>
         <Route path="/login" render={() => { return <LoginView onLoggedIn={data => this.onLoggedIn(data)} /> }} />
         <Route path="/movies" render={() => {return <MoviesList movies={movies}/>;}} />
+
+
+        <Route path="/Directors" render={() => {return <DirectorList directors={directors}/>; }}  />
+
+
         <Route path="/Genres" render={() => { return genres.map(g => <GenreView genreProp={genreName => this.genreProp(genreName)} key={g._id} genres={g}/>);}}/>
-        <Route exact path="/Directors" render={() => { return directors.map(d => <DirectorView directorProp={directorTag => this.directorProp(directorTag)} key={d._id} directors={d}/>) }}/>
+        {/* <Route exact path="/Directors" render={() => { return directors.map(d => <DirectorView directorProp={directorTag => this.directorProp(directorTag)} key={d._id} directors={d}/>) }}/> */}
         <Route exact path="/Director/:Director" render={() => { return directorMovie.map(dm => <DirectorCard directorProp={directorTag => this.directorProp(directorTag)} key={dm._id}  directorMovie={dm}/>) }}/>
         <Route exact path="/Genre/:Genre" render={() => { return genreMovie.map(gm => <GenreMovie key={gm._id}  genreMovie={gm}/>)}}/>
         <Route exact path="/singlemovie/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
@@ -196,7 +205,8 @@ export class MainView extends React.Component {
 
 let mapStateToProps = state => {
   return { movies: state.movies,
-           users: state.users }
+           users: state.users,
+           directors: state.directors }
 }
 
-export default connect(mapStateToProps, { setMovies, setUser } )(MainView);
+export default connect(mapStateToProps, { setMovies, setUser, setDirectors } )(MainView);

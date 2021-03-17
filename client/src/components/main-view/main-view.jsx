@@ -53,6 +53,7 @@ export class MainView extends React.Component {
 
 // Prop for logging in
     onLoggedIn(data) {
+      console.log(data);
       const username = data.user.Username;
       this.props.setUser(username)
         this.setState({
@@ -63,6 +64,7 @@ export class MainView extends React.Component {
         });
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', username);
+  
         this.getMovies(data.token); 
         this.getDirectors(data.token);
     }

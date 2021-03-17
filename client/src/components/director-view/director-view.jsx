@@ -12,13 +12,13 @@ export class DirectorView extends React.Component {
     const { directors } = this.props;
     const directorTag = directors.Itag;
    
-    const fetching = (e) => {
-      e.preventDefault();
-      this.props.directorProp(directorTag)
-    //   console.log(directorTag)
-    //   // window.open('/client/Director/Yuasa', '_self')
-    //   // link these two functions. It's needed
-    }
+    // const fetching = (e) => {
+    //   e.preventDefault();
+    //   this.props.directorProp(directorTag)
+    // //   console.log(directorTag)
+    // //   // window.open('/client/Director/Yuasa', '_self')
+    // //   // link these two functions. It's needed
+    // }
 
     // console.log(this.props.directors);
 
@@ -31,10 +31,11 @@ export class DirectorView extends React.Component {
         <p className="card-text">{directors.Bio}</p>
         {/* <Button onClick={fetching}>View Movies</Button> */}
         <Link to={`/Director/${directorTag}`}>
-        <Button onClick={
-          () => {
-            this.props.directorProp(directorTag)
-          }}
+        <Button 
+        // onClick={
+        //   () => {
+        //     this.props.directorProp(directorTag)
+        //   }}
         >View Movies</Button>
         </Link>
       </Card.Body>

@@ -20,10 +20,10 @@ function DirectorList(props) {
 
   if (!directors) return <div className="SuperDiv"/>
 
-  // return <div>
-  //   <VisibilityFilterInput visibilityFilter={visibilityFilter} />
-  //   {filteredDirectors.map(d => <DirectorView key={d._id} directors={d}/>)}
-  // </div>
+  return <div>
+    <VisibilityFilterInput visibilityFilter={visibilityFilter} />
+    {filteredDirectors.map(d => <DirectorView key={d._id} directors={d}/>)}
+  </div>
 
 }
 

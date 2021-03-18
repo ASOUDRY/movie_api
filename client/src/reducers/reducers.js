@@ -29,6 +29,7 @@ function users(state = [], action) {
   }
 }
 
+// New Reducer
 function directors(state = [], action) {
   switch (action.type) {
     case SET_DIRECTORS:
@@ -37,7 +38,7 @@ function directors(state = [], action) {
         return state;
   }
 }
-
+// Added function
 // both functions trigger from this variabl
 const moviesApp = combineReducers({
     visibilityFilter,

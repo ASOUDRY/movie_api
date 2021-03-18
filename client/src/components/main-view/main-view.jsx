@@ -29,6 +29,7 @@ export class MainView extends React.Component {
       this.state = {
         user: null,
         genres: [],
+        // No longer a part of state
         // directors: [],
         genreMovie: [],
         directorMovie: [],
@@ -66,6 +67,8 @@ export class MainView extends React.Component {
         localStorage.setItem('user', username);
   
         this.getMovies(data.token); 
+
+        // It launches onLoggedIn
         this.getDirectors(data.token);
     }
 
@@ -111,11 +114,9 @@ export class MainView extends React.Component {
         headers: { Authorization: `Bearer ${token}`}
       })
       .then(response => {
-        // Assign the result to the state
+        // Assigned Props to SetDirectors
         this.props.setDirectors(response.data)
-        // this.setState({ 
-        // directors: response.data 
-        // });
+       
       })
         .catch(function (error) {
           console.log(error);
@@ -136,6 +137,7 @@ export class MainView extends React.Component {
         })
       })}
 
+      // Unrelated to Director View. Safe to ignore.
     directorProp(directorTag) {
         let token = localStorage.getItem('token');
         axios.get(`https://moviecat0l0gue.herokuapp.com/directors/${directorTag}`, {
@@ -150,7 +152,7 @@ export class MainView extends React.Component {
        
     render() {
 
-    // Two new let variables
+    // Added Directors to props
     let { movies, directors } = this.props;
     let { user } = this.state;
 
@@ -187,7 +189,7 @@ export class MainView extends React.Component {
         <Route path="/login" render={() => { return <LoginView onLoggedIn={data => this.onLoggedIn(data)} /> }} />
         <Route path="/movies" render={() => {return <MoviesList movies={movies}/>;}} />
 
-
+{/* The end point that leads to the error */}
         <Route path="/Directors" render={() => {return <DirectorList directors={directors}/>; }}  />
 
 
@@ -204,11 +206,11 @@ export class MainView extends React.Component {
     );
   }
 }
-
+// added Director 
 let mapStateToProps = state => {
   return { movies: state.movies,
            users: state.users,
            directors: state.directors }
 }
-
+// added setDirectors
 export default connect(mapStateToProps, { setMovies, setUser, setDirectors } )(MainView);

@@ -17,6 +17,9 @@ export function setUser(value) {
   return { type: SET_USER, value };
 }
 
+
+
+// New Action 
 export function setDirectors(value) {
   return {type: SET_DIRECTORS, value}
 }

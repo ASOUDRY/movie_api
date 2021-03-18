@@ -33,9 +33,7 @@ export class FavMovieCard extends React.Component {
           this.props.RemoveMe(removeable)
         } } >X</button>
       <Link to={`/singlemovie/${favorite.Title}/Favorite`}>
-      {/* <img 
-          src="https://m.media-amazon.com/images/M/MV5BMzMxNzkyNTk2Nl5BMl5BanBnXkFtZTgwMDMyNDc2OTE@._V1_.jpg" alt="test">
-        </img> */}
+      <Card.Img className="image"  variant="top" src={favorite.Image}/>
         <h5 className="card-title">{favorite.Title}</h5>
       </Link>
       </div>

@@ -9,7 +9,7 @@ export class FavMovieCard extends React.Component {
     // which, in this case, is `MainView`, as `MainView` is what’s
     // connected to your database via the movies endpoint of your API
     const { favorite } = this.props; 
-    console.log(favorite);
+    // console.log(favorite);
 
     let removeable = favorite.Title
 

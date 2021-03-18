@@ -43,7 +43,6 @@ export class ProfileView extends React.Component {
                 this.setState({
                   favorite: response.data[0].FavoriteMovies
                 })
-                console.log(this.state.favorite)
      })
     }
     
@@ -160,7 +159,7 @@ export class ProfileView extends React.Component {
             const Title = response.data.Title;
             const Id = response.data._id;
             const Image = response.data.FavImage
-            axios.post(`https://moviecat0l0gue.herokuapp.com/${user}/${Title}/${ID}/${Image}Remove`, {
+            axios.post(`https://moviecat0l0gue.herokuapp.com/${user}/${Title}/${Id}/${Image}/Remove`, {
               headers: { Authorization: `Bearer ${token}`}
             })
             .then(() => {
@@ -194,8 +193,6 @@ render() {
 // console.log(this.state.favorite);
   const { favorite } = this.state;
   const user = localStorage.getItem('user')
-  console.log(favorite);
-  // console.log(favorite[0].Title);
     return (
       <div>
          <div className="cardo">{
@@ -240,35 +237,12 @@ render() {
            </Modal.Footer>
          </Modal>
           <div>
-          {/* <Form>
-          <Form.Label> Update your account Information</Form.Label>
-               <Form.Group>
-                 <Form.Label>Username</Form.Label>
-                 <Form.Control type="text" placeholder="Enter new Username"  onChange={e => this.setUsername(e.target.value)} />
-               </Form.Group>
-               <Form.Group>
-                 <Form.Label>Password</Form.Label>
-                 <Form.Control type="Password" placeholder="Enter new Password"  onChange={e => this.setPassword(e.target.value)} />
-               </Form.Group>
-               <Form.Group>
-                 <Form.Label>Email address</Form.Label>
-                 <Form.Control type="email" placeholder="Enter email"  onChange={e => this.setEmail(e.target.value)} />
-               </Form.Group>
-               <Form.Group>
-                 <Form.Label>Birthday</Form.Label>
-                 <Form.Control type="Date" placeholder="Enter your date" onChange={e => this.setBirthday(e.target.value)} />
-               </Form.Group>
-               <Form.Group>
-               </Form.Group>
-               <Button variant="primary" onClick={() => this.profileUpdate(this.Username, this.Password, this.Email, this.Birthday)}> Update </Button>  
-             </Form> */}
+          
              <Form>
                <Form.Group>
                  <Form.Label>Want to keep track of your favorite Movies? </Form.Label>
                  <Form.Control type="text" placeholder="Type your favorite movie here! Than hit click to add it to your list."  onChange={e => this.setMovie(e.target.value)} />
-                 <Form.Control type="text" placeholder="Change your mind about a movie? No problem just type the name here and click the remove button to remove it from the list."  onChange={e => this.setMovie(e.target.value)} />
-                 <Button variant="primary" onClick={() => this.AddMe(this.Movie)}> Add </Button>
-                 <Button variant="primary" onClick={() => this.RemoveMe(this.Movie)}> Remove </Button>
+                 <Button variant="primary" onClick={() => this.AddMe(this.Movie)}> Add </Button>     
                </Form.Group>
              </Form>
              <Form>

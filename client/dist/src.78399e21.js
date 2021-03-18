@@ -54631,8 +54631,8 @@ var FavMovieCard = /*#__PURE__*/function (_React$Component) {
       // This is given to the <MovieCard/> component by the outer world
       // which, in this case, is `MainView`, as `MainView` is what’s
       // connected to your database via the movies endpoint of your API
-      var favorite = this.props.favorite;
-      console.log(favorite);
+      var favorite = this.props.favorite; // console.log(favorite);
+
       var removeable = favorite.Title;
       return (//   // <Link to={`/singlemovie/${favorite.Title}/Favorite`}>
         //     <Card className="grow">
@@ -54827,8 +54827,6 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         _this2.setState({
           favorite: response.data[0].FavoriteMovies
         });
-
-        console.log(_this2.state.favorite);
       });
     }
   }, {
@@ -54971,7 +54969,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         var Id = response.data._id;
         var Image = response.data.FavImage;
 
-        _axios.default.post("https://moviecat0l0gue.herokuapp.com/".concat(user, "/").concat(Title, "/").concat(ID, "/").concat(Image, "Remove"), {
+        _axios.default.post("https://moviecat0l0gue.herokuapp.com/".concat(user, "/").concat(Title, "/").concat(Id, "/").concat(Image, "/Remove"), {
           headers: {
             Authorization: "Bearer ".concat(token)
           }
@@ -55009,8 +55007,6 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       // console.log(this.state.favorite);
       var favorite = this.state.favorite;
       var user = localStorage.getItem('user');
-      console.log(favorite); // console.log(favorite[0].Title);
-
       return _react.default.createElement("div", null, _react.default.createElement("div", {
         className: "cardo"
       }, favorite.map(function (input) {
@@ -55069,23 +55065,12 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         onChange: function onChange(e) {
           return _this6.setMovie(e.target.value);
         }
-      }), _react.default.createElement(_reactBootstrap.Form.Control, {
-        type: "text",
-        placeholder: "Change your mind about a movie? No problem just type the name here and click the remove button to remove it from the list.",
-        onChange: function onChange(e) {
-          return _this6.setMovie(e.target.value);
-        }
       }), _react.default.createElement(_reactBootstrap2.Button, {
         variant: "primary",
         onClick: function onClick() {
           return _this6.AddMe(_this6.Movie);
         }
-      }, " Add "), _react.default.createElement(_reactBootstrap2.Button, {
-        variant: "primary",
-        onClick: function onClick() {
-          return _this6.RemoveMe(_this6.Movie);
-        }
-      }, " Remove "))), _react.default.createElement(_reactBootstrap.Form, null, _react.default.createElement(_reactBootstrap.Form.Group, null, _react.default.createElement(_reactBootstrap.Form.Label, null, "Done for Now? Click here to Logout."), _react.default.createElement(_reactBootstrap2.Button, {
+      }, " Add "))), _react.default.createElement(_reactBootstrap.Form, null, _react.default.createElement(_reactBootstrap.Form.Group, null, _react.default.createElement(_reactBootstrap.Form.Label, null, "Done for Now? Click here to Logout."), _react.default.createElement(_reactBootstrap2.Button, {
         variant: "primary",
         onClick: function onClick() {
           return _this6.logOut();
@@ -55431,7 +55416,8 @@ function setUser(value) {
     type: SET_USER,
     value: value
   };
-}
+} // New Action 
+
 
 function setDirectors(value) {
   return {
@@ -55607,10 +55593,10 @@ function DirectorList(props) {
 
   if (!directors) return _react.default.createElement("div", {
     className: "SuperDiv"
-  });
-  return _react.default.createElement("div", null, _react.default.createElement(_visibilityFilterInput.default, {
-    visibilityFilter: visibilityFilter
-  }));
+  }); // return <div>
+  //   <VisibilityFilterInput visibilityFilter={visibilityFilter} />
+  //   {filteredDirectors.map(d => <DirectorView key={d._id} directors={d}/>)}
+  // </div>
 }
 
 var _default = (0, _reactRedux.connect)(mapStateToProps)(DirectorList);
@@ -55750,8 +55736,7 @@ var mapStateToProps = function mapStateToProps(state) {
 function MoviesList(props) {
   var movies = props.movies,
       visibilityFilter = props.visibilityFilter;
-  var filteredMovies = movies;
-  console.log(filteredMovies);
+  var filteredMovies = movies; // console.log(filteredMovies);
 
   if (visibilityFilter !== '') {
     filteredMovies = movies.filter(function (m) {
@@ -55863,6 +55848,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       user: null,
       genres: [],
+      // No longer a part of state
       // directors: [],
       genreMovie: [],
       directorMovie: [],
@@ -55904,7 +55890,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       });
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', username);
-      this.getMovies(data.token);
+      this.getMovies(data.token); // It launches onLoggedIn
+
       this.getDirectors(data.token);
     } // Updates the local user host
 
@@ -55960,11 +55947,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           Authorization: "Bearer ".concat(token)
         }
       }).then(function (response) {
-        // Assign the result to the state
-        _this5.props.setDirectors(response.data); // this.setState({ 
-        // directors: response.data 
-        // });
-
+        // Assigned Props to SetDirectors
+        _this5.props.setDirectors(response.data);
       }).catch(function (error) {
         console.log(error);
       });
@@ -55988,7 +55972,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           genreMovie: response.data
         });
       });
-    }
+    } // Unrelated to Director View. Safe to ignore.
+
   }, {
     key: "directorProp",
     value: function directorProp(directorTag) {
@@ -56013,7 +55998,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this8 = this;
 
-      // Two new let variables
+      // Added Directors to props
       var _this$props = this.props,
           movies = _this$props.movies,
           directors = _this$props.directors;
@@ -56148,7 +56133,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
   }]);
 
   return MainView;
-}(_react.default.Component);
+}(_react.default.Component); // added Director 
+
 
 exports.MainView = MainView;
 
@@ -56158,7 +56144,8 @@ var mapStateToProps = function mapStateToProps(state) {
     users: state.users,
     directors: state.directors
   };
-};
+}; // added setDirectors
+
 
 var _default = (0, _reactRedux.connect)(mapStateToProps, {
   setMovies: _actions.setMovies,
@@ -56216,7 +56203,8 @@ function users() {
     default:
       return state;
   }
-}
+} // New Reducer
+
 
 function directors() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
@@ -56229,7 +56217,8 @@ function directors() {
     default:
       return state;
   }
-} // both functions trigger from this variabl
+} // Added function
+// both functions trigger from this variabl
 
 
 var moviesApp = (0, _redux.combineReducers)({
@@ -56355,7 +56344,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49792" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51141" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

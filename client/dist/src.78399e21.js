@@ -54651,7 +54651,11 @@ var FavMovieCard = /*#__PURE__*/function (_React$Component) {
           }
         }, "X"), _react.default.createElement(_reactRouterDom.Link, {
           to: "/singlemovie/".concat(favorite.Title, "/Favorite")
-        }, _react.default.createElement("h5", {
+        }, _react.default.createElement(_reactBootstrap.Card.Img, {
+          className: "image",
+          variant: "top",
+          src: favorite.Image
+        }), _react.default.createElement("h5", {
           className: "card-title"
         }, favorite.Title)))
       );
@@ -54822,8 +54826,9 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       }).then(function (response) {
         _this2.setState({
           favorite: response.data[0].FavoriteMovies
-        }); // console.log(this.state.favorite)
+        });
 
+        console.log(_this2.state.favorite);
       });
     }
   }, {
@@ -54920,16 +54925,16 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
           Authorization: "Bearer ".concat(token)
         }
       }).then(function (response) {
-        var user = localStorage.getItem('user'); // console.log(response.data);
-
+        var user = localStorage.getItem('user');
+        console.log(response.data);
         var test = response.data; // console.log(test);
 
         var Title = response.data.Title;
         var Id = response.data._id;
-        var Image = response.data.ImagePath;
+        var Image = response.data.FavImage;
         console.log(Title);
 
-        _axios.default.post("https://moviecat0l0gue.herokuapp.com/".concat(user, "/").concat(Title, "/").concat(Id, "/"), {
+        _axios.default.post("https://moviecat0l0gue.herokuapp.com/".concat(user, "/").concat(Title, "/").concat(Id, "/").concat(Image), {
           ImagePath: Image
         }, {
           headers: {
@@ -54961,14 +54966,12 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
           Authorization: "Bearer ".concat(token)
         }
       }).then(function (response) {
-        var user = localStorage.getItem('user'); // const Title = response.data.Title;
-        // const Id = response.data._id;
+        var user = localStorage.getItem('user');
+        var Title = response.data.Title;
+        var Id = response.data._id;
+        var Image = response.data.FavImage;
 
-        var Image = response.data.ImagePath;
-
-        _axios.default.post("https://moviecat0l0gue.herokuapp.com/".concat(user, "/").concat(response.data.Title, "/").concat(response.data._id, "/Remove"), {
-          ImagePath: Image
-        }, {
+        _axios.default.post("https://moviecat0l0gue.herokuapp.com/".concat(user, "/").concat(Title, "/").concat(ID, "/").concat(Image, "Remove"), {
           headers: {
             Authorization: "Bearer ".concat(token)
           }
@@ -55005,8 +55008,8 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
 
       // console.log(this.state.favorite);
       var favorite = this.state.favorite;
-      var user = localStorage.getItem('user'); // console.log(favorite);
-      // console.log(favorite[0].Title);
+      var user = localStorage.getItem('user');
+      console.log(favorite); // console.log(favorite[0].Title);
 
       return _react.default.createElement("div", null, _react.default.createElement("div", {
         className: "cardo"
@@ -56352,7 +56355,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60687" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49792" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

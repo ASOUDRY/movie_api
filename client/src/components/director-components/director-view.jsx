@@ -1,16 +1,17 @@
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card, Container, CardColumns } from 'react-bootstrap';
 import { Link } from "react-router-dom";
-import './genre-view.scss';
+// import './genre-view.scss';
 
-export class GenreView extends React.Component {
+export class DirectorView extends React.Component {
   render() {
     // This is given to the <MovieCard/> component by the outer world
     // which, in this case, is `MainView`, as `MainView` is what’s
     // connected to your database via the movies endpoint of your API
-    const { genres } = this.props;
-    const genreName = genres.Name;
+    const { director } = this.props;
+    const directorName = director.Name;
     // const fetching = (e) => {
     //   console.log(genreName);
     //   e.preventDefault();
@@ -26,12 +27,12 @@ export class GenreView extends React.Component {
 
       <Card className="fl w-50 pa2" >
       <Card.Body>
-        <h5 className="card-title">{genres.Name}</h5>
-        <p className="card-text">{genres.Description}</p>
-        <Link to={`/Genre/${genreName}`}>
+        <h5 className="card-title">{directorName}</h5>
+        <p className="card-text">{director.Description}</p>
+        <Link to={`/Genre/${directorName}`}>
         <Button onClick={
           () => {
-            this.props.genreProp(genreName)
+            this.props.directorProp(directorName)
           }}
           >View Movies</Button>
         </Link>
@@ -43,9 +44,9 @@ export class GenreView extends React.Component {
   }
 }
 
-GenreView.propTypes = {
-  genres: PropTypes.shape({
+DirectorView.propTypes = {
+  director: PropTypes.shape({
     Name: PropTypes.string,
-    Description: PropTypes.string,
+    Bio: PropTypes.string,
   }).isRequired,
 };

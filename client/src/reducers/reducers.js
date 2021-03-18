@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { SET_FILTER, SET_MOVIES, SET_USER, SET_DIRECTORS} from '../actions/actions';
+import { SET_FILTER, SET_MOVIES, SET_USER, SET_DIRECTORS, SET_GENRES} from '../actions/actions';
 
 function visibilityFilter(state = '', action) {
   switch (action.type) {
@@ -28,6 +28,15 @@ function users(state = [], action) {
       return state;
   }
 }
+// New Genre
+function genres(state = [], action) {
+  switch (action.type) {
+    case SET_GENRES:
+      return action.value;
+    default:
+      return state;
+  }
+}
 
 // New Reducer
 function directors(state = [], action) {
@@ -44,7 +53,8 @@ const moviesApp = combineReducers({
     visibilityFilter,
     movies,
     users,
-    directors
+    directors,
+    genres
 });
 
 export default moviesApp;

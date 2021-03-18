@@ -229,49 +229,12 @@ passport.authenticate('jwt', {session: false}), (req, res) => {
     });
   });
 
-  // test Post request
 
-  app.post('/:Username/:Image/',  
+  app.post('/:Username/:Title/:Id/:Image/Remove',  
   // passport.authenticate('jwt', {session: false}), 
   (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, {
-       $push: { FavoriteMovies: {Image: req.params.Image }}
-      },
-     { new: true }, // This line makes sure that the updated document is returned
-    (err, updatedUser) => {
-      if (err) {
-        console.error(err);
-        res.status(500).send('Error: ' + err);
-      } else {
-        res.json(updatedUser);
-      }
-    });
-  });
-
-  app.post('/:Username/:Image/Remove',  
-  // passport.authenticate('jwt', {session: false}), 
-  (req, res) => {
-    Users.findOneAndUpdate({ Username: req.params.Username }, {
-       $pull: { FavoriteMovies: {Image: req.params.Image }}
-      },
-     { new: true }, // This line makes sure that the updated document is returned
-    (err, updatedUser) => {
-      if (err) {
-        console.error(err);
-        res.status(500).send('Error: ' + err);
-      } else {
-        res.json(updatedUser);
-      }
-    });
-  });
-  
-  app.post('/:Username/:Title/:Id/Remove', 
-  // passport.authenticate('jwt', {session: false}), 
-  (req, res) => {
-    Users.findOneAndUpdate({ Username: req.params.Username }, {
-      ImagePath: variable
-    }, {
-       $pull: { FavoriteMovies: {Title: req.params.Title, Id: req.params.Id, Image: ImagePath}}
+       $pull: { FavoriteMovies: {Title: req.params.Title, Id: req.params.Id, Image: req.params.Image }}
       },
      { new: true }, // This line makes sure that the updated document is returned
     (err, updatedUser) => {

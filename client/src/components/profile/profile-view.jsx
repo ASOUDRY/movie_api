@@ -43,7 +43,7 @@ export class ProfileView extends React.Component {
                 this.setState({
                   favorite: response.data[0].FavoriteMovies
                 })
-                // console.log(this.state.favorite)
+                console.log(this.state.favorite)
      })
     }
     
@@ -119,14 +119,14 @@ export class ProfileView extends React.Component {
           })
           .then((response) => {
             const user = localStorage.getItem('user')
-            // console.log(response.data);
+            console.log(response.data);
             let test = response.data;
             // console.log(test);
             const Title = response.data.Title;
             const Id = response.data._id;
-            const Image = response.data.ImagePath
+            const Image = response.data.FavImage
             console.log(Title);
-            axios.post(`https://moviecat0l0gue.herokuapp.com/${user}/${Title}/${Id}/`, 
+            axios.post(`https://moviecat0l0gue.herokuapp.com/${user}/${Title}/${Id}/${Image}`, 
             {
               ImagePath: Image
             }, {
@@ -157,13 +157,10 @@ export class ProfileView extends React.Component {
           })
           .then((response) => {
             const user = localStorage.getItem('user')
-            // const Title = response.data.Title;
-            // const Id = response.data._id;
-            const Image = response.data.ImagePath
-            axios.post(`https://moviecat0l0gue.herokuapp.com/${user}/${response.data.Title}/${response.data._id}/Remove`, 
-            {
-              ImagePath: Image
-            }, {
+            const Title = response.data.Title;
+            const Id = response.data._id;
+            const Image = response.data.FavImage
+            axios.post(`https://moviecat0l0gue.herokuapp.com/${user}/${Title}/${ID}/${Image}Remove`, {
               headers: { Authorization: `Bearer ${token}`}
             })
             .then(() => {
@@ -197,7 +194,7 @@ render() {
 // console.log(this.state.favorite);
   const { favorite } = this.state;
   const user = localStorage.getItem('user')
-  // console.log(favorite);
+  console.log(favorite);
   // console.log(favorite[0].Title);
     return (
       <div>

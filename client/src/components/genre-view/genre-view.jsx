@@ -11,11 +11,11 @@ export class GenreView extends React.Component {
     // connected to your database via the movies endpoint of your API
     const { genres } = this.props;
     const genreName = genres.Name;
-    const fetching = (e) => {
-      console.log(genreName);
-      e.preventDefault();
-      this.props.genreProp(genreName)
-    }
+    // const fetching = (e) => {
+    //   console.log(genreName);
+    //   e.preventDefault();
+    //   this.props.genreProp(genreName)
+    // }
 
     return (
       <div>

@@ -6,17 +6,16 @@ import { LoginView } from '../login-view/login-view';
 import { Register } from '../register/register';
 import { MovieView } from '../movie-view/movie-view';
 import { ProfileView } from '../profile/profile-view.jsx';
-import { GenreView } from '../genre-view/genre-view.jsx';
+import  GenreList  from '../genre-view/genre-list.jsx';
 import { GenreMovie } from '../genre-view/genre-card.jsx';
-import { DirectorView} from '../director-view/director-view.jsx';
-import { DirectorCard} from '../director-view/director-card.jsx';
+import List from '../director-components/List.jsx';
 import MoviesList from '../movies-list/movies-list';
 import './main-view.scss';
 
 
 import { connect } from 'react-redux';
 
-import { setMovies, setUser } from '../../actions/actions'
+import { setMovies, setUser, setDirectors, setGenres } from '../../actions/actions'
 
 export class MainView extends React.Component {
     constructor() {
@@ -27,8 +26,9 @@ export class MainView extends React.Component {
       // Initialize the state to an empty object so we can destructure it later
       this.state = {
         user: null,
-        genres: [],
-        directors: [],
+        // genres: [],
+        // No longer a part of state
+        // directors: [],
         genreMovie: [],
         directorMovie: [],
         loggedIn: false
@@ -46,12 +46,14 @@ export class MainView extends React.Component {
         this.getMovies(accessToken);
         this.getGenres(accessToken);
         this.getDirectors(accessToken);  
+        this.getGenres(accessToken);
       }
     }
 
 
 // Prop for logging in
     onLoggedIn(data) {
+      console.log(data);
       const username = data.user.Username;
       this.props.setUser(username)
         this.setState({
@@ -62,7 +64,12 @@ export class MainView extends React.Component {
         });
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', username);
+  
         this.getMovies(data.token); 
+
+        // It launches onLoggedIn
+        this.getDirectors(data.token);
+        this.getGenres(data.token);
     }
 
 // Updates the local user host
@@ -92,10 +99,7 @@ export class MainView extends React.Component {
         headers: { Authorization: `Bearer ${token}`}
       })
       .then(response => {
-        // Assign the result to the state
-        this.setState({ 
-        genres: response.data 
-        });
+       this.props.setGenres(response.data) 
       })
         .catch(function (error) {
           console.log(error);
@@ -107,10 +111,9 @@ export class MainView extends React.Component {
         headers: { Authorization: `Bearer ${token}`}
       })
       .then(response => {
-        // Assign the result to the state
-        this.setState({ 
-        directors: response.data 
-        });
+        // Assigned Props to SetDirectors
+        this.props.setDirectors(response.data)
+       
       })
         .catch(function (error) {
           console.log(error);
@@ -131,6 +134,7 @@ export class MainView extends React.Component {
         })
       })}
 
+      // Unrelated to Director View. Safe to ignore.
     directorProp(directorTag) {
         let token = localStorage.getItem('token');
         axios.get(`https://moviecat0l0gue.herokuapp.com/directors/${directorTag}`, {
@@ -145,16 +149,22 @@ export class MainView extends React.Component {
        
     render() {
 
-    // Two new let variables
-    let { movies } = this.props;
+    // Added Directors to props
+    let { movies, directors, genres } = this.props;
     let { user } = this.state;
+
+    // console.log(movies);
+    // console.log(genres);
+
     
     // let test = 24;
     
     
     // If the state isn't initialized, this will throw on runtime
     // before the data is initially loaded
-    const { genres, directors, genreMovie, directorMovie, loggedIn } = this.state;
+    const { 
+      // genres, 
+      genreMovie, directorMovie, loggedIn } = this.state;
 
     const url = localStorage.getItem('user');
     return (
@@ -180,9 +190,20 @@ export class MainView extends React.Component {
       <Route exact path="/"> {(!user) ? <Redirect to="/login" /> : <Redirect to="/movies"/>}</Route>
         <Route path="/login" render={() => { return <LoginView onLoggedIn={data => this.onLoggedIn(data)} /> }} />
         <Route path="/movies" render={() => {return <MoviesList movies={movies}/>;}} />
-        <Route path="/Genres" render={() => { return genres.map(g => <GenreView genreProp={genreName => this.genreProp(genreName)} key={g._id} genres={g}/>);}}/>
-        <Route exact path="/Directors" render={() => { return directors.map(d => <DirectorView directorProp={directorTag => this.directorProp(directorTag)} key={d._id} directors={d}/>) }}/>
-        <Route exact path="/Director/:Director" render={() => { return directorMovie.map(dm => <DirectorCard directorProp={directorTag => this.directorProp(directorTag)} key={dm._id}  directorMovie={dm}/>) }}/>
+
+       
+
+        <Route path="/Directors" render={() => {return <List directors={directors}/>;}} />
+
+        <Route path="/Genres" render={() => {return <GenreList genres={genres}/>;}} />
+
+{/* The end point that leads to the error */}
+        {/* <Route path="/Directors" render={() => {return <DirectorList directors={directors}/>; }}  /> */}
+
+
+        {/* <Route path="/Genres" render={() => { return genres.map(g => <GenreView genreProp={genreName => this.genreProp(genreName)} key={g._id} genres={g}/>);}}/> */}
+        {/* <Route exact path="/Directors" render={() => { return directors.map(d => <DirectorView directorProp={directorTag => this.directorProp(directorTag)} key={d._id} directors={d}/>) }}/> */}
+        {/* <Route exact path="/Director/:Director" render={() => { return directorMovie.map(dm => <DirectorCard directorProp={directorTag => this.directorProp(directorTag)} key={dm._id}  directorMovie={dm}/>) }}/> */}
         <Route exact path="/Genre/:Genre" render={() => { return genreMovie.map(gm => <GenreMovie key={gm._id}  genreMovie={gm}/>)}}/>
         <Route exact path="/singlemovie/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
         <Route exact path="/singlemovie/:movieTitle/Favorite" render={({match}) => <MovieView movie={movies.find(m => m.Title === match.params.movieTitle)}/>}/>
@@ -193,10 +214,12 @@ export class MainView extends React.Component {
     );
   }
 }
-
+// added Director 
 let mapStateToProps = state => {
   return { movies: state.movies,
-           users: state.users }
+           users: state.users,
+           genres: state.genres,
+           directors: state.directors }
 }
-
-export default connect(mapStateToProps, { setMovies, setUser } )(MainView);
+// added setDirectors
+export default connect(mapStateToProps, { setMovies, setUser, setDirectors, setGenres } )(MainView);

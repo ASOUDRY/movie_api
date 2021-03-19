@@ -4,11 +4,13 @@ import axios from 'axios';
 // import PropTypes from 'prop-types';
 
 // import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
-// import Card from 'react-bootstrap/Card';
+// import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import { Form } from 'react-bootstrap';
 import { FavMovieCard } from '../profile/favorite.jsx';
 import './profile-view.scss';
+
+import { Modal, Button } from 'react-bootstrap/'
 
 export class ProfileView extends React.Component {
     constructor(props) {
@@ -22,6 +24,7 @@ export class ProfileView extends React.Component {
 
       this.state = {
         favorite: [],
+        show: false
       };
 
     }
@@ -40,7 +43,6 @@ export class ProfileView extends React.Component {
                 this.setState({
                   favorite: response.data[0].FavoriteMovies
                 })
-                console.log(this.state.favorite)
      })
     }
     
@@ -86,6 +88,16 @@ export class ProfileView extends React.Component {
           console.log(error);
         })}
 
+    handleModal(e) {
+      // e.preventDefault();
+     this.setState({show: true})
+      console.log(this.state.show)
+    }
+
+    close() {
+      this.setState({show:false})
+    }
+
     logOut() {
           // console.log(token);
           window.localStorage.removeItem("token");
@@ -97,6 +109,7 @@ export class ProfileView extends React.Component {
     }
     
     AddMe() {
+      console.log("Boom")
           let favorite = this.Movie;
           // console.log(favorite);
           const token = localStorage.getItem('token');
@@ -105,14 +118,14 @@ export class ProfileView extends React.Component {
           })
           .then((response) => {
             const user = localStorage.getItem('user')
-            // console.log(response.data);
+            console.log(response.data);
             let test = response.data;
             // console.log(test);
             const Title = response.data.Title;
             const Id = response.data._id;
-            const Image = response.data.ImagePath
+            const Image = response.data.FavImage
             console.log(Title);
-            axios.post(`https://moviecat0l0gue.herokuapp.com/${user}/${Title}/${Id}/`, 
+            axios.post(`https://moviecat0l0gue.herokuapp.com/${user}/${Title}/${Id}/${Image}`, 
             {
               ImagePath: Image
             }, {
@@ -143,13 +156,10 @@ export class ProfileView extends React.Component {
           })
           .then((response) => {
             const user = localStorage.getItem('user')
-            // const Title = response.data.Title;
-            // const Id = response.data._id;
-            const Image = response.data.ImagePath
-            axios.post(`https://moviecat0l0gue.herokuapp.com/${user}/${response.data.Title}/${response.data._id}/Remove`, 
-            {
-              ImagePath: Image
-            }, {
+            const Title = response.data.Title;
+            const Id = response.data._id;
+            const Image = response.data.FavImage
+            axios.post(`https://moviecat0l0gue.herokuapp.com/${user}/${Title}/${Id}/${Image}/Remove`, {
               headers: { Authorization: `Bearer ${token}`}
             })
             .then(() => {
@@ -180,22 +190,27 @@ export class ProfileView extends React.Component {
 
   
 render() {
-
+// console.log(this.state.favorite);
   const { favorite } = this.state;
-  console.log(favorite);
-  // console.log(favorite[0].Title);
+  const user = localStorage.getItem('user')
     return (
-        <div>
+      <div>
+         <div className="cardo">{
+            favorite.map(input => <FavMovieCard RemoveMe={removeable => this.RemoveMe(removeable)} key={input.Id} favorite={input} />)
+            }   
+          </div> 
+          <Card>
+            <Card.Body> 
+            <Button onClick={() => this.handleModal()}>Edit</Button>
+            <h5>Username:</h5>
+            <h6>{user}</h6>
+            </Card.Body>
+          </Card>
          
-         <div className="cardo">
-          {
-          favorite.map(input => <FavMovieCard RemoveMe={removeable => this.RemoveMe(removeable)} key={input.Id} favorite={input} />)
-          }   
-          </div>   
-          
-          <div>
-          <Form>
-          <Form.Label> Update your account Information</Form.Label>
+         <Modal show={this.state.show} onHide={() => this.close()} >
+           <Modal.Body>
+            <Form>
+           <Form.Label> Update your account Information</Form.Label>
                <Form.Group>
                  <Form.Label>Username</Form.Label>
                  <Form.Control type="text" placeholder="Enter new Username"  onChange={e => this.setUsername(e.target.value)} />
@@ -214,16 +229,20 @@ render() {
                </Form.Group>
                <Form.Group>
                </Form.Group>
-               <Button variant="primary" onClick={() => this.profileUpdate(this.Username, this.Password, this.Email, this.Birthday)}> Update </Button>
-            
+               <Button variant="primary" onClick={() => this.profileUpdate(this.Username, this.Password, this.Email, this.Birthday)}> Update </Button>  
              </Form>
+           </Modal.Body>
+           <Modal.Footer>
+             <Button onClick={() => this.close()} >Close</Button>
+           </Modal.Footer>
+         </Modal>
+          <div>
+          
              <Form>
                <Form.Group>
                  <Form.Label>Want to keep track of your favorite Movies? </Form.Label>
                  <Form.Control type="text" placeholder="Type your favorite movie here! Than hit click to add it to your list."  onChange={e => this.setMovie(e.target.value)} />
-                 <Form.Control type="text" placeholder="Change your mind about a movie? No problem just type the name here and click the remove button to remove it from the list."  onChange={e => this.setMovie(e.target.value)} />
-                 <Button variant="primary" onClick={() => this.AddMe(this.Movie)}> Add </Button>
-                 <Button variant="primary" onClick={() => this.RemoveMe(this.Movie)}> Remove </Button>
+                 <Button variant="primary" onClick={() => this.AddMe(this.Movie)}> Add </Button>     
                </Form.Group>
              </Form>
              <Form>
@@ -237,9 +256,7 @@ render() {
                </Form.Group>
              </Form>
           </div>
-
-           
-         </div>
+           </div>
     )
 }
 }

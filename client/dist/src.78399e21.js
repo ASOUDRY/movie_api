@@ -54612,6 +54612,7 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+// import './favorite.scss';
 var FavMovieCard = /*#__PURE__*/function (_React$Component) {
   _inherits(FavMovieCard, _React$Component);
 
@@ -54628,37 +54629,21 @@ var FavMovieCard = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this = this;
 
-      // This is given to the <MovieCard/> component by the outer world
-      // which, in this case, is `MainView`, as `MainView` is what’s
-      // connected to your database via the movies endpoint of your API
-      var favorite = this.props.favorite; // console.log(favorite);
-
+      var favorite = this.props.favorite;
       var removeable = favorite.Title;
-      return (//   // <Link to={`/singlemovie/${favorite.Title}/Favorite`}>
-        //     <Card className="grow">
-        //   {/* <Card.Head> */}
-        //   <button type="button" class="btn-close" aria-label="Close"></button> 
-        //   {/* </Card.Head> */}
-        // <Card.Body>
-        //   <h5 className="card-title">{favorite.Title}</h5>
-        // </Card.Body>
-        // </Card>
-        // // </Link> 
-        _react.default.createElement("div", null, _react.default.createElement("button", {
-          onClick: function onClick() {
-            // console.log(this.movie);
-            _this.props.RemoveMe(removeable);
-          }
-        }, "X"), _react.default.createElement(_reactRouterDom.Link, {
-          to: "/singlemovie/".concat(favorite.Title, "/Favorite")
-        }, _react.default.createElement(_reactBootstrap.Card.Img, {
-          className: "image",
-          variant: "top",
-          src: favorite.Image
-        }), _react.default.createElement("h5", {
-          className: "card-title"
-        }, favorite.Title)))
-      );
+      return _react.default.createElement(_reactBootstrap.Card, null, _react.default.createElement(_reactBootstrap.Card.Header, null, _react.default.createElement("button", {
+        className: "Button",
+        onClick: function onClick() {
+          console.log(_this.movie);
+
+          _this.props.RemoveMe(removeable);
+        }
+      }, "X")), _react.default.createElement(_reactRouterDom.Link, {
+        to: "/singlemovie/".concat(favorite.Title, "/Favorite")
+      }, _react.default.createElement(_reactBootstrap.Card.Img, {
+        className: "image",
+        src: favorite.Image
+      })));
     }
   }]);
 
@@ -56337,7 +56322,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57031" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61243" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

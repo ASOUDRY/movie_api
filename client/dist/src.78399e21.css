@@ -1,7 +1,13 @@
-.cardo {
-  margin: auto;
-  width: 25%;
-  padding: 10px; }
+.form {
+  display: flex;
+  margin-left: 50%; }
+
+.But {
+  position: absolute;
+  right: 0px; }
+
+.put {
+  border: solid red; }
 
 .centered {
   position: absolute;
@@ -10,13 +16,17 @@
   transform: translate(-50%, -50%); }
 
 .image {
-  height: 500px; }
+  height: 600px; }
 
 .card-title {
   color: red; }
 
-.card {
-  border: solid black; }
+.body {
+  background: gray; }
+
+.movie-card {
+  border: solid red;
+  height: 840px; }
 
 .movies-list {
   display: 'flex';

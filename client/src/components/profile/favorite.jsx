@@ -11,7 +11,7 @@ export class FavMovieCard extends React.Component {
     let removeable = favorite.Title
 
     return (
-     <Card>
+     <Card className="fl w-25 h-20 p-3 m-5 grow">
          <Card.Header>
          <button className="Button" onClick={
            () => { 

@@ -3,14 +3,10 @@ import axios from 'axios';
 // import { Link } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 
-// import Container from 'react-bootstrap/Container';
-// import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import { Form } from 'react-bootstrap';
 import { FavMovieCard } from '../profile/favorite.jsx';
 import './profile-view.scss';
 
-import { Modal, Button } from 'react-bootstrap/'
+import { Modal, Button, Card, Form } from 'react-bootstrap/'
 
 export class ProfileView extends React.Component {
     constructor(props) {
@@ -190,20 +186,23 @@ export class ProfileView extends React.Component {
 
   
 render() {
-// console.log(this.state.favorite);
   const { favorite } = this.state;
   const user = localStorage.getItem('user')
     return (
       <div>
-         <div className="cardo">{
-            favorite.map(input => <FavMovieCard RemoveMe={removeable => this.RemoveMe(removeable)} key={input.Id} favorite={input} />)
-            }   
-          </div> 
-          <Card>
+        <Card className="w-40 ml-2 pr-4 pb-4">
             <Card.Body> 
-            <Button onClick={() => this.handleModal()}>Edit</Button>
+            <Button className="But" onClick={() => this.handleModal()}>Edit</Button>
             <h5>Username:</h5>
             <h6>{user}</h6>
+            <h5>Email:</h5>
+            <h6>Placeholder</h6>
+            <h5>Birthday:</h5>
+            <h6>PlaceHolder</h6>
+            <div className="But" >
+            <Button variant="primary" onClick={() => this.logOut()}> Log Out! </Button>
+            <Button   variant="secondary"  onClick={() => this.DeleteAccount()}> Delete Account </Button>
+            </div>
             </Card.Body>
           </Card>
          
@@ -236,27 +235,20 @@ render() {
              <Button onClick={() => this.close()} >Close</Button>
            </Modal.Footer>
          </Modal>
-          <div>
-          
-             <Form>
-               <Form.Group>
-                 <Form.Label>Want to keep track of your favorite Movies? </Form.Label>
-                 <Form.Control type="text" placeholder="Type your favorite movie here! Than hit click to add it to your list."  onChange={e => this.setMovie(e.target.value)} />
-                 <Button variant="primary" onClick={() => this.AddMe(this.Movie)}> Add </Button>     
-               </Form.Group>
-             </Form>
-             <Form>
-               <Form.Group>
-               <Form.Label>Done for Now? Click here to Logout.</Form.Label>
-               <Button variant="primary" onClick={() => this.logOut()}> Log Out! </Button>
-               </Form.Group>
-               <Form.Group>
-                 <Form.Label> Or click here to delete your account.</Form.Label>
-                 <Button variant="primary"  onClick={() => this.DeleteAccount()}> Delete Account </Button>
-               </Form.Group>
-             </Form>
-          </div>
-           </div>
+      <div className="top">
+     
+      <div className="form">
+      {/* <h5 >Favorite Movies</h5> */}
+      <Form.Control className="w-90" type="text" placeholder="Enter the name of your favorite Movie here." onChange={e => this.setMovie(e.target.value)} />
+      <Button variant="primary" onClick={() => this.AddMe(this.Movie)}> Add </Button>   
+      </div>   
+      </div>
+        
+      <div className="cardo">{
+            favorite.map(input => <FavMovieCard RemoveMe={removeable => this.RemoveMe(removeable)} key={input.Id} favorite={input} />)
+            }   
+      </div> 
+      </div>         
     )
-}
+  }
 }

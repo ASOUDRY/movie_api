@@ -13,19 +13,20 @@ export class MovieCard extends React.Component {
     const { movie } = this.props;
     
     return (
-  <div className="fl w-50 pa2 card" >
+    <Link to={`/singlemovie/${movie._id}`}>
+<div className=" fl w-25 p-2 ml-5 mr-5 mb-4 movie-card grow" >
   <Card.Img className="image"  variant="top" src={movie.ImagePath}/>
   <div className="card-body">
     <h5 className="card-title">{movie.Title}</h5>
     <p className="card-text">{movie.Description}</p>
-    <Link to={`/singlemovie/${movie._id}`}>
-      <Button variant="link">Open</Button>
-    </Link>
   </div>
-</div>
+  </div>
+    </Link>
     )
   }
 }
+
+// m-5
 
 MovieCard.propTypes = {
   movie: PropTypes.shape({

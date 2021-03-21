@@ -1,12 +1,21 @@
 .image {
 //    opacity: 0.2;
-   height: 500px;
+   height: 600px;
+//    width: 300px;
 }
 
 .card-title {
     color: red;
 }
 
-.card {
-    border: solid black;
+.body {
+    background: gray;
+}
+
+.movie-card {
+    border: solid red;
+    // margin: auto;
+height: 840px;
+    // // padding: 10px;
+    // margin: 5px;
 }

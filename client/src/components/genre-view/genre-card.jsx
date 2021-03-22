@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card, Container, CardColumns } from 'react-bootstrap';
-
+import "../card-style/card-style.scss"
 
 import { Link } from "react-router-dom";
 
@@ -13,8 +13,8 @@ export class GenreMovie extends React.Component {
     const { genreMovie } = this.props;
 
     return (
-        <Card className="fl w-50 pa2">
-      <Card.Img variant="top" src={genreMovie.ImagePath} />
+        <Card className="fl w-25 p-2 ml-5 mr-5 mb-4 view">
+      <Card.Img className="movie-poster" variant="top" src={genreMovie.ImagePath} />
       <Card.Body>
         <h5 className="card-title">{genreMovie.Title}</h5>
         <p  className="card-text">{genreMovie.Description}</p>

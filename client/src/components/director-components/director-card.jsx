@@ -2,16 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card, Container, CardColumns } from 'react-bootstrap';
 import { Link } from "react-router-dom";
+import "../card-style/card-style.scss"
 
 export class DirectorCard extends React.Component {
   render() {
-    // This is given to the <MovieCard/> component by the outer world
-    // which, in this case, is `MainView`, as `MainView` is what’s
-    // connected to your database via the movies endpoint of your API
     const { directorMovie } = this.props;
     return (
-        <Card className="fl w-50 pa2">
-      <Card.Img variant="top" src={directorMovie.ImagePath} />
+        <Card className="fl w-25 p-2 ml-5 mr-5 mb-4">
+      <Card.Img className="movie-poster" src={directorMovie.ImagePath} />
       <Card.Body>
         <h5 className="card-title">{directorMovie.Title}</h5>
         <p  className="card-text">{directorMovie.Description}</p>

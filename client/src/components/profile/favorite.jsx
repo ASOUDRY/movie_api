@@ -11,11 +11,11 @@ export class FavMovieCard extends React.Component {
     let removeable = favorite.Title
 
     return (
-     <Card className="fl w-25 h-20 p-3 m-5 grow">
+     <Card className="fl w-25 h-20 p-3 m-5">
          <Card.Header>
          <button className="Button" onClick={
            () => { 
-             console.log(this.movie); this.props.RemoveMe(removeable)
+             this.props.RemoveMe(removeable)
              } 
         } >X</button> 
          </Card.Header>

@@ -6,11 +6,10 @@ import { LoginView } from '../login-view/login-view';
 import { Register } from '../register/register';
 import { MovieView } from '../movie-view/movie-view';
 import { ProfileView } from '../profile/profile-view.jsx';
-import  GenreList  from '../genre-view/genre-list.jsx';
+import  { GenreView}  from '../genre-view/genre-view.jsx';
 import { GenreMovie } from '../genre-view/genre-card.jsx';
 import { DirectorView } from '../director-components/director-view.jsx'
 import { DirectorCard} from '../director-components/director-card.jsx'
-import List from '../director-components/List.jsx';
 import MoviesList from '../movies-list/movies-list';
 import './main-view.scss';
 
@@ -25,6 +24,8 @@ export class MainView extends React.Component {
   
       this.state = {
         user: null,
+        directors: [],
+        genres: [],
         genreMovie: [],
         directorMovie: [],
         loggedIn: false
@@ -93,7 +94,9 @@ export class MainView extends React.Component {
         headers: { Authorization: `Bearer ${token}`}
       })
       .then(response => {
-       this.props.setGenres(response.data) 
+      this.setState({
+        genres: response.data
+      })
       })
         .catch(function (error) {
           console.log(error);
@@ -105,8 +108,9 @@ export class MainView extends React.Component {
         headers: { Authorization: `Bearer ${token}`}
       })
       .then(response => {
-        // Assigned Props to SetDirectors
-        this.props.setDirectors(response.data)
+        this.setState({
+          directors: response.data
+        })
        
       })
         .catch(function (error) {
@@ -129,31 +133,24 @@ export class MainView extends React.Component {
       })}
 
       // Unrelated to Director View. Safe to ignore.
-    // directorProp(directorTag) {
-    //     let token = localStorage.getItem('token');
-    //     axios.get(`https://moviecat0l0gue.herokuapp.com/directors/${directorTag}`, {
-    //       headers: { Authorization: `Bearer ${token}`}
-    //     })
-    //     .then(response => {
-    //       console.log(response.data);
-    //       this.setState({
-    //         directorMovie: response.data
-    //       })
-    //     })}
-
-    DirectorPush(dir) {
-      this.setState({
-              directorMovie: dir
-             })
-      console.log(this.state.directorMovie);
-    }
-       
+    directorProp(directorTag) {
+        let token = localStorage.getItem('token');
+        axios.get(`https://moviecat0l0gue.herokuapp.com/directors/${directorTag}`, {
+          headers: { Authorization: `Bearer ${token}`}
+        })
+        .then(response => {
+          console.log(response.data);
+          this.setState({
+            directorMovie: response.data
+          })
+        })}
+    
     render() {
 // console.log(this.state.directorMovie);
-    let { movies, directors, genres } = this.props;
+    let { movies } = this.props;
     let { user } = this.state;
 
-    const { genreMovie, directorMovie, loggedIn } = this.state;
+    const { directors, genres, genreMovie, directorMovie, loggedIn } = this.state;
 
     const url = localStorage.getItem('user');
     return (
@@ -179,20 +176,9 @@ export class MainView extends React.Component {
       <Route exact path="/"> {(!user) ? <Redirect to="/login" /> : <Redirect to="/movies"/>}</Route>
         <Route path="/login" render={() => { return <LoginView onLoggedIn={data => this.onLoggedIn(data)} /> }} />
         <Route path="/movies" render={() => {return <MoviesList movies={movies}/>}} />
-
-       
-
-        {/* <Route path="/Directors" render={() => {return <List directors={directors} DirectorPush={dir => this.DirectorPush(dir)}/>;}} /> */}
-
-        <Route path="/Genres" render={() => {return <GenreList genres={genres}/>;}} />
-
-{/* The end point that leads to the error */}
-        {/* <Route path="/Directors" render={() => {return <DirectorList directors={directors}/>; }}  /> */}
-
-
-        {/* <Route path="/Genres" render={() => { return genres.map(g => <GenreView genreProp={genreName => this.genreProp(genreName)} key={g._id} genres={g}/>);}}/> */}
-        {/* <Route exact path="/Directors" render={() => { return directors.map(d => <DirectorView directorProp={directorTag => this.directorProp(directorTag)} key={d._id} directors={d}/>) }}/> */}
-        <Route exact path="/Director/:Director" render={() => { return directorMovie.map(dm => <DirectorCard directorProp={directorTag => this.directorProp(directorTag)} key={dm._id}  directorMovie={dm}/>) }}/>
+        <Route path="/Genres" render={() => { return genres.map(g => <GenreView genreProp={genreName => this.genreProp(genreName)} key={g._id} genres={g}/>);}}/>
+        <Route exact path="/Directors" render={() => { return directors.map(d => <DirectorView directorProp={directorTag => this.directorProp(directorTag)} key={d._id} directors={d}/>) }}/>
+        <Route exact path="/Director/:Director" render={() => { return directorMovie.map(dm => <DirectorCard key={dm._id} directorMovie={dm}/>) }}/>
         <Route exact path="/Genre/:Genre" render={() => { return genreMovie.map(gm => <GenreMovie key={gm._id}  genreMovie={gm}/>)}}/>
         <Route exact path="/singlemovie/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
         <Route exact path="/singlemovie/:movieTitle/Favorite" render={({match}) => <MovieView movie={movies.find(m => m.Title === match.params.movieTitle)}/>}/>
@@ -203,7 +189,6 @@ export class MainView extends React.Component {
     );
   }
 }
-// added Director 
 let mapStateToProps = state => {
   return { movies: state.movies,
            users: state.users,

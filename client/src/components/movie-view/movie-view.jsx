@@ -1,8 +1,8 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button';
-
+import {Button, Card } from 'react-bootstrap';
+import "../card-style/card-style.scss"
 import { Link } from "react-router-dom";
-
+import './movie-view.scss'
 // The movie info that is accessed via the click
 export class MovieView extends React.Component {
   render() {
@@ -11,8 +11,7 @@ export class MovieView extends React.Component {
     if (!movie) return null;
 
     return (
-      <div className="movie-view">
-        {/* keeping it commented out in case I need to add image */}
+         <Card className=" fl w-20 p-2 ml-5 mr-5 mb-4 view">
         <img className="movie-poster" src={movie.ImagePath} />
         <div className="movie-title">
           <span className="label">Title: </span>
@@ -36,7 +35,8 @@ export class MovieView extends React.Component {
             <Button variant="link">Return</Button>
         </Link>
         </div>
-       </div>
+       </Card>
+  
     );
   }
 }

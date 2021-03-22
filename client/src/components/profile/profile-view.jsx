@@ -1,11 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-// import { Link } from 'react-router-dom';
-// import PropTypes from 'prop-types';
-
 import { FavMovieCard } from '../profile/favorite.jsx';
 import './profile-view.scss';
-
 import { Modal, Button, Card, Form } from 'react-bootstrap/'
 
 export class ProfileView extends React.Component {
@@ -19,6 +15,7 @@ export class ProfileView extends React.Component {
       this.Movie = ""
 
       this.state = {
+        info : [],
         favorite: [],
         show: false
       };
@@ -34,15 +31,15 @@ export class ProfileView extends React.Component {
       const user = localStorage.getItem('user');
       axios.get(`https://moviecat0l0gue.herokuapp.com/users/${user}`, {
                 headers: { Authorization: `Bearer ${token}`}
-              })
+          })
               .then((response) => {
                 this.setState({
+                  info: response.data[0],
                   favorite: response.data[0].FavoriteMovies
-                })
+        })
      })
     }
-    
-    
+
     setUsername(input) {
         this.Username = input;
     }
@@ -104,36 +101,21 @@ export class ProfileView extends React.Component {
           window.open('/client/login', '_self')
     }
     
+    // Investigate why empty Bracket is needed
     AddMe() {
       console.log("Boom")
           let favorite = this.Movie;
-          // console.log(favorite);
           const token = localStorage.getItem('token');
-          axios.get(`https://moviecat0l0gue.herokuapp.com/movies/${favorite}`, {
-            headers: { Authorization: `Bearer ${token}`}
-          })
+          axios.get(`https://moviecat0l0gue.herokuapp.com/movies/${favorite}`, 
+          { headers: { Authorization: `Bearer ${token}`}
+        })
           .then((response) => {
-            const user = localStorage.getItem('user')
-            console.log(response.data);
-            let test = response.data;
-            // console.log(test);
-            const Title = response.data.Title;
-            const Id = response.data._id;
-            const Image = response.data.FavImage
-            console.log(Title);
-            axios.post(`https://moviecat0l0gue.herokuapp.com/${user}/${Title}/${Id}/${Image}`, 
-            {
-              ImagePath: Image
-            }, {
-              headers: { Authorization: `Bearer ${token}`}
-            }
-            )
-            .then(() => {
-              console.log(response.data);
-              // console.log("successfully added")
-            })
-            .then(() => {
-              console.log(token);
+          const user = localStorage.getItem('user')
+          const Title = response.data.Title;
+          const Id = response.data._id;
+          const Image = response.data.FavImage
+          axios.post(`https://moviecat0l0gue.herokuapp.com/${user}/${Title}/${Id}/${Image}`, {}, {headers: {Authorization: `Bearer ${token}`}})
+          .then(() => {
               this.getFavorites(token);
             })
             .catch(error => {
@@ -144,8 +126,6 @@ export class ProfileView extends React.Component {
     
     RemoveMe (removeable) {
       console.log("You have been clicked!")
-          // let defavorite = this.Movie
-          // console.log("this is" + defavorite);
           const token = localStorage.getItem('token');
           axios.get(`https://moviecat0l0gue.herokuapp.com/movies/${removeable}`, {
             headers: { Authorization: `Bearer ${token}`}
@@ -155,7 +135,8 @@ export class ProfileView extends React.Component {
             const Title = response.data.Title;
             const Id = response.data._id;
             const Image = response.data.FavImage
-            axios.post(`https://moviecat0l0gue.herokuapp.com/${user}/${Title}/${Id}/${Image}/Remove`, {
+            console.log(token);
+            axios.post(`https://moviecat0l0gue.herokuapp.com/${user}/${Title}/${Id}/${Image}/Remove`, {}, {
               headers: { Authorization: `Bearer ${token}`}
             })
             .then(() => {
@@ -184,21 +165,18 @@ export class ProfileView extends React.Component {
           })
     }
 
-  
 render() {
-  const { favorite } = this.state;
+  const { favorite, info } = this.state;
   const user = localStorage.getItem('user')
     return (
       <div>
         <Card className="w-40 ml-2 pr-4 pb-4">
             <Card.Body> 
-            <Button className="But" onClick={() => this.handleModal()}>Edit</Button>
+            <Button className="But" onClick={() => this.handleModal()}>Edit your Account.</Button>
             <h5>Username:</h5>
             <h6>{user}</h6>
             <h5>Email:</h5>
-            <h6>Placeholder</h6>
-            <h5>Birthday:</h5>
-            <h6>PlaceHolder</h6>
+            <h6>{info.Email}</h6>
             <div className="But" >
             <Button variant="primary" onClick={() => this.logOut()}> Log Out! </Button>
             <Button   variant="secondary"  onClick={() => this.DeleteAccount()}> Delete Account </Button>

@@ -1,3 +1,27 @@
+.movie-poster {
+  height: 600px; }
+
+.card-title {
+  color: red; }
+
+.body {
+  background: gray; }
+
+.view {
+  height: 840px; }
+
+.movie-poster {
+  height: 600px; }
+
+.card-title {
+  color: red; }
+
+.body {
+  background: gray; }
+
+.movie-view {
+  height: 840px; }
+
 .form {
   display: flex;
   margin-left: 50%; }
@@ -6,14 +30,20 @@
   position: absolute;
   right: 0px; }
 
-.put {
-  border: solid red; }
-
 .centered {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); }
+
+.genre-card {
+  height: 240px; }
+
+.director-card {
+  height: 460px; }
+
+.put {
+  border: solid red; }
 
 .image {
   height: 600px; }
@@ -25,7 +55,6 @@
   background: gray; }
 
 .movie-card {
-  border: solid red;
   height: 840px; }
 
 .movies-list {
@@ -3351,9 +3380,6 @@ code, .code { font-family: Consolas, monaco, monospace; }
  .v-btm-l { vertical-align: bottom; }
 }
 
-
-.my-flix {
-  color: steelblue; }
 
 
 /*# sourceMappingURL=/src.78399e21.css.map */

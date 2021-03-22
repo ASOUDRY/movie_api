@@ -7,12 +7,7 @@ import MainView  from './components/main-view/main-view';
 import moviesApp from './reducers/reducers';
 import 'tachyons';
 
-// Import statement to indicate that you need to bundle `./index.scss`
-import './index.scss';
-// creates a store
 const store = createStore(moviesApp);
-
-store.subscribe(() => console.log(store.getState()))
 
 // Main component (will eventually use all the others)
 class MyFlixApplication extends React.Component {

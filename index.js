@@ -158,7 +158,6 @@ app.post('/users',
           Users
             .create({
               Username: req.body.Username,
-            //   Make sure a hashed password is created.
               Password: hashedPassword,
               Email: req.body.Email,
               Birthday: req.body.Birthday
@@ -195,13 +194,12 @@ passport.authenticate('jwt', {session: false}), (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
       {
         Username: req.body.Username,
-        // makes sure updated password is also hashed
         Password: hashedPassword,
         Email: req.body.Email,
         Birthday: req.body.Birthday
       }
     },
-    { new: true }, // This line makes sure that the updated document is returned
+    { new: true },
     (err, updatedUser) => {
       if(err) {
         console.error(err);
@@ -213,7 +211,7 @@ passport.authenticate('jwt', {session: false}), (req, res) => {
   });
 
   app.post('/:Username/:Title/:Id/:Image',  
-  // passport.authenticate('jwt', {session: false}), 
+  passport.authenticate('jwt', {session: false}), 
   (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, {
        $push: { FavoriteMovies: {Title: req.params.Title, Id: req.params.Id, Image: req.params.Image }}
@@ -231,7 +229,7 @@ passport.authenticate('jwt', {session: false}), (req, res) => {
 
 
   app.post('/:Username/:Title/:Id/:Image/Remove',  
-  // passport.authenticate('jwt', {session: false}), 
+  passport.authenticate('jwt', {session: false}), 
   (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, {
        $pull: { FavoriteMovies: {Title: req.params.Title, Id: req.params.Id, Image: req.params.Image }}

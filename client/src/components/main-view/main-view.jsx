@@ -68,7 +68,7 @@ export class MainView extends React.Component {
     }
 
 // Updates the local user host
-    update2(username) {
+    update(username) {
       console.log(username + " is the username here!");
       this.props.setUser(username)
       localStorage.removeItem("user")
@@ -183,7 +183,7 @@ export class MainView extends React.Component {
         <Route exact path="/singlemovie/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
         <Route exact path="/singlemovie/:movieTitle/Favorite" render={({match}) => <MovieView movie={movies.find(m => m.Title === match.params.movieTitle)}/>}/>
         <Route path="/Register" render={() => {return <Register/>;}}/>      
-        <Route path= "/Profile" render={ () => { return <ProfileView update={ (username) => this.update2(username)} /> }}/>
+        <Route path= "/Profile" render={ () => { return <ProfileView update={ (username) => this.update(username)} /> }}/>
       </Router>     
       </div>
     );

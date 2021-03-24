@@ -6,71 +6,22 @@ and allow users to pull information from this movies at a simple command.
 They can also make a list of their own favorite kaiju movies as well as 
 to add their own suggestions for movies on the Api.
 
-Fetch Movies
+This Get Request fetches all the movies from the movie collection. This is used to fetch all the movies for the initial movie-list
 
-The Fetch Movies Request is a GET request with /movies as it's end point. This request type has no parameters. 
-This request functions by using useing the mongodb find() function, which grabs all the data from the Movies 
-collection.
+app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Movies.find()
+    .then((movies) => {
+      res.status(201).json(movies);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
 
+This Get Request fetches a single movie using the Title parameter, which is used to fetch a single movie.
 
-Example Request
-app.get('/movies', (req, res) => {                  
-  Movies.findOne({ Title: req.params.Title })
-  .then((title) => {
-    res.json(title);
-  })
-  .catch((err) => {
-    console.error(err);
-    res.status(500).send('Error: ' + err);
-  });
-  });
-
-Example Output
-[
-  {
-    "Genre": {
-        "Name": "Thriller",
-        "Description": "Thriller film, also known as suspense film or suspense thriller, is a broad film genre that involves excitement and suspense in the audience."
-    },
-    "Director": {
-        "Name": "Jonathan Demme",
-        "Bio": "Robert Jonathan Demme was an American director, producer, and screenwriter.",
-        "Birth": "1944",
-        "Death": "2017"
-    },
-    "Actors": [],
-    "_id": "5fbbfbbf1dbaea69ddc7f208",
-    "Title": "Silence of the Lambs",
-    "Description": "A young FBI cadet must receive the help of an incarcerated and manipulative cannibal killer to help catch another serial killer.",
-    "Featured": true
-  },
-  {
-    "Genre": {
-        "Name": "Legal Drama",
-        "Description": "A genre of film in which a system of justice plays a critical role in the film's narrative."
-    },
-    "Director": {
-        "Name": "Jonathan Demme",
-        "Bio": "Robert Jonathan Demme was an American director, producer, and screenwriter.",
-        "Birth": "1944",
-        "Death": "2017"
-    },
-    "Actors": [],
-    "_id": "5fbbfbeb1dbaea69ddc7f209",
-    "Title": "Philadelphia",
-    "Description": "When a man with HIV is fired by his law firm because of his condition, he hires a homophobic small time lawyer as the only willing advocate for a wrongful dismissal suit.",
-    "Featured": true
-  }
-]
-  
-Fetch Movie
-
-The Fetch Movies Request is a GET request with /movies/:Genre/:Title as it's end point. There are two paremeters,:Genre, and :Title. 
-Both parameters are sub directories which need to be specified in the Url. This request functions by using the Mongodb findOne function 
-which searches the Movies collecion for a single entry that containts the same title as the :title parameter.
-
-Example Request
-app.get('/movies/Kaiju/Gojira', (req, res) => {
+app.get('/movies/:Title', passport.authenticate('jwt', {session: false}), (req, res) => {
   Movies.findOne({ Title: req.params.Title })
     .then((title) => {
       res.json(title);
@@ -80,35 +31,12 @@ app.get('/movies/Kaiju/Gojira', (req, res) => {
       res.status(500).send('Error: ' + err);
     });
 });
-Example Output
-{
-  "Genre": {
-      "Name": "Kaiju",
-      "Description": "Kaiju films are a genre of monster films, that tend to feature giant monsters often to powerful to be contended with ."
-  },
-  "Director": {
-      "Name": "Ishirō Honda",
-      "Bio": "Ishirō Honda was a Japanese director, and screenwriter. He directed 8 of the 15 Showa Era Godzilla Films.",
-      "Birth": "1911",
-      "Death": "1993"
-  },
-  "Actors": [],
-  "_id": "5fbc01161dbaea69ddc7f20d",
-  "Title": "Gojira",
-  "Description": "A massive undersea monster is awakened by an underwater hydrogen bomb test, which than proceeds to attack Tokyo.",
-  "Featured": true
-}
 
-Fetch Genre
-The Fetch Genre request is a GET request with Genre/:Name being this requests endpoints. The parameter for this request is Name. This request 
-functions by using the Mongodb findOne function which searches the Genres collecion for a single entry that containts the same name as the name 
-parameter.
 
-Example Request
-app.get('/Genre/Kaiju', (req, res) => {
-  Genres.findOne({ Name: req.params.Name })
-    .then((name) => {
-      res.json(name);
+app.get('/movies/Id/:Id', passport.authenticate('jwt', {session: false}), (req, res) => {
+  Movies.find({ _id: req.params.Id })
+    .then((movie) => {
+      res.json(movie);
     })
     .catch((err) => {
       console.error(err);
@@ -116,207 +44,183 @@ app.get('/Genre/Kaiju', (req, res) => {
     });
 });
 
-Future Example Output
-{
-  "_id": "5fcd4fa1d93bf8aed1052390",
-  "Name": "Kaiju",
-  "Description": "Kaiju films are a genre of monster films, that tend to feature giant monsters often to powerful to be contended with."
-}
-
-Fetch Director
-The Fetch Director request is a GET request with Director/:Name being this requests endpoints. The parameter for this request is Name. This request 
-functions by using the Mongodb findOne function which searches the Director collecion for a single entry that containts the same name as the name 
-parameter.
-
-Example Request
-app.get('/Directors/Noriaki%20Yuasa', (req, res) => {
-  Directors.findOne({ Name: req.params.Name })
-    .then((name) => {
-      res.json(name);
+app.get('/genres', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Genres.find()
+    .then((genres) => {
+      res.status(201).json(genres);
     })
     .catch((err) => {
       console.error(err);
       res.status(500).send('Error: ' + err);
     });
 });
-Example Output
-{
-  "_id": "5fd119e9d93bf8aed1052397",
-  "Name": "Noriaki Yuasa",
-  "Bio": "Noriaki Yuasi was a Japanese director.",
-  "Birth": "1933",
-  "Death": "2004"
-}
 
-Create Account
-The Create Account request is a PUT Request, with /users being its endpoint. The endpoint is /users. The paremeters 
-for the function are a json object containing a username, password, email, and birthday. The request uses a find one function to 
-check if a json object with username in the parameters already exists. If it does, a status is sent to say it already exists. If it 
-does not, the entry is than created.
+app.get('/directors', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Directors.find()
+    .then((directors) => {
+      res.status(201).json(directors);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
 
-Example Request
-app.post('/users', (req, res) => {
-  Users.findOne({ Username: req.body.Username })
-    .then((user) => {
-      if (user) {
-        return res.status(400).send(req.body.Username + 'already exists');
-      } else {
-        Users
-          .create({
-            Username: req.body.Username,
-            Password: req.body.Password,
-            Email: req.body.Email,
-            Birthday: req.body.Birthday
+// for genre queried movies
+app.get('/genres/:Name', passport.authenticate('jwt', {session: false}), (req, res) => {
+  Movies.find({Tag: req.params.Name})
+    .then((movies) => {
+      res.json(movies);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
+app.get('/directors/:Name', passport.authenticate('jwt', {session: false}), (req, res) => {
+  Movies.find({DTag: req.params.Name})
+    .then((movies) => {
+      res.json(movies);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
+app.get('/users/:Name', passport.authenticate('jwt', {session: false}), (req, res) => {
+  Users.find({Username: req.params.Name})
+    .then((movies) => {
+      res.json(movies);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
+app.post('/users', 
+[
+    check('Username', 'Username is required').isLength({min: 5}),
+    check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+    check('Password', 'Password is required').not().isEmpty(),
+    check('Email', 'Email does not appear to be valid').isEmail()
+], (req, res) => {
+    // check the validation object 
+    let errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+    
+    // hashed password function
+    let hashedPassword = Users.hashPassword(req.body.Password);
+    Users.findOne({ Username: req.body.Username })
+      .then((user) => {
+        if (user) {
+          return res.status(400).send(req.body.Username + ' already exists');
+        } else {
+          Users
+            .create({
+              Username: req.body.Username,
+              Password: hashedPassword,
+              Email: req.body.Email,
+              Birthday: req.body.Birthday
+            })
+            .then((user) =>{res.status(201).json(user) })
+          .catch((error) => {
+            console.error(error);
+            res.status(500).send('Error: ' + error);
           })
-          .then((user) =>{res.status(201).json(user) })
-        .catch((error) => {
-          console.error(error);
-          res.status(500).send('Error: ' + error);
-        })
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).send('Error: ' + error);
+      });
+  });
+
+app.put('/users/:Username',   
+[
+    check('Username', 'Username is required').isLength({min: 5}),
+    check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+    check('Password', 'Password is required').not().isEmpty(),
+    check('Email', 'Email does not appear to be valid').isEmail()
+],
+passport.authenticate('jwt', {session: false}), (req, res) => {
+    
+    let errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+
+    let hashedPassword = Users.hashPassword(req.body.Password);
+    Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
+      {
+        Username: req.body.Username,
+        Password: hashedPassword,
+        Email: req.body.Email,
+        Birthday: req.body.Birthday
       }
-    })
-    .catch((error) => {
-      console.error(error);
-      res.status(500).send('Error: ' + error);
-    });
-});
-
-Example Output
-{
-  "FavoriteMovies": [],
-  "_id": "5fd2982e28705d4fe780fac2",
-  "Username": "test",
-  "Password": "test",
-  "Email": "test@gmail.com",
-  "Birthday": "1991-05-23T04:00:00.000Z",
-  "__v": 0
-}
-
-Update account
-This HTTP Request updates the request body for the user specified via [account]. The endpoint for this request is 
-users/:Username. The HTTP Request type is a Put Request. The parameter for this request are Username, and req.body. 
-:Username specifies the subdirectory that this request accesses, while req.body contains json object that modifies 
-the existing json object.
-
-Example Request
-
-app.put('/users/:Username', (req, res) => {
-  Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
-    {
-      Username: req.body.Username,
-      Password: req.body.Password,
-      Email: req.body.Email,
-      Birthday: req.body.Birthday
-    }
-  },
-  { new: true }, // This line makes sure that the updated document is returned
-  (err, updatedUser) => {
-    if(err) {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    } else {
-      res.json(updatedUser);
-    }
-  });
-});
-
-Example Output
-
-{
-  "FavoriteMovies": [],
-  "_id": "5fd2982e28705d4fe780fac2",
-  "Username": "test",
-  "Password": "test",
-  "Email": "test@gmail.com",
-  "Birthday": "1991-05-23T04:00:00.000Z",
-  "__v": 0
-}
-
-Add Movie to Favorite List
-This HTTP Request is a Post Request that adds a Json object to a embedded array inside a user's json object, using the $push function. 
-The endpoint for the account is /users/:Username/Movies/:MovieID. The HTTP request type is POST. The parameters for the request 
-type are :Username, which specifies the user account, and :MovieID which specifies the movie.
-Example Request
-
-app.post('users/Dragonforce/Movies/5fbc01161dbaea69ddc7f20d', (req, res) => {
-  Users.findOneAndUpdate({ Username: req.params.Username }, {
-     $push: { FavoriteMovies: req.params.MovieID }
-   },
-   { new: true }, // This line makes sure that the updated document is returned
-  (err, updatedUser) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    } else {
-      res.json(updatedUser);
-    }
-  });
-});
-
-Example Output
-{
-  "FavoriteMovies": [
-      "5fbc01161dbaea69ddc7f20d"
-  ],
-  "_id": "5fd1232ecda6753da41cef58",
-  "Username": "Dragonforce",
-  "Password": "Trueblade97",
-  "Email": "Dragonfurry23@gmail.com",
-  "Birthday": "1992-05-28T04:00:00.000Z",
-  "__v": 0
-}
-
-Remove Movie from Favorite List
-This HTTP Request is a Post Request that removes a Json object from a embedded array inside a user's json object, using the $pull function. 
-The endpoint for the account is /users/:Username/Movies/:MovieID/Remove. The HTTP request type is POST. The parameters for the request 
-type are :Username, which specifies the user account, and :MovieID which specifies the movie.
-
-Example Request  
-
-app.post('/users/:Username/Movies/:MovieID', (req, res) => {
-  Users.findOneAndUpdate({ Username: req.params.Username }, {
-     $push: { FavoriteMovies: req.params.MovieID }
-   },
-   { new: true }, // This line makes sure that the updated document is returned
-  (err, updatedUser) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    } else {
-      res.json(updatedUser);
-    }
-  });
-});
-
-Example Output
-{
-  "FavoriteMovies": [],
-  "_id": "5fd1232ecda6753da41cef58",
-  "Username": "Dragonforce",
-  "Password": "Trueblade97",
-  "Email": "Dragonfurry23@gmail.com",
-  "Birthday": "1992-05-28T04:00:00.000Z",
-  "__v": 0
-}
-
-Remove Account
-This HTTP request removes a User from the API. The endpoint for this request is users/:Username. The HTTP Request 
-type is DELETE. The parameters is :Username which specifices the user that will be deleted.
-Example Request
-app.delete('/users/:Username', (req, res) => {
-  Users.findOneAndRemove({ Username: req.params.Username })
-    .then((user) => {
-      if (!user) {
-        res.status(400).send(req.params.Username + ' was not found');
+    },
+    { new: true },
+    (err, updatedUser) => {
+      if(err) {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
       } else {
-        res.status(200).send(req.params.Username + ' was deleted.');
+        res.json(updatedUser);
       }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
     });
-});
+  });
 
-  Example Output
-  Dragonforce was deleted.
+  app.post('/:Username/:Title/:Id/:Image',  
+  passport.authenticate('jwt', {session: false}), (req, res) => {
+    Users.findOneAndUpdate({ Username: req.params.Username }, {
+       $push: { FavoriteMovies: {Title: req.params.Title, Id: req.params.Id, Image: req.params.Image }}
+      },
+     { new: true }, // This line makes sure that the updated document is returned
+    (err, updatedUser) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      } else {
+        res.json(updatedUser);
+      }
+    });
+  });
+
+
+  app.post('/:Username/:Title/:Id/:Image/Remove',  
+  passport.authenticate('jwt', {session: false}), 
+  (req, res) => {
+    Users.findOneAndUpdate({ Username: req.params.Username }, {
+       $pull: { FavoriteMovies: {Title: req.params.Title, Id: req.params.Id, Image: req.params.Image }}
+      },
+     { new: true }, // This line makes sure that the updated document is returned
+    (err, updatedUser) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      } else {
+        res.json(updatedUser);
+      }
+    });
+  });
+
+app.delete('/users/:Username', passport.authenticate('jwt', {session: false}), (req, res) => {
+    Users.findOneAndRemove({ Username: req.params.Username })
+      .then((user) => {
+        if (!user) {
+          res.status(400).send(req.params.Username + ' was not found');
+        } else {
+          res.status(200).send(req.params.Username + ' was deleted.');
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      });
+  });

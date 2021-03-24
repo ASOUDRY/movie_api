@@ -211,8 +211,7 @@ passport.authenticate('jwt', {session: false}), (req, res) => {
   });
 
   app.post('/:Username/:Title/:Id/:Image',  
-  passport.authenticate('jwt', {session: false}), 
-  (req, res) => {
+  passport.authenticate('jwt', {session: false}), (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, {
        $push: { FavoriteMovies: {Title: req.params.Title, Id: req.params.Id, Image: req.params.Image }}
       },

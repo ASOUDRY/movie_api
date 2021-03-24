@@ -1,8 +1,8 @@
 import React from 'react';
 import {Button, Card } from 'react-bootstrap';
-import "../card-style/card-style.scss"
+import "../card-style/card-style.css"
 import { Link } from "react-router-dom";
-import './movie-view.scss'
+import './movie-view.css'
 // The movie info that is accessed via the click
 export class MovieView extends React.Component {
   render() {

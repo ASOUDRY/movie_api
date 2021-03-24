@@ -2,7 +2,7 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import InputGroup from 'react-bootstrap/InputGroup'
-import './visibility-input.scss'
+import './visibility-input.css'
 
 import Form from 'react-bootstrap/Form';
 

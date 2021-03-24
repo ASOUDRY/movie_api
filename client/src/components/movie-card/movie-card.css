@@ -1,15 +1,12 @@
 .image {
-   height: 600px;
+    height: 600px;
 }
-
 .card-title {
     color: red;
 }
-
 .body {
     background: gray;
 }
-
 .movie-card {
-height: 840px;
+    height: 840px;
 }

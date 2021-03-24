@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { FavMovieCard } from '../profile/favorite.jsx';
-import './profile-view.scss';
+import './profile-view.css';
 import { Modal, Button, Card, Form } from 'react-bootstrap/'
 
 export class ProfileView extends React.Component {

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 import { propTypes } from 'react-bootstrap/esm/Image';
 
-import './director-card.scss';
+import './director-card.css';
 
 export class DirectorView extends React.Component {
 

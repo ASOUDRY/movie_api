@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card, Container, CardColumns } from 'react-bootstrap';
 import { Link } from "react-router-dom";
-import "../card-style/card-style.scss"
+import "../card-style/card-style.css"
 
 export class DirectorCard extends React.Component {
   render() {

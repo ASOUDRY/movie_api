@@ -11,7 +11,7 @@ import { GenreMovie } from '../genre-view/genre-card.jsx';
 import { DirectorView } from '../director-components/director-view.jsx'
 import { DirectorCard} from '../director-components/director-card.jsx'
 import MoviesList from '../movies-list/movies-list';
-import './main-view.scss';
+import './main-view.css';
 
 
 import { connect } from 'react-redux';

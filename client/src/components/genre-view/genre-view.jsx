@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card, Container, CardColumns } from 'react-bootstrap';
 import { Link } from "react-router-dom";
-import './genre-view.scss';
+import './genre-view.css';
 
 export class GenreView extends React.Component {
   render() {

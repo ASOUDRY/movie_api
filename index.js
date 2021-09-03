@@ -17,13 +17,22 @@ morgan = require('morgan'),
 bodyParser = require('body-parser'),
 uuid = require('uuid');
 
-mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+console.log(process.env.Config_Variable)
+
+try {
+  mongoose.connect(process.env.Config_Variable, { useNewUrlParser: true, useUnifiedTopology: true });
+}
+catch {
+  console.log("boop")
+}  
+
+
 
 app.use(bodyParser.json());
 require('./auth')(app);
 
 app.use(cors({ origin: '*'}))
-
+ 
 require('./passport');
 
 app.use(morgan('common'));

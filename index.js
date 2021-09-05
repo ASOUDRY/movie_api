@@ -17,10 +17,9 @@ morgan = require('morgan'),
 bodyParser = require('body-parser'),
 uuid = require('uuid');
 
-console.log(process.env.PORT)
+console.log("process.env.Port" + " " + "is" + " " + process.env.Port)
 
-// mongoose.connect(process.env.Config_Variable, { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.connect('mongodb+srv://Munchydragon:Rootbeer219@myflixdb.javsd.mongodb.net/myFlixDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.Config_Variable, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(bodyParser.json());
 require('./auth')(app);

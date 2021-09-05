@@ -19,7 +19,7 @@ uuid = require('uuid');
 
 console.log("process.env.Port" + " " + "is" + " " + process.env.Port)
 
-mongoose.connect(process.env.Config_Variable, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(bodyParser.json());
 require('./auth')(app);

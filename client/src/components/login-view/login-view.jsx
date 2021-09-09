@@ -3,6 +3,11 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 
+/**
+ * @function LoginView
+ * @param {function} props onloggedIn prop
+ * @returns {Promise} Resolves the onloggedIn Prop function and changes the user window.
+ */
 export function LoginView(props) {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
